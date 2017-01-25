@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<f:metadata>
+		<o:viewParam name="funcionario" value="#{funcionarioViewBean.funcionario}"
+			converter="#{funcionarioConverter}" />
+		<f:event listener="#{funcionarioViewBean.preRenderView()}" type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="titulo">Detalhes Funcionário</ui:define>
+	<ui:define name="content-header">Detalhes Funcionáio <small>Visualizar informações do funcionário</small></ui:define>
+	<ui:define name="breadcrumb-active">Detalhes Funcionário</ui:define>
+	
+
+	<ui:define name="conteudo">
+
+		<h:form id="detailForm" class="container-fluid">
+			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml"/>
+
+			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
+
+			<h:panelGrid columns="3">
+
+				<p:button value="editar" id="btEdit" outcome="/FuncionarioEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary">
+					<f:param name="funcionario" value="#{funcionarioViewBean.funcionario.id}"/>	
+				</p:button>
+
+				<p:commandButton value="Remover" id="btRemove" action="#{funcionarioBean.remove}" icon="fa fa-trash" styleClass="btnn btnn-primary">
+					<f:setPropertyActionListener value="#{funcionarioViewBean.funcionario}" target="#{funcionarioBean.selectedFuncionario}" />
+					 <p:confirm header="Remoção de funcionário" message="Deseja remover este funcionário?"/>
+    			</p:commandButton>
+
+				<p:button value="voltar" id="btvoltar" outcome="/Funcionarios.xhtml" icon="fa fa-reply" styleClass="btnn btnn-primary"/>
+
+
+			</h:panelGrid>
+
+			<p:fieldset id="infor_detail" style="margin-top:10px;" styleClass="box box-success">
+				<h2 class="page-header">
+					<p:outputLabel value="#{funcionarioViewBean.funcionario.nome}" styleClass="text-detail" />
+				</h2>
+				
+				<div class="panel panel-default">
+				 <div class="panel-heading"><strong>Informações Gerais</strong></div>		
+				 	<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"  columnClasses="ui-grid-col-2">
+						
+						<h:outputText value="Nome:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.nome}"/>
+						
+						<h:outputText value="CPF:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.cpf}"/>
+						
+						<h:outputText value="RG:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.rg}"/>
+						
+						<h:outputText value="Órgão Expedidor:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.orgExped}"/>
+						
+						<h:outputText value="CTPS:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.ctps}"/>
+						
+						<h:outputText value="Cargo:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.cargo}"/>
+						
+						<h:outputText value="Salário:"/>
+						<h:outputText value="R$ #{funcionarioViewBean.funcionario.salario}"/>
+						
+						<h:outputText value="Tipo da conta:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.tipoConta}"/>
+						
+						<h:outputText value="Sexo:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.sexo}"/>
+						
+						<h:outputText rendered="#{funcionarioViewBean.funcionario.telefone == '' ? false : true}" value="Telefone:"/>
+						<h:outputText rendered="#{funcionarioViewBean.funcionario.telefone == '' ? false : true}" value="#{funcionarioViewBean.funcionario.telefone}"/>
+						
+						<h:outputText value="Celular:"/>
+						<h:outputText value="#{funcionarioViewBean.funcionario.celular}"/>
+						
+						<h:outputText rendered="#{funcionarioViewBean.funcionario.email == '' ? false : true}" value="Email:"/>
+						<h:outputText rendered="#{funcionarioViewBean.funcionario.email == '' ? false : true}" value="#{funcionarioViewBean.funcionario.email}"/>
+					</p:panelGrid>
+				</div>
+
+				<div class="panel panel-default">
+					 <div class="panel-heading"><strong>Informações de Endereço</strong></div>		
+					 	<p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2">
+							<h:outputText value="Endereço:"/>
+							<h:outputText value="#{funcionarioViewBean.funcionario.endereco.logradouro}"/>
+		
+							<h:outputText rendered="#{funcionarioViewBean.funcionario.endereco.numero == '' ? false : true}" value="Número:"/>
+							<h:outputText rendered="#{funcionarioViewBean.funcionario.endereco.numero == '' ? false : true}" value="#{funcionarioViewBean.funcionario.endereco.numero}"/>
+		
+							<h:outputText value="Zona:"/>
+							<h:outputText value="#{funcionarioViewBean.funcionario.endereco.zona}"/>
+							
+							<h:outputText value="Bairro:"/>
+							<h:outputText value="#{funcionarioViewBean.funcionario.endereco.bairro}"/>
+							
+							<h:outputText rendered="#{funcionarioViewBean.funcionario.endereco.complemento == '' ? false : true}" value="Complemento:"/>
+							<h:outputText rendered="#{funcionarioViewBean.funcionario.endereco.complemento == '' ? false : true}" value="#{funcionarioViewBean.funcionario.endereco.complemento}"/>
+							
+							<h:outputText value="CEP:"/>
+							<h:outputText value="#{funcionarioViewBean.funcionario.endereco.cep}"/>
+							
+							<h:outputText value="Cidade:"/>
+							<h:outputText value="#{funcionarioViewBean.funcionario.endereco.cidade}"/>
+							
+							<h:outputText value="Estado:"/>
+							<h:outputText value="#{funcionarioViewBean.funcionario.endereco.estado}"/>
+			
+					</p:panelGrid>
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

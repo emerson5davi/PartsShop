@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<title><ui:insert name="titulo">PartsShop</ui:insert></title>
+
+	<link rel="stylesheet" type="text/css" href="/PartsShop/resources/stylesheets/vendors.css"/>
+	<link rel="stylesheet" type="text/css" href="/PartsShop/resources/stylesheets/algaworks.css"/>
+	<link rel="stylesheet" type="text/css" href="/PartsShop/resources/stylesheets/application.css"/>
+	
+</h:head>
+	
+	<!-- AQUI NESSE TEMPLATE É QUE EU COLOCO AS COISA DE LAYOUTS
+	MENUS, HEADERS, FOOTER, ETC.. -->
+	
+	<h:body>
+		<nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar" fragment="navBar">
+		  <div class="container-fluid">
+	
+		    <div class="navbar-header">
+		      <a class="navbar-brand  hidden-xs" href="#">
+		      	   <!--<img alt="AlgaWorks" src="/PartsShop/resources/images/logo.png"/>-->
+		      	   <h1>PartsShop</h1>
+		      </a>
+	
+		      <ul class="nav  navbar-nav">
+		        <li>
+		          <a href="#" class="js-sidebar-toggle"><i class="fa  fa-bars"></i></a>
+		        </li>
+		      </ul>
+		    </div>
+	
+		    <ul class="nav navbar-nav  navbar-right">
+		    
+		      <li class="dropdown">
+		        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+		          <i class="fa  fa-envelope"></i> <span class="label  label-danger  aw-label-corner">48</span>
+		        </a>
+		                  
+		        <ul class="dropdown-menu">
+		          <li><a href="javascript:;">Item 1</a></li>
+		          <li><a href="javascript:;">Item 2</a></li>
+		        </ul>
+		      </li>
+		      
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		          <i class="fa  fa-user"></i>
+		        </a>
+		        
+		        <ul class="dropdown-menu">
+		          <li>
+		            <div class="aw-logged-user">
+		              <img src="https://api.adorable.io/avatars/80/joaodascouves" 
+		                width="80" height="80" alt="João das Couves" class="aw-logged-user__picture" />
+		              <span class="aw-logged-user__name">João das Couves</span>
+		            </div>
+		          </li>
+		          <li role="separator" class="divider"></li>
+		          <li><a href="#">Meu perfil</a></li>
+		          <li><a href="#">Alterar senha</a></li>
+		          <li><a href="#">Pagamentos</a></li>
+		        </ul>
+		      </li>
+		      
+		      <li>
+		        <a href="#"><em class="fa  fa-sign-out"></em></a>
+		      </li> 
+		    </ul>
+	
+		  </div>
+		</nav>
+		
+		<aside class="aw-layout-sidebar  js-sidebar" fragment="menuAdmin">
+			<div class="aw-layout-sidebar__content">
+	
+		    	<nav class="aw-menu  js-menu">
+		      		<ul class="aw-menu__list">
+		
+		        		<li class="aw-menu__item">
+		          			<a href="Home.xhtml"><i class="fa  fa-fw  fa-tachometer"></i><span>Dashboard</span></a>
+		        		</li>
+		
+		        		<li class="aw-menu__item">
+		          			<a href="Clientes.xhtml">
+		            			<i class="fa fa-user"></i><span>Clientes</span>
+		          			</a>
+		        		</li>
+		        		<li class="aw-menu__item">
+		          			<a href="Funcionarios.xhtml">
+		            			<i class="fa fa-user"></i><span>Funcionários</span>
+		          			</a>
+		        		</li>
+		        		<li class="aw-menu__item">
+		          			<a href="Pecas.xhtml">
+		            			<i class="fa fa-wrench"></i><span>Peças</span>
+		          			</a>
+		        		</li>
+		        		<li class="aw-menu__item">
+		          			<a href="#">
+		            			<i class="fa fa-shopping-cart"></i><span>Compras</span>
+		          			</a>
+		        		</li>
+		      		</ul>
+		    	</nav>
+			</div>
+		</aside>
+		
+		<section class="aw-layout-content  js-content">
+			<!-- CONTEUDO I.E., paginas que serão sobrescritas -->
+			<h1 class="container-fluid">
+				<ui:insert name="content-header">
+					DashBoard <small>Visão geral do sistema</small>
+				</ui:insert>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#{request.contextPath}/Home.xhtml"><i
+					class="fa fa-dashboard"></i></a></li>
+				<li class="active"><ui:insert name="breadcrumb-active"></ui:insert></li>
+			</ol>
+			
+			<ui:insert name="conteudo">
+				<b>Olá zé</b> EU SOU O CONTEUDO PADRÃO, ME SOBRESCREVA...
+			</ui:insert>
+	
+		</section>
+		<script src="/PartsShop/resources/javascripts/vendors.js"></script>
+		<script src="/PartsShop/resources/javascripts/algaworks.js"></script>
+	
+	</h:body>
+</html>

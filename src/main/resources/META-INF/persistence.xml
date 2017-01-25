@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="partsshop" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>br.edu.ifpb.dac.projeto.entities.Cliente</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Endereco</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Funcionario</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Peca</class>
+
+		<properties>
+
+			<!-- Configuração Hibernate SGBD PostgreSQL -->
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/DAC" />
+			<property name="hibernate.connection.dialect" value="org.hibernate.dialect.PostgreSQL9" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+			<property name="hibernate.connection.username" value="postgres" />
+			<property name="hibernate.connection.password" value="12345" />
+			<property name="hibernate.default_schema" value="public" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<property name="hibernate.c3p0.min_size" value="5" />
+			<property name="hibernate.c3p0.max_size" value="20" />
+			<property name="hibernate.c3p0.timeout" value="3000" />
+			<property name="hibernate.c3p0.max_statements" value="50" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+
+		</properties>
+	</persistence-unit>
+</persistence>

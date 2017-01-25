@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="titulo">Funcionários</ui:define>
+
+	<ui:define name="content-header">Funcionários <small>Pesquisar
+			funcionário cadastrado</small>
+	</ui:define>
+	<ui:define name="breadcrumb-active">Funcionários</ui:define>
+
+	<ui:define name="conteudo">
+	
+		<h:form id="formFuncionarios" class="container-fluid">
+			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
+
+			<p:dataTable 
+				id="tableFuncionarios"
+				var="funcionario"
+				value="#{funcionarioBean.funcionarios}" 
+				paginatorPosition="bottom"
+				rows="15" 
+				paginator="true" 
+				paginatorAlwaysVisible="false"
+				widgetVar="findFuncionario" 
+				reflow="true"
+				emptyMessage="Nenhum funcionário cadastrado"
+				rowKey="#{funcionario.id}" 
+				styleClass="ui-datatable"
+				selectionMode="single"
+				sortOrder="descending"
+				selection="#{funcionarioBean.selectedFuncionario}">
+
+
+				<f:facet name="header">
+					<div align="left">
+						<p:inputText id="globalFilter"
+							onkeyup="PF('findFuncionario').filter()" style="width:300px;"
+							placeholder="Buscar funcionário" />
+
+						<p:button id="buttonNewFuncionario" icon="fa fa-plus"
+							value="NOVO" styleClass="btnn-primary"
+							style="float:right;font-size: 17px"
+							outcome="/FuncionarioEdit.xhtml">
+							<p:tooltip for="buttonNewFuncionario"
+								value="Cadastrar novo funcionário" />
+						</p:button>
+					</div>
+				</f:facet>
+
+				<p:ajax event="rowSelect" listener="#{funcionarioBean.renderTo}">
+					<f:setPropertyActionListener value="#{funcionario}"
+						target="#{funcionarioViewBean.funcionario}" />
+				</p:ajax>
+				
+				<p:column headerText="Código" width="3%" filterBy="#{funcionario.id}" filterStyle="display:none;">
+					<h:outputText id="id" value="#{funcionario.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" width="8%"
+					filterBy="#{funcionario.nome}" filterStyle="display:none;">
+					<h:outputText id="nome" value="#{funcionario.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" width="5%" filterBy="#{funcionario.cpf}"
+					filterStyle="display:none;">
+					<h:outputText id="cpf" value="#{funcionario.cpf}" />
+				</p:column>
+
+				<p:column headerText="CTPS" width="5%">
+					<h:outputText id="ctps" value="#{funcionario.ctps}" />
+				</p:column>
+				
+				<p:column headerText="Celular" width="5%">
+					<h:outputText id="celular" value="#{funcionario.celular}" />
+				</p:column>
+				
+				<p:column headerText="Salário" width="5%">
+					<h:outputText id="salario" value="R$ #{funcionario.salario}" />
+				</p:column>
+				
+				<p:column headerText="Cargo" width="5%">
+					<h:outputText id="cargo" value="#{funcionario.cargo}" />
+				</p:column>
+
+			</p:dataTable>
+			
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
