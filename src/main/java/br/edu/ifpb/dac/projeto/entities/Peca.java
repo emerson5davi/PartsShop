@@ -87,11 +87,11 @@ public class Peca implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
