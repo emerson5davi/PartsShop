@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/WEB-INF/templates/template.xhtml">
+	template="/WEB-INF/templates/Patagonia/Layout.xhtml">
 
 	<f:metadata>
 		<o:viewParam name="cliente" value="#{clienteEdit.cliente}"
@@ -18,13 +18,19 @@
 	<ui:define name="title">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</ui:define>
 	<ui:define name="content-header">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}
 		<small>#{clienteEdit.edicaoDeCliente ?
-			'Cliente/'.concat(clienteEdit.cliente.nome) : 'cadastrar novo
+			'Cliente: '.concat(clienteEdit.cliente.nome) : 'cadastrar novo
 			cliente'}</small>
 	</ui:define>
-	<ui:define name="breadcrumb-active">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</ui:define>
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i>  <a href="Home.xhtml">Dashboard</a>
+		</li>
+		<li><a href="#{clienteEdit.edicaoDeCliente ? 'ClienteView.xhtml' : 'Clientes.xhtml'}">#{clienteEdit.edicaoDeCliente ? 'Detalhes Cliente' : 'Clientes'}</a></li>
+		<li class="active">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</li>
+	</ui:define>
+	
 	<ui:define name="conteudo">
 
-		<h:form id="formRegisterCliente" class="container-fluid">
+		<h:form id="formRegisterCliente">
 			<p:messages id="messages" autoUpdate="true"
 				closable="true" />
 
@@ -138,11 +144,11 @@
 						<p:commandButton
 							value="#{clienteEdit.edicaoDeCliente ? 'Editar' : 'Salvar'}"
 							id="btSave" icon="fa fa-floppy-o" style="float: left;"
-							styleClass="btnn btnn-primary"
+							styleClass="but but-primary but-shadow but-rc"
 							action="#{clienteEdit.saveCliente}" process="formRegisterCliente" />
 
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
-							style="float:left;" styleClass="btnn btnn-danger"
+							style="float:left;" styleClass="but but-primary but-shadow but-rc"
 							outcome="/Clientes.xhtml" />
 					</h:panelGrid>
 				</div>

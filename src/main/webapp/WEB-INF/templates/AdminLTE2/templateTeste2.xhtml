@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="titulo">PartsShop</ui:insert></title>
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/dist/css/style.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/dist/css/style-components.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/dist/css/skins/skin-green.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/pace/pace.min.css" />
+
+</h:head>
+<h:body class="hold-transition skin-green sidebar-mini">
+
+	<h:form>
+		<div class="wrapper">
+
+			<header class="main-header">
+
+				<nav class="navbar navbar-static-top" role="navigation">
+					<a class="sidebar-toggle" data-toggle="offcanvas" role="button">
+					</a>
+					<div class="navbar-custom-menu">
+						<ul class="nav navbar-nav">
+
+							<li class="dropdown user user-menu"><a href="#"
+								class="dropdown-toggle" data-toggle="dropdown"> <i
+									class="fa fa-user" aria-hidden="true"></i> <span
+									class="hidden-xs"># </span> <i class="fa fa-caret-down"
+									aria-hidden="true"></i>
+							</a>
+								<ul class="dropdown-menu">
+									<li class="user-header">
+										<p style="font-size: 17px !important;">#</p>
+										<p>
+											<small>Função: #</small>
+										</p>
+										<p>
+											<small>Último acesso foi em #</small>
+										</p>
+									</li>
+
+									<li class="user-footer">
+										<div class="pull-left">
+											<p:commandLink value="Usuário" update="@this" process="@this"
+												onclick="PF('ProfileDialog').show()"
+												styleClass="btnn btnn-primary" />
+										</div>
+										<div class="pull-right">
+											<p:commandButton value="Sair" action="#" immediate="true"
+												styleClass="btnn btnn-primary" />
+										</div>
+									</li>
+								</ul></li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+			<aside class="main-sidebar">
+
+				<section class="sidebar">
+					<div class="user-panel">
+						<p:graphicImage library="images" styleClass="user-panel-image"
+							name="logo_dashboard.png" />
+					</div>
+
+					<ul class="sidebar-menu">
+
+						<ui:include src="/WEB-INF/templates/_menu_admin.xhtml" />
+
+						<li><p:link outcome="/pages/help.xhtml">
+								<i class="fa fa-question-circle" aria-hidden="true"></i>
+								<span>Ajuda</span>
+							</p:link></li>
+
+					</ul>
+				</section>
+			</aside>
+
+			<div class="content-wrapper">
+
+				<section class="content-header">
+
+					<h1>
+						<ui:insert name="content-header">
+							DashBoard <small>Visão geral do sistema</small>
+						</ui:insert>
+					</h1>
+
+					<ol class="breadcrumb">
+						<li><a href="#{request.contextPath}/Home.xhtml"><i
+								class="fa fa-dashboard"></i></a></li>
+						<li class="active"><ui:insert name="breadcrumb-active"></ui:insert></li>
+					</ol>
+
+				</section>
+
+				<section class="conteudo">
+
+					<ui:insert name="content"></ui:insert>
+
+				</section>
+			</div>
+			<!-- <ui:include src="/WEB-INF/templates/_footer.xhtml" /> -->
+		</div>
+	</h:form>
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/dist/js/app.min.js"></script>
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/dist/js/calendar_primefaces_pt.js"></script>
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/pace/pace.min.js"></script>
+</h:body>
+
+</html>

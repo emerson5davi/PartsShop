@@ -6,18 +6,32 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/WEB-INF/templates/template.xhtml">
+	template="/WEB-INF/templates/Patagonia/Layout.xhtml">
 
 	<ui:define name="titulo">Peças</ui:define>
 
 	<ui:define name="content-header">Peças <small>Pesquisar
 			peça cadastrada</small>
 	</ui:define>
-	<ui:define name="breadcrumb-active">Peças</ui:define>
+	
+	<ui:define name="newButton">
+		<p:button id="buttonNewPeca" icon="fa fa-plus" value="NOVO"
+			styleClass="but but-primary but-shadow but-rc" style="float: right;font-size: 17px"
+			outcome="/PecaEdit.xhtml">
+			<p:tooltip for="buttonNewPeca" value="Cadastrar nova peça" />
+		</p:button>
+	</ui:define>
+
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		</li>
+		<li class="active">Peças</li>
+	</ui:define>
+
 
 	<ui:define name="conteudo">
 	
-		<h:form id="formPecas" class="container-fluid">
+		<h:form id="formPecas">
 			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
 
 			<p:dataTable 
@@ -44,13 +58,6 @@
 							onkeyup="PF('findPeca').filter()" style="width:300px;"
 							placeholder="Buscar peça" />
 
-						<p:button id="buttonNewPeca" icon="fa fa-plus"
-							value="NOVO" styleClass="btnn-primary"
-							style="float:right;font-size: 17px"
-							outcome="/PecaEdit.xhtml">
-							<p:tooltip for="buttonNewPeca"
-								value="Cadastrar nova peça" />
-						</p:button>
 					</div>
 				</f:facet>
 

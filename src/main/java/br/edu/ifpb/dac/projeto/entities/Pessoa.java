@@ -37,8 +37,8 @@ public class Pessoa implements Serializable{
 	@Column(name = "TELEFONE")
 	private String telefone;
 
-	@NotNull
 	@CPF
+	@NotNull
 	@Column(name = "CPF")
 	private String cpf;
 

@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<title><ui:insert name="titulo">PartsShop</ui:insert></title>
+
+	<link rel="stylesheet"
+		href="/PartsShop/resources/SbAdmin2/vendor/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet"
+		href="/PartsShop/resources/SbAdmin2/vendor/metisMenu/metisMenu.css" />
+	<link rel="stylesheet"
+		href="/PartsShop/resources/SbAdmin2/dist/css/sb-admin-2.css" />
+	<link rel="stylesheet"
+		href="/PartsShop/resources/SbAdmin2/vendor/morrisjs/morris.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/PartsShop/resources/SbAdmin2/vendor/font-awesome/css/font-awesome.css" />
+
+</h:head>
+
+<h:body>
+
+	<div id="wrapper">
+
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0">
+
+
+			<ui:include src="/WEB-INF/templates/SbAdmin2/_navbar.xhtml" />
+
+
+			<ui:include src="/WEB-INF/templates/SbAdmin2/_side-menu.xhtml" />
+
+		</nav>
+
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">
+						<ul>
+							<ui:insert name="newButton">
+							</ui:insert>
+						</ul>
+
+						<ui:insert name="content-header">
+								DashBoard <small>Visão geral do sistema</small>
+						</ui:insert>
+					</h1>
+					<ol class="breadcrumb">
+						<ui:insert name="breadcrumb-header"></ui:insert>
+					</ol>
+				</div>
+			</div>
+			<ui:insert name="conteudo">
+
+			</ui:insert>
+		</div>
+	</div>
+	<script
+		src="/PartsShop/resources/SbAdmin2/vendor/bootstrap/js/bootstrap.js"></script>
+	<script
+		src="/PartsShop/resources/SbAdmin2/vendor/metisMenu/metisMenu.js"></script>
+	<script src="/PartsShop/resources/SbAdmin2/vendor/raphael/raphael.js"></script>
+	<script src="/PartsShop/resources/SbAdmin2/dist/js/sb-admin-2.js"></script>
+</h:body>
+</html>

@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/WEB-INF/templates/template.xhtml">
+	template="/WEB-INF/templates/Patagonia/Layout.xhtml">
 
 	<f:metadata>
 		<o:viewParam name="peca" value="#{pecaEdit.peca}"
@@ -16,14 +16,22 @@
 	</f:metadata>
 
 	<ui:define name="title">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}</ui:define>
+	
 	<ui:define name="content-header">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}
 		<small>#{pecaEdit.edicaoDePeca ?
-			'Peca/'.concat(pecaEdit.peca.nome) : 'cadastrar nova peça'}</small>
+			'Peca: '.concat(pecaEdit.peca.nome) : 'cadastrar nova peça'}</small>
 	</ui:define>
-	<ui:define name="breadcrumb-active">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Novo Peça'}</ui:define>
+	
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i>  <a href="Home.xhtml">Dashboard</a>
+		</li>
+		<li><a href="#{pecaEdit.edicaoDePeca ? 'PecaView.xhtml' : 'Pecas.xhtml'}">#{pecaEdit.edicaoDePeca ? 'Detalhes Peça' : 'Peças'}</a></li>
+		<li class="active">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}</li>
+	</ui:define>
+	
 	<ui:define name="conteudo">
 
-		<h:form id="formRegisterPeca" class="container-fluid">
+		<h:form id="formRegisterPeca">
 			<p:messages id="messages" autoUpdate="true"
 				closable="true" />
 
@@ -83,11 +91,11 @@
 						<p:commandButton
 							value="#{pecaEdit.edicaoDePeca ? 'Editar' : 'Salvar'}"
 							id="btSave" icon="fa fa-floppy-o" style="float: left;"
-							styleClass="btnn btnn-primary" action="#{pecaEdit.savePeca}"
+							styleClass="but but-primary but-shadow but-rc" action="#{pecaEdit.savePeca}"
 							process="formRegisterPeca" />
 
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
-							style="float:left;" styleClass="btnn btnn-danger"
+							style="float:left;" styleClass="but but-primary but-shadow but-rc"
 							outcome="/Pecas.xhtml" />
 					</h:panelGrid>
 				</div>

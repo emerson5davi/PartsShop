@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/WEB-INF/templates/template.xhtml">
+	template="/WEB-INF/templates/Patagonia/Layout.xhtml">
 
 	<f:metadata>
 		<o:viewParam name="funcionario" value="#{funcionarioEdit.funcionario}"
@@ -17,15 +17,23 @@
 	</f:metadata>
 
 	<ui:define name="title">#{funcionarioEdit.edicaoDeFuncionario ? 'Editar Funcionário' : 'Novo Cliente'}</ui:define>
+	
 	<ui:define name="content-header">#{funcionarioEdit.edicaoDeFuncionario ? 'Editar Funcionário' : 'Novo Funcionário'}
 		<small>#{funcionarioEdit.edicaoDeFuncionario ?
-			'Funcionário/'.concat(funcionarioEdit.funcionario.nome) : 'cadastrar
+			'Funcionário: '.concat(funcionarioEdit.funcionario.nome) : 'cadastrar
 			novo funcionário'}</small>
 	</ui:define>
-	<ui:define name="breadcrumb-active">#{funcionarioEdit.edicaoDeFuncionario ? 'Editar Funcionário' : 'Novo Funcionário'}</ui:define>
+	
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i>  <a href="Home.xhtml">Dashboard</a>
+		</li>
+		<li><a href="#{funcionarioEdit.edicaoDeFuncionario ? 'FuncionarioView.xhtml' : 'Funcionarios.xhtml'}">#{funcionarioEdit.edicaoDeFuncionario ? 'Detalhes Funcionário' : 'Funcionários'}</a></li>
+		<li class="active">#{funcionarioEdit.edicaoDeFuncionario ? 'Editar Funcionário' : 'Novo Funcionário'}</li>
+	</ui:define>
+	
 	<ui:define name="conteudo">
 
-		<h:form id="formRegisterFuncionario" class="container-fluid">
+		<h:form id="formRegisterFuncionario">
 			<p:messages id="messages" autoUpdate="true"
 				closable="true" />
 
@@ -196,12 +204,12 @@
 						<p:commandButton
 							value="#{funcionarioEdit.edicaoDeFuncionario ? 'Editar' : 'Salvar'}"
 							id="btSave" icon="fa fa-floppy-o" style="float: left;"
-							styleClass="btnn btnn-primary"
+							styleClass="but but-primary but-shadow but-rc"
 							action="#{funcionarioEdit.saveFuncionario}"
 							process="formRegisterFuncionario" />
 
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
-							style="float:left;" styleClass="btnn btnn-danger"
+							style="float:left;" styleClass="but but-primary but-shadow but-rc"
 							outcome="/Funcionarios.xhtml" />
 					</h:panelGrid>
 				</div>

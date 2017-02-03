@@ -6,51 +6,47 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/WEB-INF/templates/template.xhtml">
+	template="/WEB-INF/templates/Patagonia/Layout.xhtml">
 
 	<ui:define name="titulo">Clientes</ui:define>
 
 	<ui:define name="content-header">Clientes <small>Pesquisar
 			cliente cadastrado</small>
 	</ui:define>
-	<ui:define name="breadcrumb-active">Clientes</ui:define>
+	
+	<ui:define name="newButton">
+		<p:button id="buttonNewProduto" icon="fa fa-plus" value="NOVO"
+			styleClass="but but-primary but-shadow but-rc" style="float: right;font-size: 17px"
+			outcome="/ClienteEdit.xhtml">
+			<p:tooltip for="buttonNewProduto" value="Cadastrar novo cliente" />
+		</p:button>
+	</ui:define>
+
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		</li>
+		<li class="active">Clientes</li>
+	</ui:define>
 
 	<ui:define name="conteudo">
-	
-		<h:form id="formClientes" class="container-fluid">
-			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
 
-			<p:dataTable 
-				id="tableclientes"
-				var="cliente"
-				value="#{clienteBean.clientes}" 
-				paginatorPosition="bottom"
-				rows="15" 
-				paginator="true" 
-				paginatorAlwaysVisible="false"
-				widgetVar="findCliente" 
-				reflow="true"
-				emptyMessage="Nenhum cliente cadastrado"
-				rowKey="#{cliente.id}" 
-				styleClass="ui-datatable"
-				selectionMode="single"
-				sortOrder="descending"
-				selection="#{clienteBean.selectedCliente}">
+		<h:form id="formClientes">
+			<p:messages id="messages" autoUpdate="true" closable="true"
+				showDetail="true" />
 
+			<p:dataTable id="tableclientes" var="cliente"
+				value="#{clienteBean.clientes}" paginatorPosition="bottom" rows="15"
+				paginator="true" paginatorAlwaysVisible="false"
+				widgetVar="findCliente" reflow="true"
+				emptyMessage="Nenhum cliente cadastrado" rowKey="#{cliente.id}"
+				styleClass="ui-datatable" selectionMode="single"
+				sortOrder="descending" selection="#{clienteBean.selectedCliente}">
 
 				<f:facet name="header">
 					<div align="left">
 						<p:inputText id="globalFilter"
 							onkeyup="PF('findCliente').filter()" style="width:300px;"
 							placeholder="Buscar cliente" />
-
-						<p:button id="buttonNewProduto" icon="fa fa-plus"
-							value="NOVO" styleClass="btnn-primary"
-							style="float:right;font-size: 17px"
-							outcome="/ClienteEdit.xhtml">
-							<p:tooltip for="buttonNewProduto"
-								value="Cadastrar novo cliente" />
-						</p:button>
 					</div>
 				</f:facet>
 
@@ -58,13 +54,14 @@
 					<f:setPropertyActionListener value="#{cliente}"
 						target="#{clienteViewBean.cliente}" />
 				</p:ajax>
-				
-				<p:column headerText="Código" width="1%" filterBy="#{cliente.id}" filterStyle="display:none;">
+
+				<p:column headerText="Código" width="1%" filterBy="#{cliente.id}"
+					filterStyle="display:none;">
 					<h:outputText id="id" value="#{cliente.id}" />
 				</p:column>
 
-				<p:column headerText="Nome" width="4%"
-					filterBy="#{cliente.nome}" filterStyle="display:none;">
+				<p:column headerText="Nome" width="4%" filterBy="#{cliente.nome}"
+					filterStyle="display:none;">
 					<h:outputText id="cod" value="#{cliente.nome}" />
 				</p:column>
 
@@ -76,15 +73,16 @@
 				<p:column headerText="Celular" width="2%">
 					<h:outputText id="celular" value="#{cliente.celular}" />
 				</p:column>
-				
+
 				<p:column headerText="Endereço" width="6%">
-					<h:outputText id="endereco" value="#{cliente.endereco.logradouro.concat(', '.concat(cliente.endereco.numero.concat(', '.concat(cliente.endereco.bairro.concat(', '.concat(cliente.endereco.cep.concat(', '.concat(cliente.endereco.cidade.concat(' - '.concat(cliente.endereco.estado))))))))))}" />
+					<h:outputText id="endereco"
+						value="#{cliente.endereco.logradouro.concat(', '.concat(cliente.endereco.numero.concat(', '.concat(cliente.endereco.bairro.concat(', '.concat(cliente.endereco.cep.concat(', '.concat(cliente.endereco.cidade.concat(' - '.concat(cliente.endereco.estado))))))))))}" />
 				</p:column>
 
 			</p:dataTable>
-			
+
 		</h:form>
-		
+
 	</ui:define>
-	
+
 </ui:composition>
