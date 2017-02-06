@@ -9,47 +9,24 @@ import javax.faces.context.Flash;
 
 import br.edu.ifpb.dac.projeto.enumerations.MessagesType;
 
-/**
- * 
- * @author <a href="https://github.com/FranckAJ">Franck Aragão</a>
- *
- */
 public class MessageUtils implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-
-	/**
-	 * 
-	 * @param msg
-	 */
 	public static void messageSucess(String msg) {
 		messageFaces(MessagesType.SUCESS.getMessage(), msg);
 	}
 
-	/**
-	 * 
-	 * @param msg
-	 */
 	public static void messageError(String msg) {
 		messageFaces(MessagesType.ERROR.getMessage(), msg);
 
 	}
 
-	/**
-	 * 
-	 * @param msg
-	 */
 	public static void messageWarn(String msg) {
 		messageFaces(MessagesType.WARNING.getMessage(), msg);
 
 	}
 
-	/**
-	 * 
-	 * @param type
-	 * @param message
-	 */
 	private static void messageFaces(String type, String message) {
 
 		Severity severity = FacesMessage.SEVERITY_WARN;

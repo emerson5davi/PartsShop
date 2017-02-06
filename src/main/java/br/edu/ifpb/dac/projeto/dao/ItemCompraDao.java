@@ -10,19 +10,20 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import br.edu.ifpb.dac.projeto.entities.Funcionario;
+import br.edu.ifpb.dac.projeto.entities.ItemCompra;
+import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 
-public class FuncionarioDao extends Dao implements Serializable{
+public class ItemCompraDao extends Dao implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
-	public void add(Funcionario funcionario) {
+	public void add(ItemCompra itemCompra) {
 		EntityManager em = getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		try {
-			em.persist(funcionario);
+			em.persist(itemCompra);
 			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
@@ -32,13 +33,13 @@ public class FuncionarioDao extends Dao implements Serializable{
 		}
 	}
 
-	public Funcionario update(Funcionario funcionario) {
+	public ItemCompra update(ItemCompra itemCompra) {
 		EntityManager em = getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
-		Funcionario resultado = funcionario;
+		ItemCompra resultado = itemCompra;
 		try {
-			resultado = em.merge(funcionario);
+			resultado = em.merge(itemCompra);
 			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
@@ -49,13 +50,13 @@ public class FuncionarioDao extends Dao implements Serializable{
 		return resultado;
 	}
 
-	public void remove(Funcionario funcionario) {
+	public void remove(ItemCompra itemCompra) {
 		EntityManager em = getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		try {
-			funcionario = em.find(Funcionario.class, funcionario.getId());
-			em.remove(funcionario);
+			itemCompra = em.find(ItemCompra.class, itemCompra.getId());
+			em.remove(itemCompra);
 			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
@@ -65,11 +66,11 @@ public class FuncionarioDao extends Dao implements Serializable{
 		}
 	}
 
-	public Funcionario findById(Long id) {
+	public ItemCompra findById(Long id) {
 		EntityManager em = getEntityManager();
-		Funcionario resultado = null;
+		ItemCompra resultado = null;
 		try {
-			resultado = em.find(Funcionario.class, id);
+			resultado = em.find(ItemCompra.class, id);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 		} finally {
@@ -79,11 +80,11 @@ public class FuncionarioDao extends Dao implements Serializable{
 		return resultado;
 	}
 
-	public List<Funcionario> findAll() {
+	public List<ItemCompra> findAll() {
 		EntityManager em = getEntityManager();
-		List<Funcionario> resultado = null;
+		List<ItemCompra> resultado = null;
 		try {
-			TypedQuery<Funcionario> query = em.createQuery("SELECT f FROM Funcionario f", Funcionario.class);
+			TypedQuery<ItemCompra> query = em.createQuery("SELECT i FROM ItemCompra i", ItemCompra.class);
 			resultado = query.getResultList();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
@@ -93,46 +94,42 @@ public class FuncionarioDao extends Dao implements Serializable{
 		return resultado;
 	}
 	
-	public Funcionario findByCPF(String cpf) throws PartsShopException {
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getTotalPorPeca() throws PartsShopException{
 		EntityManager em = getEntityManager();
-		Funcionario result = null;
+		List<Object[]> result = null;
+
 		try {
-			TypedQuery<Funcionario> query = em.createNamedQuery("Funcionario.findByCPF", Funcionario.class);
-			query.setParameter("cpf", cpf);
-			result = query.getSingleResult();
-		} catch (NoResultException e){
-			return null;
+			Query query = em.createNamedQuery("itemCompra.getTotalPorPeca");
+			result =  query.getResultList();
 		} catch (PersistenceException e) {
-			throw new PartsShopException("erro ao tentar recuperar funcionário pelo CPF "+ e.getMessage());
+			throw new PartsShopException("Erro ao tentar recuperar o total de peças"+e.getMessage());
 		} finally {
 			em.close();
 		}
 		return result;
 	}
 	
-	public List<Funcionario> findByNome(String nome) throws PartsShopException {
+	public List<ItemCompra> findByPeca(Peca peca) {
 		EntityManager em = getEntityManager();
-		List<Funcionario> result = null;
-		try {
-			TypedQuery<Funcionario> query = em.createNamedQuery("Funcionario.findByNome", Funcionario.class);
-			query.setParameter("nome", "%" + nome.toLowerCase() + "%");
-			result = query.getResultList();
-		} catch (PersistenceException e) {
-			throw new PartsShopException("Erro ao tentar cosultar funcionário pelo nome "+ e.getMessage());
-		} finally {
-			em.close();
-		}
+		TypedQuery<ItemCompra> query = em.createNamedQuery("itemCompra.findByPeca", ItemCompra.class);
+		query.setParameter("peca", peca);
+		List<ItemCompra> result = query.getResultList();
+		em.close();
 		return result;
 	}
-
-	public Long getTotalFuncionarios() throws PartsShopException {
+	
+	public Long getQuantidadeByPeca(Peca peca) throws PartsShopException {
 		EntityManager em = getEntityManager();
 		Long result = 0l;
 		try {
-			Query query = em.createNamedQuery("Funcionario.getTotalFuncionarios");
+			Query query = em.createNamedQuery("itemPeca.getQuantidadeByPeca");
+			query.setParameter("peca", peca);
 			result = (Long) query.getSingleResult();
+		}catch (NoResultException e1){
+			return 0l;
 		} catch (PersistenceException e) {
-			throw new PartsShopException("Erro ao tentar cosultar o total de funcionários "+ e.getMessage());
+			throw new PartsShopException("Erro ao tentar obter a quantidade de itens de compra por peça"+e.getMessage());
 		} finally {
 			em.close();
 		}

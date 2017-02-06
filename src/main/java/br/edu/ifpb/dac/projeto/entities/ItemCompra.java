@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.projeto.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +16,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "itens_peca")
+@Table(name = "itens_compra")
 @NamedQueries({
-	@NamedQuery(name = "itemPeca.getTotalPorPeca", query = "SELECT i.peca.nome, COUNT(i.peca) FROM ItemPeca i GROUP BY i.peca.nome, i.peca"),
-	@NamedQuery(name = "itemPeca.findByPeca", query = "SELECT i FROM ItemPeca i WHERE i.peca = :peca")})
-public class ItemPeca implements Serializable {
+	@NamedQuery(name = "itemCompra.getTotalPorPeca", query = "SELECT i.peca.nome, COUNT(i.peca) FROM ItemCompra i GROUP BY i.peca.nome, i.peca"),
+	@NamedQuery(name = "itemCompra.findByPeca", query = "SELECT i FROM ItemCompra i WHERE i.peca = :peca"),
+	@NamedQuery(name = "itemCompra.getQuantidadeByPeca", query = "SELECT COUNT(i.id) FROM ItemCompra i WHERE i.peca = :peca")})
+public class ItemCompra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +38,7 @@ public class ItemPeca implements Serializable {
 	private Double preco;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "peca_FK")
 	private Peca peca;
 
@@ -91,7 +93,7 @@ public class ItemPeca implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemPeca other = (ItemPeca) obj;
+		ItemCompra other = (ItemCompra) obj;
 		if (quantidade == null) {
 			if (other.quantidade != null)
 				return false;

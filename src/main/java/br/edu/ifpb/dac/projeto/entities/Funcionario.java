@@ -12,7 +12,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = "TB_FUNCIONARIO")
 @DiscriminatorValue("Funcionario")
 @NamedQueries({ 
-	@NamedQuery(name = "Funcionario.findByCPF", query = "SELECT f FROM Funcionario f WHERE f.cpf = :cpf")
+	@NamedQuery(name = "Funcionario.findByNome", query = "SELECT f FROM Funcionario f WHERE LOWER(f.nome) LIKE :nome"),
+	@NamedQuery(name = "Funcionario.findByCPF", query = "SELECT f FROM Funcionario f WHERE f.cpf = :cpf"),
+	@NamedQuery(name = "Funcionario.getTotalFuncionarios", query = "SELECT COUNT(f) FROM Funcionario f")
 })
 public class Funcionario extends Pessoa{
 

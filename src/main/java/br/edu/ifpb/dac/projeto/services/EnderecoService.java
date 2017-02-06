@@ -28,8 +28,7 @@ public class EnderecoService{
 	}
 
 	public List<String> listCidades(Integer codEstado) {
-		EnderecoDao enderecoDao = (EnderecoDao) this.dao;
-		List<String> result = enderecoDao.getCidades(codEstado);
+		List<String> result = dao.getCidades(codEstado);
 		return result;
 	}
 }

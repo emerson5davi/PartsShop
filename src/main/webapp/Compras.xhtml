@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+	
+	<ui:define name="titulo">Compras</ui:define>
+
+	<ui:define name="content-header">Compras <small>Pesquisar
+			compras cadastradas</small>
+	</ui:define>
+	
+	<ui:define name="newButton">
+		<p:button id="buttonNewCompra" icon="fa fa-plus" value="NOVO"
+			styleClass="but but-primary but-shadow but-rc" style="float: right;font-size: 17px"
+			>
+			<p:tooltip for="buttonNewCompra" value="Registrar nova compra" />
+		</p:button>
+	</ui:define>
+
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		</li>
+		<li class="active">Compras</li>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+
+		<h:form id="formCompras">
+			<p:messages id="messages" autoUpdate="true" showDetail="true" closable="true"/>
+
+			<p:dataTable id="tableCompras" 
+				var="compra" 
+				value="#{compraBean.compras}" 
+				paginatorPosition="bottom" 
+				rows="15"
+				paginator="true" 
+				paginatorAlwaysVisible="false"
+				widgetVar="findCompra" 
+				reflow="true" 
+				emptyMessage="Nenhuma compra registrada"
+				rowKey="#{compra.id}" 
+				styleClass="ui-datatable"
+                selectionMode="single"
+				selection="#{compraBean.selectedCompra}">
+                
+				<f:facet name="header">
+					<div align="left">
+						<p:inputText id="globalFilter" onkeyup="PF('findCompra').filter()" style="width:300px;" placeholder="Buscar compras" />
+					</div>
+				</f:facet>
+				
+ 				<p:ajax event="rowSelect" listener="#{compraBean.renderTo}">
+					<f:setPropertyActionListener value="#{compra}" target="#{pecaViewBean.peca}" />
+				</p:ajax>	
+				
+				<p:column headerText="#" width="3%" filterBy="#{compra.id}" filterStyle="display:none;">
+					<h:outputText id="id" value="#{compra.id}" />
+				</p:column>		
+
+				<p:column headerText="Data" width="10%" filterBy="#{compra.data}" filterStyle="display:none;">
+					<h:outputText id="data" value="#{compra.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Cliente" width="12%" filterBy="#{compra.cliente}" filterStyle="display:none;"> 
+					<h:outputText id="cliente" value="#{compra.cliente}" />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

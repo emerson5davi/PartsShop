@@ -23,10 +23,12 @@ public class ClienteService implements Serializable{
 	}
 	
 	public void add(Cliente cliente) throws PartsShopException {
-		ClienteDao clienteDao = (ClienteDao) this.dao;
-		Cliente c = clienteDao.findByCPF(cliente.getCpf());
+		Cliente c = dao.findByCPF(cliente.getCpf());
 		if(c != null){
 			throw new PartsShopExceptionHandler("Já existe um cliente com este CPF cadastrado");
+		}
+		if(cliente.getNome().trim().equals("")){
+			throw new PartsShopExceptionHandler("O campo nome é obrigatório!");
 		}
 		dao.add(cliente);
 	}
@@ -39,11 +41,44 @@ public class ClienteService implements Serializable{
 		return dao.findById(id);
 	}
 	
-	public Cliente update(Cliente cliente){
+	public Cliente update(Cliente cliente) throws PartsShopException{
+		if(cliente.getNome().trim().equals("")){
+			throw new PartsShopExceptionHandler("O campo nome é obrigatório!");
+		}
 		return dao.update(cliente);
 	}
 	
 	public List<Cliente> findAll() {
 		return dao.findAll();
+	}
+	
+	public Long getTotalClientes() {
+		Long result = 0l;
+		try {
+			result = dao.getTotalClientes();
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Cliente findByCPF(String cpf) {
+		Cliente result = null;
+		try {
+			result = dao.findByCPF(cpf);
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public List<Cliente> findByNome(String nome) {
+		List<Cliente> results = null;
+		try {
+			results = dao.findByNome(nome);
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 }

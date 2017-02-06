@@ -19,9 +19,6 @@ public class PecaConverter implements Converter{
 
 	private PecaService pecaService = new PecaService();
 
-	/**
-	 * 
-	 */
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
@@ -38,9 +35,6 @@ public class PecaConverter implements Converter{
 		}
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.edu.ifpb.dac.projeto.entities.Cliente;
@@ -103,7 +104,39 @@ public class ClienteDao extends Dao implements Serializable{
 			return null;
 		} catch (PersistenceException e) {
 			throw new PartsShopException("erro ao tentar recuperar cliente pelo CPF "+ e.getMessage());
+		} finally {
+			em.close();
 		}
 		return result;
 	}
+	
+	public List<Cliente> findByNome(String nome) throws PartsShopException {
+		EntityManager em = getEntityManager();
+		List<Cliente> result = null;
+		try {
+			TypedQuery<Cliente> query = em.createNamedQuery("Cliente.findByNome", Cliente.class);
+			query.setParameter("nome", "%" + nome.toLowerCase() + "%");
+			result = query.getResultList();
+		} catch (PersistenceException e) {
+			throw new PartsShopException("Erro ao tentar cosultar cliente pelo nome "+ e.getMessage());
+		} finally {
+			em.close();
+		}
+		return result;
+	}
+
+	public Long getTotalClientes() throws PartsShopException {
+		EntityManager em = getEntityManager();
+		Long result = 0l;
+		try {
+			Query query = em.createNamedQuery("Cliente.getTotalClientes");
+			result = (Long) query.getSingleResult();
+		} catch (PersistenceException e) {
+			throw new PartsShopException("Erro ao tentar cosultar o total de clientes "+ e.getMessage());
+		} finally {
+			em.close();
+		}
+		return result;
+	}
+
 }

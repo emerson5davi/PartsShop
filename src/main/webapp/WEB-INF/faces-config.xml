@@ -6,9 +6,17 @@
     version="2.2">
     
     <application>
+		<!--<message-bundle>br.edu.ifpb.dac.projeto.util.MessageUtils</message-bundle>-->
+		
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
 	</application>
+	
+	<factory>
+		<exception-handler-factory>
+			br.edu.ifpb.dac.projeto.util.JSFExceptionHandlerFactory
+		</exception-handler-factory>
+	</factory>
 
 </faces-config>

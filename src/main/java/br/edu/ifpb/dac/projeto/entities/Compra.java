@@ -21,8 +21,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 @Table(name = "compras")
 @NamedQueries({
@@ -42,10 +40,8 @@ public class Compra implements Serializable {
 	@Column(name = "data", nullable = false)
 	private Date data;
 
-	@NotEmpty
-	@NotNull
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "peca")
-	private List<ItemPeca> itemPecas;
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ItemCompra> itensCompra;
 
 	@NotNull
 	@OneToOne(cascade = CascadeType.MERGE)
@@ -68,12 +64,12 @@ public class Compra implements Serializable {
 		this.data = data;
 	}
 
-	public List<ItemPeca> getItemPecas() {
-		return itemPecas;
+	public List<ItemCompra> getItensCompra() {
+		return itensCompra;
 	}
 
-	public void setItemPecas(List<ItemPeca> itemPecas) {
-		this.itemPecas = itemPecas;
+	public void setItensCompra(List<ItemCompra> itensCompra) {
+		this.itensCompra = itensCompra;
 	}
 
 	public Cliente getCliente() {
@@ -90,7 +86,7 @@ public class Compra implements Serializable {
 		int result = 1;
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((itemPecas == null) ? 0 : itemPecas.hashCode());
+		result = prime * result + ((itensCompra == null) ? 0 : itensCompra.hashCode());
 		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		return result;
 	}
@@ -114,10 +110,10 @@ public class Compra implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (itemPecas == null) {
-			if (other.itemPecas != null)
+		if (itensCompra == null) {
+			if (other.itensCompra != null)
 				return false;
-		} else if (!itemPecas.equals(other.itemPecas))
+		} else if (!itensCompra.equals(other.itensCompra))
 			return false;
 		if (cliente == null) {
 			if (other.cliente != null)
@@ -129,6 +125,6 @@ public class Compra implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Entrega [id=" + id + ", data=" + data + ", itemPecas=" + itemPecas + ", cliente=" + cliente + "]";
+		return "Entrega [id=" + id + ", data=" + data + ", itensCompra=" + itensCompra + ", cliente=" + cliente + "]";
 	}
 }

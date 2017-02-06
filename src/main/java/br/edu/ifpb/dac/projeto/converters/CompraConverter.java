@@ -1,23 +1,21 @@
 package br.edu.ifpb.dac.projeto.converters;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 
-import br.edu.ifpb.dac.projeto.entities.Cliente;
-import br.edu.ifpb.dac.projeto.services.ClienteService;
+import br.edu.ifpb.dac.projeto.entities.Compra;
+import br.edu.ifpb.dac.projeto.services.CompraService;
 
 @Named
 @RequestScoped
-@FacesConverter(forClass=Cliente.class)
-public class ClienteConverter implements Converter{
+@FacesConverter(forClass = Compra.class)
+public class CompraConverter implements Converter {
 
-	private ClienteService clienteService = new ClienteService();
+	private CompraService compraService = new CompraService();
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
@@ -25,14 +23,8 @@ public class ClienteConverter implements Converter{
 		if (value == null || value.trim().isEmpty()) {
 			return null;
 		}
-		Long id = 0l;
-		try {
-			id = Long.parseLong(value);
-			return clienteService.findById(id);
-		} catch (NumberFormatException e) {
-			throw new ConverterException(new FacesMessage(String.format(
-					"%s é inválido para o cliente", id)), e);
-		}
+		Long id = Long.parseLong(value);
+		return compraService.findById(id);
 	}
 
 	@Override
@@ -41,8 +33,7 @@ public class ClienteConverter implements Converter{
 		if (value == null) {
 			return null;
 		}
-		Long id = ((Cliente) value).getId();
+		Long id = ((Compra) value).getId();
 		return (id != null) ? id.toString() : null;
 	}
-
 }

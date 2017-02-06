@@ -23,8 +23,7 @@ public class FuncionarioService implements Serializable{
 	}
 	
 	public void add(Funcionario funcionario) throws PartsShopException {
-		FuncionarioDao funcionarioDao = (FuncionarioDao) this.dao;
-		Funcionario f = funcionarioDao.findByCPF(funcionario.getCpf());
+		Funcionario f = dao.findByCPF(funcionario.getCpf());
 		if(f != null){
 			throw new PartsShopExceptionHandler("Já existe um funcionário com este CPF cadastrado");
 		}
@@ -45,5 +44,35 @@ public class FuncionarioService implements Serializable{
 	
 	public List<Funcionario> findAll() {
 		return dao.findAll();
+	}
+	
+	public Long getTotalFuncionarios() {
+		Long result = 0l;
+		try {
+			result = dao.getTotalFuncionarios();
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Funcionario findByCPF(String cpf) {
+		Funcionario result = null;
+		try {
+			result = dao.findByCPF(cpf);
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public List<Funcionario> findByNome(String nome) {
+		List<Funcionario> results = null;
+		try {
+			results = dao.findByNome(nome);
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 }

@@ -6,7 +6,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/WEB-INF/templates/Patagonia/Layout.xhtml">
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
 
 	<ui:define name="titulo">Clientes</ui:define>
 
@@ -55,7 +55,7 @@
 						target="#{clienteViewBean.cliente}" />
 				</p:ajax>
 
-				<p:column headerText="Código" width="1%" filterBy="#{cliente.id}"
+				<p:column headerText="#" width="1%" filterBy="#{cliente.id}"
 					filterStyle="display:none;">
 					<h:outputText id="id" value="#{cliente.id}" />
 				</p:column>
