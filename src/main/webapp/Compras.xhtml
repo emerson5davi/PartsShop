@@ -16,9 +16,8 @@
 	
 	<ui:define name="newButton">
 		<p:button id="buttonNewCompra" icon="fa fa-plus" value="NOVO"
-			styleClass="but but-primary but-shadow but-rc" style="float: right;font-size: 17px"
-			>
-			<p:tooltip for="buttonNewCompra" value="Registrar nova compra" />
+			styleClass="btnn btnn-primary btnn-shadow btnn-rc" style="float: right;padding: 2px 3px !important;
+	font-size: 17px !important" outcome="/CompraEdit.xhtml">
 		</p:button>
 	</ui:define>
 
@@ -58,20 +57,31 @@
 					<f:setPropertyActionListener value="#{compra}" target="#{pecaViewBean.peca}" />
 				</p:ajax>	
 				
-				<p:column headerText="#" width="3%" filterBy="#{compra.id}" filterStyle="display:none;">
+				<p:column headerText="#" width="2%" filterBy="#{compra.id}" filterStyle="display:none;">
 					<h:outputText id="id" value="#{compra.id}" />
 				</p:column>		
-
-				<p:column headerText="Data" width="10%" filterBy="#{compra.data}" filterStyle="display:none;">
+				
+				<p:column headerText="Data" width="4%" filterBy="#{compra.data}" filterStyle="display:none;">
 					<h:outputText id="data" value="#{compra.data}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
+				
+				<p:column headerText="Cliente" width="12%" filterBy="#{compra.cliente.nome}" filterStyle="display:none;"> 
+					<h:outputText id="cliente" value="#{compra.cliente.nome}" />
+				</p:column>
 
-				<p:column headerText="Cliente" width="12%" filterBy="#{compra.cliente}" filterStyle="display:none;"> 
-					<h:outputText id="cliente" value="#{compra.cliente}" />
+				<p:column headerText="Quantidade" width="3%">
+					<h:outputText id="quant" value="#{compraBean.getQuantidade(compra)}" />
 				</p:column>
 				
+				<p:column headerText="Peças" width="3%">
+					<h:outputText id="pecas" value="#{compraBean.getPecas(compra)}" />
+				</p:column>
+
+				<p:column headerText="Valor" width="3%">
+					<h:outputText id="valor" value="#{compraBean.getValor(compra)}" />
+				</p:column>				
 			</p:dataTable>
 		</h:form>
 	</ui:define>

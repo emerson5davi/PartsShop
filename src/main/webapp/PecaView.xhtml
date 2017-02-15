@@ -32,13 +32,13 @@
 			<h:panelGrid columns="3">
 
 				<p:button value="editar" id="btEdit" outcome="/PecaEdit.xhtml"
-					icon="fa fa-pencil" styleClass="btnn btnn-primary">
+					icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rcy">
 					<f:param name="peca" value="#{pecaViewBean.peca.id}" />
 				</p:button>
 
 				<p:commandButton value="Remover" id="btRemove"
 					action="#{pecaBean.remove}" icon="fa fa-trash"
-					styleClass="btnn btnn-primary">
+					styleClass="btnn btnn-danger btnn-shadow btnn-rc">
 					<f:setPropertyActionListener value="#{pecaViewBean.peca}"
 						target="#{pecaBean.selectedPeca}" />
 					<p:confirm header="Remoção de peça"
@@ -46,7 +46,7 @@
 				</p:commandButton>
 
 				<p:button value="voltar" id="btvoltar" outcome="/Pecas.xhtml"
-					icon="fa fa-reply" styleClass="btnn btnn-primary" />
+					icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc" />
 
 			</h:panelGrid>
 

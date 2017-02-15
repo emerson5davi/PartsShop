@@ -36,120 +36,152 @@
 
 			<p:fieldset styleClass="box box-success">
 				<div class="ui-fluid">
-					<p:tabView>
-						<p:tab title="Dados Pessoais">
-							<p:panelGrid columns="2" layout="grid"
-								styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-1">
+					<h3><strong>Dados pessoais:</strong></h3>
+					<div class="form-group row">
+        				<div class="col-sm-4">
+							<p:outputLabel for="nome" value="Nome" />
+							<p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
+								required="true" requiredMessage="O campo nome é obrigatório!"/>
+						</div>
 
-								<p:outputLabel for="nome" value="Nome" />
-								<p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
-									required="true" requiredMessage="O campo nome é obrigatório!"/>
+						<div class="col-sm-4">
+							<p:outputLabel for="cpf" value="CPF"/>
+							<p:inputMask mask="999.999.999-99" id="cpf"
+								value="#{clienteEdit.cliente.cpf}" required="true" requiredMessage="O campo CPF é obrigatório!">
+							</p:inputMask>
+						</div>
 
-								<p:outputLabel for="cpf" value="CPF"/>
-								<p:inputMask mask="999.999.999-99" id="cpf"
-									value="#{clienteEdit.cliente.cpf}" required="true" requiredMessage="O campo CPF é obrigatório!">
-								</p:inputMask>
+						<div class="col-sm-4">
+							<p:outputLabel for="sexo" value="Sexo" />
+							<p:selectOneMenu id="sexo" required="true" requiredMessage="O campo sexo é obrigatório!"
+								value="#{clienteEdit.cliente.sexo}">
+								<f:selectItem itemLabel="Selecione um sexo"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+								<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+						
+					<div class="form-group row">
+       					<div class="col-sm-4">
+							<p:outputLabel for="telefone" value="Telefone" />
+							<p:inputMask mask="(99) 9999-9999" id="telefone"
+								value="#{clienteEdit.cliente.telefone}" />
+						</div>
+							
+       					<div class="col-sm-4">
+							<p:outputLabel for="celular" value="Celular" />
+							<p:inputMask mask="(99) 99999-9999" id="celular" required="true" requiredMessage="O campo celular é obrigatório!"
+								value="#{clienteEdit.cliente.celular}" />
+						</div>
 
-								<p:outputLabel for="sexo" value="Sexo" />
-								<p:selectOneRadio id="sexo" value="#{clienteEdit.cliente.sexo}"
-									required="true" requiredMessage="O campo sexo é obrigatório!">
-									<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
-									<f:selectItem itemLabel="Feminino" itemValue="Feminio" />
-								</p:selectOneRadio>
+       					<div class="col-sm-4">
+							<p:outputLabel for="email" value="Email" />
+							<p:inputText id="email" value="#{clienteEdit.cliente.email}" />
+						</div>
+					</div>
+					
+					<h3><strong>Dados de endereço:</strong></h3>
+					<div class="form-group row">
+        			
+        				<div class="col-sm-4">
+							<p:outputLabel for="logradouro" value="Logradouro" />
+							<p:inputText id="logradouro" required="true" requiredMessage="O campo logradouro é obrigatório!"
+								value="#{clienteEdit.cliente.endereco.logradouro}"
+								label="Logradouro" />
+						</div>
+					
+						<div class="col-sm-4">
+							<p:outputLabel for="numero" value="Número" />
+							<p:inputText id="numero"
+								value="#{clienteEdit.cliente.endereco.numero}" required="true" requiredMessage="O campo número é obrigaório!">
+								<f:convertNumber integerOnly="true" />
+							</p:inputText>
+						</div>
 
-								<p:outputLabel for="telefone" value="Telefone" />
-								<p:inputMask mask="(99) 9999-9999" id="telefone"
-									value="#{clienteEdit.cliente.telefone}" />
+						<div class="col-sm-4">
+							<p:outputLabel for="zona" value="Zona" />
+							<p:selectOneMenu id="zona" required="true" requiredMessage="O campo zona é obrigatório!"
+								value="#{clienteEdit.cliente.endereco.zona}">
+								<f:selectItem itemLabel="Selecione uma zona"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="Zona Urbana" itemValue="Zona Urbana" />
+								<f:selectItem itemLabel="Zona Rural" itemValue="Zona Rural" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+        			
+        				<div class="col-sm-4">
+							<p:outputLabel for="bairro" value="Bairro" />
+							<p:inputText id="bairro"
+								value="#{clienteEdit.cliente.endereco.bairro}" required="true" requiredMessage="O campo bairro é obrigatório!"/>
+						</div>	
+						
+						<div class="col-sm-4">	
+							<p:outputLabel for="complemento" value="Complemento" />
+							<p:inputText id="complemento"
+								value="#{clienteEdit.cliente.endereco.complemento}" />
+						</div>
 
-								<p:outputLabel for="celular" value="Celular" />
-								<p:inputMask mask="(99) 99999-9999" id="celular" required="true" requiredMessage="O campo celular é obrigatório!"
-									value="#{clienteEdit.cliente.celular}" />
+						<div class="col-sm-4">
+							<p:outputLabel for="cep" value="CEP" />
+							<p:inputMask mask="99999-999" required="true" requiredMessage="O campo CEP é obrigatório!" id="cep"
+								value="#{clienteEdit.cliente.endereco.cep}" size="3" />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+					
+						<div class="col-sm-4">
+							<p:outputLabel for="estado" value="Estado" />
 
-								<p:outputLabel for="email" value="Email" />
-								<p:inputText id="email" value="#{clienteEdit.cliente.email}" />
-							</p:panelGrid>
-						</p:tab>
-						<p:tab title="Dados de Endereço">
+							<p:selectOneMenu id="estado" required="true" requiredMessage="O campo estado é obrigatório!"
+								value="#{clienteEdit.cliente.endereco.estado}">
 
-							<p:panelGrid columns="2" layout="grid"
-								styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-1">
+								<f:selectItem itemLabel="Selecione um estado"
+									noSelectionOption="true" />
+								<f:selectItems value="#{enderecoBean.estados}"
+									itemValue="#{estado}" itemLabel="#{estado.descricao}"
+									var="estado" />
+								<p:ajax process="@this" event="change" update="cidade"
+									listener="#{clienteEdit.carregarCidades}" />
+							</p:selectOneMenu>
+						</div>
 
-								<p:outputLabel for="logradouro" value="Logradouro" />
-								<p:inputText id="logradouro" required="true" requiredMessage="O campo logradouro é obrigatório!"
-									value="#{clienteEdit.cliente.endereco.logradouro}"
-									label="Logradouro" />
-								<p:outputLabel for="numero" value="Número" />
-								<p:inputText id="numero"
-									value="#{clienteEdit.cliente.endereco.numero}" required="true" requiredMessage="O campo número é obrigaório!">
-									<f:convertNumber integerOnly="true" />
-									</p:inputText>
+						<div class="col-sm-4">
+							<p:outputLabel for="cidade" value="Cidade" />
 
-								<p:outputLabel for="zona" value="Zona" />
-								<p:selectOneMenu id="zona" required="true" requiredMessage="O campo zona é obrigatório!"
-									value="#{clienteEdit.cliente.endereco.zona}">
-									<f:selectItem itemLabel="Selecione uma zona"
-										noSelectionOption="true" />
-									<f:selectItem itemLabel="Zona Urbana" itemValue="Zona Urbana" />
-									<f:selectItem itemLabel="Zona Rural" itemValue="Zona Rural" />
-								</p:selectOneMenu>
-
-								<p:outputLabel for="bairro" value="Bairro" />
-								<p:inputText id="bairro"
-									value="#{clienteEdit.cliente.endereco.bairro}" required="true" requiredMessage="O campo bairro é obrigatório!"/>
-								
-								<p:outputLabel for="complemento" value="Complemento" />
-								<p:inputText id="complemento"
-									value="#{clienteEdit.cliente.endereco.complemento}" />
-
-								<p:outputLabel for="cep" value="CEP" />
-								<p:inputMask mask="99999-999" required="true" requiredMessage="O campo CEP é obrigatório!" id="cep"
-									value="#{clienteEdit.cliente.endereco.cep}" size="3" />
-
-								<p:outputLabel for="estado" value="Estado" />
-
-								<p:selectOneMenu id="estado" required="true" requiredMessage="O campo estado é obrigatório!"
-									value="#{clienteEdit.cliente.endereco.estado}">
-
-									<f:selectItem itemLabel="Selecione um estado"
-										noSelectionOption="true" />
-									<f:selectItems value="#{enderecoBean.estados}"
-										itemValue="#{estado}" itemLabel="#{estado.descricao}"
-										var="estado" />
-									<p:ajax process="@this" event="change" update="cidade"
-										listener="#{clienteEdit.carregarCidades}" />
-								</p:selectOneMenu>
-
-
-								<p:outputLabel for="cidade" value="Cidade" />
-
-								<p:selectOneMenu id="cidade"
-									value="#{clienteEdit.cliente.endereco.cidade}" filter="true"
-									filterMatchMode="startsWith" required="true" requiredMessage="O campo cidade é obrigatório!"
-									disabled="#{clienteEdit.cliente.endereco.estado eq null}">
-									<f:selectItem itemLabel="Selecione uma cidade"
-										noSelectionOption="true" />
-									<f:selectItems value="#{enderecoBean.cidades}"
-										itemValue="#{cidade}" itemLabel="#{cidade}" var="cidade" />
-								</p:selectOneMenu>
-
-
-							</p:panelGrid>
-
-						</p:tab>
-					</p:tabView>
+							<p:selectOneMenu id="cidade"
+								value="#{clienteEdit.cliente.endereco.cidade}" filter="true"
+								filterMatchMode="startsWith" required="true" requiredMessage="O campo cidade é obrigatório!"
+								disabled="#{clienteEdit.cliente.endereco.estado eq null}">
+								<f:selectItem itemLabel="Selecione uma cidade"
+									noSelectionOption="true" />
+								<f:selectItems value="#{enderecoBean.cidades}"
+									itemValue="#{cidade}" itemLabel="#{cidade}" var="cidade" />
+							</p:selectOneMenu>
+						</div>
+					</div>
 				</div>
+				
+					
+				<hr class="divider"/>
+					
 				<div class="box-footer">
 					<h:panelGrid columns="3">
 
 						<p:commandButton
 							value="#{clienteEdit.edicaoDeCliente ? 'Editar' : 'Salvar'}"
 							id="btSave" icon="fa fa-floppy-o" style="float: left;"
-							styleClass="but but-primary but-shadow but-rc"
+							styleClass="btnn btnn-primary btnn-shadow btnn-rc"
 							action="#{clienteEdit.saveCliente}" process="formRegisterCliente" />
 
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
-							style="float:left;" styleClass="but but-primary but-shadow but-rc"
-							outcome="/Clientes.xhtml" />
+							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
+							outcome="/Clientes.xhtml"/>
 					</h:panelGrid>
 				</div>
 			</p:fieldset>

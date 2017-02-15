@@ -61,12 +61,12 @@
 								<p:inputText id="preco" required="true"
 									requiredMessage="O campo preço é obrigatório!"
 									value="#{pecaEdit.peca.preco}">
-									<f:convertNumber pattern="#0.00" />
+									<f:convertNumber  maxFractionDigits="2"/>
 								</p:inputText>
 
 								<p:outputLabel for="validade" value="Validade" />
 								<p:calendar id="validade" value="#{pecaEdit.peca.validade}"
-									pattern="dd/MM/yyyy" mask="true" >
+									pattern="dd/MM/yyyy" mask="true">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</p:calendar>
 
@@ -91,11 +91,11 @@
 						<p:commandButton
 							value="#{pecaEdit.edicaoDePeca ? 'Editar' : 'Salvar'}"
 							id="btSave" icon="fa fa-floppy-o" style="float: left;"
-							styleClass="but but-primary but-shadow but-rc" action="#{pecaEdit.savePeca}"
+							styleClass="btnn btnn-primary btnn-shadow btnn-rc" action="#{pecaEdit.savePeca}"
 							process="formRegisterPeca" />
 
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
-							style="float:left;" styleClass="but but-primary but-shadow but-rc"
+							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
 							outcome="/Pecas.xhtml" />
 					</h:panelGrid>
 				</div>

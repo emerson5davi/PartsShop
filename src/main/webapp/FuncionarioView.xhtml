@@ -27,16 +27,16 @@
 
 			<h:panelGrid columns="3">
 
-				<p:button value="editar" id="btEdit" outcome="/FuncionarioEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary">
+				<p:button value="editar" id="btEdit" outcome="/FuncionarioEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rc">
 					<f:param name="funcionario" value="#{funcionarioViewBean.funcionario.id}"/>	
 				</p:button>
 
-				<p:commandButton value="Remover" id="btRemove" action="#{funcionarioBean.remove}" icon="fa fa-trash" styleClass="btnn btnn-primary">
+				<p:commandButton value="Remover" id="btRemove" action="#{funcionarioBean.remove}" icon="fa fa-trash" styleClass="btnn btnn-danger btnn-shadow btnn-rc">
 					<f:setPropertyActionListener value="#{funcionarioViewBean.funcionario}" target="#{funcionarioBean.selectedFuncionario}" />
 					 <p:confirm header="Remoção de funcionário" message="Deseja remover este funcionário?"/>
     			</p:commandButton>
 
-				<p:button value="voltar" id="btvoltar" outcome="/Funcionarios.xhtml" icon="fa fa-reply" styleClass="btnn btnn-primary"/>
+				<p:button value="voltar" id="btvoltar" outcome="/Funcionarios.xhtml" icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc"/>
 
 
 			</h:panelGrid>

@@ -436,30 +436,93 @@ table.dataTable thead .sorting:after {
   text-align: center;
 }
 
-.but-primary {
+.btnn {
+	border: none !important;
+	text-shadow: none !important;
+	line-height: 1.5 !important;
+	text-transform: uppercase !important;
+	display: inline-block !important;
+	margin-right: 3px !important;
+	font-weight: normal !important;
+	text-align: center !important;
+	vertical-align: middle !important;
+	touch-action: manipulation !important;
+	cursor: pointer !important;
+	background-image: none !important;
+	white-space: nowrap !important;
+}
+
+.btnn-primary {
 	color: #fff;
 	background-color: #0068B4;
 }
 
-.but-success {
-	color: #fff;
-	background-color: #009835;
+.btnn-success {
+	text-shadow: none !important;
+	color: #ffffff !important;
+	background-color: #5cb85c !important;
+	border-color: #4cae4c !important;
+	touch-action: manipulation !important;
+	background-image: none !important;
+	padding: 1px 1px !important;
 }
 
-.but-error {
-	color: #fff;
-	background-color: #CC0000;
+.btnn-success:hover, .btnn-success:active, .btnn-success.hover {
+	background-color: #71c171 !important;
 }
 
-.but-warning {
-	color: #fff;
-	background-color: #F28E00;
+.btnn-danger {
+	background-color: #dd4b39 !important;
+	text-shadow: none !important;
+	color: #ffffff !important;
+	border-color: #dd4b39 !important;
+	touch-action: manipulation !important;
+	background-image: none !important;
+	padding: 1px 1px !important;
 }
 
-.but-shadow {
+.btnn-danger:hover, .btnn-danger:active, .btnn-danger.hover {
+	background-color: #d73925 !important;
+}
+
+.btnn-default {
+	background-color: #808080 !important;
+	border-color: #737373 !important;
+}
+
+.btnn-default:hover {
+	color: #ffffff !important;
+	background-color: #666666 !important;
+	border-color: #595959 !important;
+}
+
+.btnn-shadow {
 	box-shadow: 1px 1px 1px #999;
 }
 
-.but-rc {
+.btnn-rc {
 	border-radius: 4px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+    outline: none;
+}
+
+.ui-growl-error, .ui-growl-fatal, .ui-messages .ui-messages-error, .ui-message.ui-message-error, .ui-messages .ui-messages-fatal, .ui-message.ui-message-fatal {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.ui-growl-info, .ui-messages .ui-messages-info, .ui-message.ui-message-info {
+    color: #3c763d !important;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6 !important;
+}
+
+.main-footer {
+    background: #fff;
+    padding: 15px;
+    color: #444;
+    border-top: 1px solid #d2d6de;
 }

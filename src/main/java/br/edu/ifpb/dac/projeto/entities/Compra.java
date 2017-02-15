@@ -47,6 +47,10 @@ public class Compra implements Serializable {
 	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "cliente_FK")
 	private Cliente cliente;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_pagamento")
+	private Pagamento pagamento;
 
 	public Long getId() {
 		return id;
@@ -79,6 +83,14 @@ public class Compra implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
 
 	@Override
 	public int hashCode() {
@@ -88,6 +100,7 @@ public class Compra implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((itensCompra == null) ? 0 : itensCompra.hashCode());
 		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
+		result = prime * result + ((pagamento == null) ? 0 : pagamento.hashCode());
 		return result;
 	}
 
@@ -120,11 +133,18 @@ public class Compra implements Serializable {
 				return false;
 		} else if (!cliente.equals(other.cliente))
 			return false;
+		if (pagamento == null) {
+			if (other.pagamento != null)
+				return false;
+		} else if (!pagamento.equals(other.pagamento))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Entrega [id=" + id + ", data=" + data + ", itensCompra=" + itensCompra + ", cliente=" + cliente + "]";
+		return "Compra [id=" + id + ", data=" + data + ", itensCompra=" + itensCompra + ", cliente=" + cliente
+				+ ", pagamento=" + pagamento + "]";
 	}
+
 }

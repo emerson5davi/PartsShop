@@ -4,106 +4,276 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
 
 	<f:metadata>
 		<o:viewParam name="cliente" value="#{clienteViewBean.cliente}"
 			converter="#{clienteConverter}" />
-		<f:event listener="#{clienteViewBean.preRenderView()}" type="preRenderView" />
+		<f:event listener="#{clienteViewBean.preRenderView()}"
+			type="preRenderView" />
+
+		<o:viewParam name="compra" value="#{compraEdit.compra}"
+			converter="#{compraConverter}" />
+		<f:event listener="#{compraEdit.preRenderView()}" type="preRenderView" />
 	</f:metadata>
 
 	<ui:define name="titulo">Detalhes Cliente</ui:define>
-	<ui:define name="content-header">Detalhes Cliente <small>Visualizar informações do cliente</small></ui:define>
+	<ui:define name="content-header">Detalhes Cliente <small>Visualizar
+			informações do cliente</small>
+	</ui:define>
 	<ui:define name="breadcrumb-header">
 		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
 		</li>
 		<li><a href="Clientes.xhtml">Clientes</a></li>
 		<li class="active">Detalhes Cliente</li>
 	</ui:define>
-	
+
 
 	<ui:define name="conteudo">
 
 		<h:form id="detailForm">
-			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml"/>
+			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml" />
 
-			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
+			<p:messages id="messages" autoUpdate="true" closable="true"
+				showDetail="true" />
 
 			<h:panelGrid columns="3">
 
-				<p:button value="editar" id="btEdit" outcome="/ClienteEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary">
-					<f:param name="cliente" value="#{clienteViewBean.cliente.id}"/>	
+				<p:button value="editar" id="btEdit" outcome="/ClienteEdit.xhtml"
+					icon="fa fa-pencil"
+					styleClass="btnn btnn-primary btnn-shadow btnn-rc">
+					<f:param name="cliente" value="#{clienteViewBean.cliente.id}" />
 				</p:button>
 
-				<p:commandButton value="Remover" id="btRemove" action="#{clienteBean.remove}" icon="fa fa-trash" styleClass="btnn btnn-primary">
-					<f:setPropertyActionListener value="#{clienteViewBean.cliente}" target="#{clienteBean.selectedCliente}" />
-					 <p:confirm header="Remoção de cliente" message="Deseja remover este cliente?"/>
-    			</p:commandButton>
+				<p:commandButton value="Remover" id="btRemove"
+					action="#{clienteBean.remove}" icon="fa fa-trash"
+					styleClass="btnn btnn-danger btnn-shadow btnn-rc">
+					<f:setPropertyActionListener value="#{clienteViewBean.cliente}"
+						target="#{clienteBean.selectedCliente}" />
+					<p:confirm header="Remoção de cliente"
+						message="Deseja remover este cliente?" />
+				</p:commandButton>
 
-				<p:button value="voltar" id="btvoltar" outcome="/Clientes.xhtml" icon="fa fa-reply" styleClass="btnn btnn-primary"/>
+				<p:button value="voltar" id="btvoltar" outcome="/Clientes.xhtml"
+					icon="fa fa-reply"
+					styleClass="btnn btnn-default btnn-shadow btnn-rc" />
 
 
 			</h:panelGrid>
 
-			<p:fieldset id="infor_detail" style="margin-top:10px;" styleClass="box box-success">
+			<p:fieldset id="infor_detail" style="margin-top:10px;"
+				styleClass="box box-success">
 				<h2 class="page-header">
-					<p:outputLabel value="#{clienteViewBean.cliente.nome}" styleClass="text-detail" />
+					<p:outputLabel value="#{clienteViewBean.cliente.nome}"
+						styleClass="text-detail" />
 				</h2>
-				
+
 				<div class="panel panel-default">
-				 <div class="panel-heading"><strong>Informações Gerais</strong></div>		
-				 	<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"  columnClasses="ui-grid-col-2">
-						
-						<h:outputText value="Nome:"/>
-						<h:outputText value="#{clienteViewBean.cliente.nome}"/>
-						
-						<h:outputText value="CPF:"/>
-						<h:outputText value="#{clienteViewBean.cliente.cpf}"/>
-						
-						<h:outputText value="Sexo:"/>
-						<h:outputText value="#{clienteViewBean.cliente.sexo}"/>
-						
-						<h:outputText rendered="#{clienteViewBean.cliente.telefone == '' ? false : true}" value="Telefone:"/>
-						<h:outputText rendered="#{clienteViewBean.cliente.telefone == '' ? false : true}" value="#{clienteViewBean.cliente.telefone}"/>
-						
-						<h:outputText value="Celular:"/>
-						<h:outputText value="#{clienteViewBean.cliente.celular}"/>
-						
-						<h:outputText rendered="#{clienteViewBean.cliente.email == '' ? false : true}" value="Email:"/>
-						<h:outputText rendered="#{clienteViewBean.cliente.email == '' ? false : true}" value="#{clienteViewBean.cliente.email}"/>
-					</p:panelGrid>
+
+					<div class="panel-heading">
+						<h3 class="panel-title">Informações gerais</h3>
+					</div>
+
+					<div class="panel-body">
+
+						<div class="form-group row">
+
+							<div class="col-sm-4">
+								<h:outputText value="Nome: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.nome}" />
+							</div>
+
+							<div class="col-sm-4">
+								<h:outputText value="CPF: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.cpf}" />
+							</div>
+
+							<div class="col-sm-4">
+								<h:outputText value="Sexo: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.sexo}" />
+							</div>
+
+						</div>
+
+						<div class="form-group row">
+
+							<c:if test="${clienteViewBean.cliente.telefone != null}">
+								<div class="col-sm-4">
+									<h:outputText
+										rendered="#{clienteViewBean.cliente.telefone == '' ? false : true}"
+										value="Telefone: " style="font-weight: bold" />
+									<h:outputText
+										rendered="#{clienteViewBean.cliente.telefone == '' ? false : true}"
+										value="#{clienteViewBean.cliente.telefone}" />
+								</div>								
+							</c:if>
+							
+							<div class="col-sm-4">
+								<h:outputText value="Celular: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.celular}" />
+							</div>
+
+							<c:if test="${clienteViewBean.cliente.email != null}">
+								<div class="col-sm-4">
+									<h:outputText
+										rendered="#{clienteViewBean.cliente.email == '' ? false : true}"
+										value="Email: " style="font-weight: bold" />
+									<h:outputText
+										rendered="#{clienteViewBean.cliente.email == '' ? false : true}"
+										value="#{clienteViewBean.cliente.email}" />
+								</div>
+							</c:if>
+							
+						</div>
+
+					</div>
+
 				</div>
 
 				<div class="panel panel-default">
-					 <div class="panel-heading"><strong>Informações de Endereço</strong></div>		
-					 	<p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2">
-							<h:outputText value="Endereço:"/>
-							<h:outputText value="#{clienteViewBean.cliente.endereco.logradouro}"/>
-		
-							<h:outputText rendered="#{clienteViewBean.cliente.endereco.numero == '' ? false : true}" value="Número:"/>
-							<h:outputText rendered="#{clienteViewBean.cliente.endereco.numero == '' ? false : true}" value="#{clienteViewBean.cliente.endereco.numero}"/>
-		
-							<h:outputText value="Zona:"/>
-							<h:outputText value="#{clienteViewBean.cliente.endereco.zona}"/>
-							
-							<h:outputText value="Bairro:"/>
-							<h:outputText value="#{clienteViewBean.cliente.endereco.bairro}"/>
-							
-							<h:outputText rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}" value="Complemento:"/>
-							<h:outputText rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}" value="#{clienteViewBean.cliente.endereco.complemento}"/>
-							
-							<h:outputText value="CEP:"/>
-							<h:outputText value="#{clienteViewBean.cliente.endereco.cep}"/>
-							
-							<h:outputText value="Cidade:"/>
-							<h:outputText value="#{clienteViewBean.cliente.endereco.cidade}"/>
-							
-							<h:outputText value="Estado:"/>
-							<h:outputText value="#{clienteViewBean.cliente.endereco.estado}"/>
-			
-					</p:panelGrid>
+
+					<div class="panel-heading">
+						<h3 class="panel-title">Informações de endereço</h3>
+					</div>
+
+					<div class="panel-body">
+
+						<div class="form-group row">
+
+							<div class="col-sm-3">
+								<h:outputText value="Endereço: " style="font-weight: bold" />
+								<h:outputText
+									value="#{clienteViewBean.cliente.endereco.logradouro}" />
+							</div>
+
+							<div class="col-sm-3">
+								<h:outputText value="Número: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.numero}" />
+							</div>
+
+							<div class="col-sm-3">
+								<h:outputText value="Zona: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.zona}" />
+							</div>
+
+							<div class="col-sm-3">
+								<h:outputText value="Bairro: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.bairro}" />
+							</div>
+
+						</div>
+
+						<div class="form-group row">
+
+							<c:if test="${clienteViewBean.cliente.endereco.complemento != null}">
+								<div class="col-sm-3">
+									<h:outputText
+										rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}"
+										value="Complemento: " style="font-weight: bold" />
+									<h:outputText
+										rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}"
+										value="#{clienteViewBean.cliente.endereco.complemento}" />
+								</div>
+							</c:if>
+
+							<div class="col-sm-3">
+								<h:outputText value="CEP: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.cep}" />
+							</div>
+
+							<div class="col-sm-3">
+								<h:outputText value="Cidade: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.cidade}" />
+							</div>
+
+							<div class="col-sm-3">
+								<h:outputText value="Estado: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.estado}" />
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Compras</h3>
+					</div>
+
+					<div class="table-responsive">
+						<p:dataTable id="tableCompras" var="compra"
+							value="#{compraBean.getComprasByCliente(cliente)}" paginatorPosition="bottom"
+							rows="15" paginator="true" paginatorAlwaysVisible="false"
+							widgetVar="findCompra" reflow="true"
+							emptyMessage="Nenhuma compra registrada" rowKey="#{compra.id}"
+							styleClass="ui-datatable" selectionMode="single"
+							selection="#{compraBean.selectedCompra}">
+
+							<f:facet name="header">
+								<div align="left">
+									<p:inputText id="globalFilter"
+										onkeyup="PF('findCompra').filter()" style="width:300px;"
+										placeholder="Buscar compras" />
+								</div>
+							</f:facet>
+
+							<p:ajax event="rowSelect" listener="#{compraBean.renderTo}">
+								<f:setPropertyActionListener value="#{compra}"
+									target="#{pecaViewBean.peca}" />
+							</p:ajax>
+
+							<p:column headerText="#" width="2%" filterBy="#{compra.id}"
+								filterStyle="display:none;">
+								<h:outputText id="id" value="#{compra.id}" />
+							</p:column>
+
+							<p:column headerText="Data" width="4%" filterBy="#{compra.data}"
+								filterStyle="display:none;">
+								<h:outputText id="data" value="#{compra.data}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Quantidade" width="3%">
+								<h:outputText id="quant"
+									value="#{compraBean.getQuantidade(compra)}" />
+							</p:column>
+
+							<p:column headerText="Peças" width="3%">
+								<h:outputText id="pecas" value="#{compraBean.getPecas(compra)}" />
+							</p:column>
+
+							<p:column headerText="Valor" width="3%">
+								<h:outputText id="valor" value="#{compraBean.getValor(compra)}" />
+							</p:column>
+							
+							<p:column width="1.4%">
+								<p:commandButton value="Pagar" type="button"
+									onclick="PF('dlg2').show();" />
+							</p:column>
+							
+						</p:dataTable>
+					</div>
+				</div>
+
+				<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+					height="500" width="500">
+					
+					<p:outputLabel for="payment" value="Forma de pagamento: " />
+
+					<p:selectOneMenu id="payment" required="true" requiredMessage="O campo forma de pagamento é obrigatório!"
+						>
+
+						<f:selectItem itemLabel="Selecione uma forma de pagamento"
+							noSelectionOption="true" />
+						<f:selectItems value="#{compraEdit.payments}"
+							itemValue="#{payment}" itemLabel="#{payment.tipoDePagamento}"
+							var="payment" />
+					</p:selectOneMenu>
+				
+				</p:dialog>
+
 			</p:fieldset>
 		</h:form>
 	</ui:define>

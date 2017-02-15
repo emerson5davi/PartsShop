@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/stylesheets/css/algaworks.css" />
 	</h:head>
 
-	<p:confirmDialog id="confirmDialog" global="true" showEffect="fade" hideEffect="fade" styleClass="box-primary">
+	<p:confirmDialog responsive="true" id="confirmDialog" global="true" showEffect="fade" hideEffect="fade" styleClass="box-primary">
 		<p:commandButton process="@form" value="Sim" type="button" styleClass="btnn btnn-primary ui-confirmdialog-yes" />
 		<p:commandButton process="@form" value="Não" type="button" styleClass="btnn btnn-primary ui-confirmdialog-no" />
 	</p:confirmDialog>

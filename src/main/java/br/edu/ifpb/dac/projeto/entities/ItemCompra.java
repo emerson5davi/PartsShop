@@ -29,11 +29,9 @@ public class ItemCompra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@NotNull
 	@Column(name = "quantidade", nullable = false)
 	private Integer quantidade;
 
-	@NotNull
 	@Column(name = "preco", nullable = false)
 	private Double preco;
 
@@ -120,7 +118,7 @@ public class ItemCompra implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ItemPeca [id=");
+		builder.append("ItemCompra [id=");
 		builder.append(id);
 		builder.append(", quantidade=");
 		builder.append(quantidade);

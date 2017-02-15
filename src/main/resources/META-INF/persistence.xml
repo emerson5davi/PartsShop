@@ -11,6 +11,9 @@
 		<class>br.edu.ifpb.dac.projeto.entities.Peca</class>
 		<class>br.edu.ifpb.dac.projeto.entities.ItemCompra</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Compra</class>
+		<class>br.edu.ifpb.dac.projeto.entities.ItemPagamento</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Pagamento</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Pessoa</class>
 
 		<properties>
 
