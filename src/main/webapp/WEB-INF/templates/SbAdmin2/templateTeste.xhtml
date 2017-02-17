@@ -30,6 +30,8 @@
 
 <h:body>
 
+	<h:outputScript name="locale-primefaces.js" library="js" />
+
 	<div id="wrapper">
 
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -46,7 +48,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">
+					<h2 class="page-header">
 						<ul>
 							<ui:insert name="newButton">
 							</ui:insert>
@@ -55,7 +57,7 @@
 						<ui:insert name="content-header">
 								DashBoard <small>Visão geral do sistema</small>
 						</ui:insert>
-					</h1>
+					</h2>
 					<ol class="breadcrumb">
 						<ui:insert name="breadcrumb-header"></ui:insert>
 					</ol>

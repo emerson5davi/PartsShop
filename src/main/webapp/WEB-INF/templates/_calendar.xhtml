@@ -9,10 +9,10 @@
 <ui:composition>
 	<p:calendar 
 		locale="pt_BR" 
-		showButtonPanel="true" 
-		navigator="true"
+		showButtonPanel="true"
 		id="#{id}" 
 		pattern="dd/MM/yyyy"
+		mask="true"
 		yearRange="-80:+10"
 		required="#{required != null ? required : 'false'}"
 		value="#{value}"

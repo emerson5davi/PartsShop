@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.edu.ifpb.dac.projeto.dao.EnderecoDao;
+import br.edu.ifpb.dac.projeto.entities.Endereco;
 import br.edu.ifpb.dac.projeto.enumerations.Estados;
 
 public class EnderecoService{
@@ -29,6 +30,11 @@ public class EnderecoService{
 
 	public List<String> listCidades(Integer codEstado) {
 		List<String> result = dao.getCidades(codEstado);
+		return result;
+	}
+	
+	public List<Endereco> findByLogradouro(String logradouro) {
+		List<Endereco> result = dao.findByLogradouro(logradouro);
 		return result;
 	}
 }

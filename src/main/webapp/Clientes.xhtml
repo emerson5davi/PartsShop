@@ -55,7 +55,7 @@
 						target="#{clienteViewBean.cliente}" />
 				</p:ajax>
 
-				<p:column headerText="#" width="1%" filterBy="#{cliente.id}"
+				<p:column headerText="#" width="1%" filterBy="#{cliente.id}" sortBy="#{solicitacao.id}"
 					filterStyle="display:none;">
 					<h:outputText id="id" value="#{cliente.id}" />
 				</p:column>

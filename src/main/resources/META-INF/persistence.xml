@@ -14,6 +14,7 @@
 		<class>br.edu.ifpb.dac.projeto.entities.ItemPagamento</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Pagamento</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Pessoa</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Usuario</class>
 
 		<properties>
 

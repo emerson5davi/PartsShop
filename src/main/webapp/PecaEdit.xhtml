@@ -15,7 +15,7 @@
 		<f:event listener="#{pecaEdit.preRenderView}" type="preRenderView" />
 	</f:metadata>
 
-	<ui:define name="title">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}</ui:define>
+	<ui:define name="titulo">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}</ui:define>
 	
 	<ui:define name="content-header">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}
 		<small>#{pecaEdit.edicaoDePeca ?
@@ -36,56 +36,88 @@
 				closable="true" />
 
 			<p:fieldset styleClass="box box-success">
-				<div class="ui-fluid">
-					<p:tabView>
-						<p:tab title="Dados da peça">
-							<p:panelGrid columns="2" layout="grid"
-								styleClass="ui-panelgrid-blank"
-								columnClasses="ui-grid-col-1">
+			
+				<p:outputPanel class="ui-fluid">
+			
+					<h3><strong>Dados da peça:</strong></h3>
+			
+					<p:outputPanel class="form-group row">
+        	
+        				<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="nome" value="Nome" />
+							<p:inputText id="nome" value="#{pecaEdit.peca.nome}"
+								required="true" requiredMessage="O campo nome é obrigatório!" />
+						</p:outputPanel>
 
-								<p:outputLabel for="nome" value="Nome" />
-								<p:inputText id="nome" value="#{pecaEdit.peca.nome}"
-									required="true" requiredMessage="O campo nome é obrigatório!" />
-
-								<p:outputLabel for="descricao" value="Descrição" />
-								<p:inputTextarea id="descricao"	value="#{pecaEdit.peca.descricao}"/>
-
-								<p:outputLabel for="quantidade" value="Quantidade" />
-								<p:inputText id="quantidade" value="#{pecaEdit.peca.quantidade}"
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="quantidade" value="Quantidade" />
+							<p:spinner id="quantidade"
+									value="#{pecaEdit.peca.quantidade}"
 									required="true"
-									requiredMessage="O campo quantidade é obrigatório!">
-									<f:convertNumber integerOnly="true" />
-								</p:inputText>
+									requiredMessage="O campo quantidade é obrigatório!" min="1">
+							</p:spinner>
+						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="preco" value="Preço" />
+							<p:inputText id="preco" required="true"
+								requiredMessage="O campo preço é obrigatório!"
+								value="#{pecaEdit.peca.preco}">
+								<f:convertNumber  maxFractionDigits="2"/>
+							</p:inputText>
+						</p:outputPanel>
+						
+					</p:outputPanel>
 
-								<p:outputLabel for="preco" value="Preço" />
-								<p:inputText id="preco" required="true"
-									requiredMessage="O campo preço é obrigatório!"
-									value="#{pecaEdit.peca.preco}">
-									<f:convertNumber  maxFractionDigits="2"/>
-								</p:inputText>
-
-								<p:outputLabel for="validade" value="Validade" />
-								<p:calendar id="validade" value="#{pecaEdit.peca.validade}"
-									pattern="dd/MM/yyyy" mask="true">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-								</p:calendar>
-
-								<p:outputLabel for="cor" value="Cor" />
-								<p:inputText id="cor" value="#{pecaEdit.peca.cor}" />
-
-								<p:outputLabel for="marca" value="Marca" />
-								<p:inputText id="marca" value="#{pecaEdit.peca.marca}" required="true"	requiredMessage="O campo marca é obrigatório!"/>
-
-								<p:outputLabel for="ano" value="Ano" />
-								<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	requiredMessage="O campo ano é obrigatório!" />
-
-								<p:outputLabel for="modelo" value="Modelo" />
-								<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true"	requiredMessage="O campo modelo é obrigatório!" />
-							</p:panelGrid>
-						</p:tab>
-					</p:tabView>
-				</div>
-				<div class="box-footer">
+					<p:outputPanel class="form-group row">
+							
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="validade" value="Validade" />
+							<ui:include src="/WEB-INF/templates/_calendar.xhtml">
+								<ui:param name="id" value="validade" />
+								<ui:param name="required" value="false" />
+								<ui:param name="value" value="#{pecaEdit.peca.validade}" />
+								<ui:param name="name" value="Validade" />
+							</ui:include>
+						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="marca" value="Marca" />
+							<p:inputText id="marca" value="#{pecaEdit.peca.marca}" required="true"	requiredMessage="O campo marca é obrigatório!"/>
+						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="ano" value="Ano" />
+							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	requiredMessage="O campo ano é obrigatório!" />
+						</p:outputPanel>
+						
+					</p:outputPanel>
+						
+					<p:outputPanel class="form-group row">
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="descricao" value="Descrição" />
+							<p:inputTextarea id="descricao" value="#{pecaEdit.peca.descricao}" rows="5" cols="30" counter="display" maxlength="255" counterTemplate="{0} caracteres restantes." autoResize="false" />
+   							<h:outputText id="display" />
+						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="modelo" value="Modelo" />
+							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" requiredMessage="O campo modelo é obrigatório!" />
+						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-1" >
+							<p:outputLabel for="cor" value="Cor" />
+							<p:colorPicker id="cor" value="#{pecaEdit.peca.cor}"/>  
+						</p:outputPanel>
+					
+					</p:outputPanel>
+											
+				</p:outputPanel>
+				
+				<p:separator />
+				
+				<p:outputPanel class="box-footer">
 					<h:panelGrid columns="3">
 
 						<p:commandButton
@@ -98,7 +130,7 @@
 							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
 							outcome="/Pecas.xhtml" />
 					</h:panelGrid>
-				</div>
+				</p:outputPanel>
 			</p:fieldset>
 		</h:form>
 	</ui:define>

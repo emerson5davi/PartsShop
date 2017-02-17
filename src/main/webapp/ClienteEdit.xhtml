@@ -15,7 +15,7 @@
 		<f:event listener="#{clienteEdit.preRenderView}" type="preRenderView" />
 	</f:metadata>
 
-	<ui:define name="title">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</ui:define>
+	<ui:define name="titulo">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</ui:define>
 	<ui:define name="content-header">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}
 		<small>#{clienteEdit.edicaoDeCliente ?
 			'Cliente: '.concat(clienteEdit.cliente.nome) : 'cadastrar novo
@@ -32,26 +32,26 @@
 
 		<h:form id="formRegisterCliente">
 			<p:messages id="messages" autoUpdate="true"
-				closable="true" />
+				closable="true" showDetail="true"/>
 
 			<p:fieldset styleClass="box box-success">
-				<div class="ui-fluid">
+				<p:outputPanel class="ui-fluid">
 					<h3><strong>Dados pessoais:</strong></h3>
-					<div class="form-group row">
-        				<div class="col-sm-4">
+					<p:outputPanel class="form-group row">
+        				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="nome" value="Nome" />
 							<p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
 								required="true" requiredMessage="O campo nome é obrigatório!"/>
-						</div>
+						</p:outputPanel>
 
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cpf" value="CPF"/>
 							<p:inputMask mask="999.999.999-99" id="cpf"
 								value="#{clienteEdit.cliente.cpf}" required="true" requiredMessage="O campo CPF é obrigatório!">
 							</p:inputMask>
-						</div>
+						</p:outputPanel>
 
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="sexo" value="Sexo" />
 							<p:selectOneMenu id="sexo" required="true" requiredMessage="O campo sexo é obrigatório!"
 								value="#{clienteEdit.cliente.sexo}">
@@ -60,47 +60,47 @@
 								<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
 								<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
 							</p:selectOneMenu>
-						</div>
-					</div>
+						</p:outputPanel>
+					</p:outputPanel>
 						
-					<div class="form-group row">
-       					<div class="col-sm-4">
+					<p:outputPanel class="form-group row">
+       					<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="telefone" value="Telefone" />
 							<p:inputMask mask="(99) 9999-9999" id="telefone"
 								value="#{clienteEdit.cliente.telefone}" />
-						</div>
+						</p:outputPanel>
 							
-       					<div class="col-sm-4">
+       					<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="celular" value="Celular" />
 							<p:inputMask mask="(99) 99999-9999" id="celular" required="true" requiredMessage="O campo celular é obrigatório!"
 								value="#{clienteEdit.cliente.celular}" />
-						</div>
+						</p:outputPanel>
 
-       					<div class="col-sm-4">
+       					<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="email" value="Email" />
 							<p:inputText id="email" value="#{clienteEdit.cliente.email}" />
-						</div>
-					</div>
+						</p:outputPanel>
+					</p:outputPanel>
 					
 					<h3><strong>Dados de endereço:</strong></h3>
-					<div class="form-group row">
+					<p:outputPanel class="form-group row">
         			
-        				<div class="col-sm-4">
+        				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="logradouro" value="Logradouro" />
 							<p:inputText id="logradouro" required="true" requiredMessage="O campo logradouro é obrigatório!"
 								value="#{clienteEdit.cliente.endereco.logradouro}"
 								label="Logradouro" />
-						</div>
+						</p:outputPanel>
 					
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="numero" value="Número" />
 							<p:inputText id="numero"
 								value="#{clienteEdit.cliente.endereco.numero}" required="true" requiredMessage="O campo número é obrigaório!">
 								<f:convertNumber integerOnly="true" />
 							</p:inputText>
-						</div>
+						</p:outputPanel>
 
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="zona" value="Zona" />
 							<p:selectOneMenu id="zona" required="true" requiredMessage="O campo zona é obrigatório!"
 								value="#{clienteEdit.cliente.endereco.zona}">
@@ -109,33 +109,33 @@
 								<f:selectItem itemLabel="Zona Urbana" itemValue="Zona Urbana" />
 								<f:selectItem itemLabel="Zona Rural" itemValue="Zona Rural" />
 							</p:selectOneMenu>
-						</div>
-					</div>
+						</p:outputPanel>
+					</p:outputPanel>
 					
-					<div class="form-group row">
+					<p:outputPanel class="form-group row">
         			
-        				<div class="col-sm-4">
+        				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="bairro" value="Bairro" />
 							<p:inputText id="bairro"
 								value="#{clienteEdit.cliente.endereco.bairro}" required="true" requiredMessage="O campo bairro é obrigatório!"/>
-						</div>	
+						</p:outputPanel>	
 						
-						<div class="col-sm-4">	
+						<p:outputPanel class="col-sm-4">	
 							<p:outputLabel for="complemento" value="Complemento" />
 							<p:inputText id="complemento"
 								value="#{clienteEdit.cliente.endereco.complemento}" />
-						</div>
+						</p:outputPanel>
 
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cep" value="CEP" />
 							<p:inputMask mask="99999-999" required="true" requiredMessage="O campo CEP é obrigatório!" id="cep"
 								value="#{clienteEdit.cliente.endereco.cep}" size="3" />
-						</div>
-					</div>
+						</p:outputPanel>
+					</p:outputPanel>
 					
-					<div class="form-group row">
+					<p:outputPanel class="form-group row">
 					
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="estado" value="Estado" />
 
 							<p:selectOneMenu id="estado" required="true" requiredMessage="O campo estado é obrigatório!"
@@ -149,9 +149,9 @@
 								<p:ajax process="@this" event="change" update="cidade"
 									listener="#{clienteEdit.carregarCidades}" />
 							</p:selectOneMenu>
-						</div>
+						</p:outputPanel>
 
-						<div class="col-sm-4">
+						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cidade" value="Cidade" />
 
 							<p:selectOneMenu id="cidade"
@@ -163,14 +163,56 @@
 								<f:selectItems value="#{enderecoBean.cidades}"
 									itemValue="#{cidade}" itemLabel="#{cidade}" var="cidade" />
 							</p:selectOneMenu>
-						</div>
-					</div>
-				</div>
-				
+						</p:outputPanel>
+					</p:outputPanel>
 					
-				<hr class="divider"/>
+					<h3>
+						<strong>Dados de usuário:</strong>
+					</h3>
+					<p:outputPanel class="form-group row">
+
+						<p:outputPanel class="col-sm-3">
+							<p:outputLabel for="grupo" value="Tipo de usuário" />
+
+							<p:selectOneMenu id="grupo" required="true"
+								requiredMessage="O campo tipo de usuário é obrigatório!"
+								value="#{clienteEdit.cliente.grupo}">
+
+								<f:selectItem itemLabel="Selecione um tipo de usuário"
+									noSelectionOption="true" />
+								<f:selectItems value="#{clienteEdit.grupos}"
+									itemValue="#{grupo}" itemLabel="#{grupo.tipoDeUsuario}"
+									var="grupo" />
+							</p:selectOneMenu>
+						</p:outputPanel>
+
+						<p:outputPanel class="col-sm-3">
+							<p:outputLabel for="login" value="Login" />
+							<p:inputText id="login"
+								value="#{clienteEdit.cliente.login}" required="true"
+								requiredMessage="O campo login é obrigatório!" />
+						</p:outputPanel>
+
+						<p:outputPanel class="col-sm-3">
+							<p:outputLabel for="senha" value="Senha" />
+							<p:password id="senha"
+								value="#{clienteEdit.cliente.senha}" feedback="true"
+								inline="true" match="confirmar" label="Senha" required="true" />
+						</p:outputPanel>
+
+						<p:outputPanel class="col-sm-3">
+							<p:outputLabel for="confirmar" value="Confirmar senha" />
+							<p:password id="confirmar" value="#{clienteEdit.cliente.senha}"
+								label="Confirmar senha" required="true" />
+						</p:outputPanel>
+
+					</p:outputPanel>
+
+				</p:outputPanel>
+
+				<p:separator />
 					
-				<div class="box-footer">
+				<p:outputPanel class="box-footer">
 					<h:panelGrid columns="3">
 
 						<p:commandButton
@@ -183,7 +225,7 @@
 							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
 							outcome="/Clientes.xhtml"/>
 					</h:panelGrid>
-				</div>
+				</p:outputPanel>
 			</p:fieldset>
 		</h:form>
 	</ui:define>

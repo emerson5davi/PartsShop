@@ -70,138 +70,138 @@
 						styleClass="text-detail" />
 				</h2>
 
-				<div class="panel panel-default">
+				<p:outputPanel class="panel panel-default">
 
-					<div class="panel-heading">
+					<p:outputPanel class="panel-heading">
 						<h3 class="panel-title">Informações gerais</h3>
-					</div>
+					</p:outputPanel>
 
-					<div class="panel-body">
+					<p:outputPanel class="panel-body">
 
-						<div class="form-group row">
+						<p:outputPanel class="form-group row">
 
-							<div class="col-sm-4">
+							<p:outputPanel class="col-sm-4">
 								<h:outputText value="Nome: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.nome}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-4">
+							<p:outputPanel class="col-sm-4">
 								<h:outputText value="CPF: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.cpf}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-4">
+							<p:outputPanel class="col-sm-4">
 								<h:outputText value="Sexo: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.sexo}" />
-							</div>
+							</p:outputPanel>
 
-						</div>
+						</p:outputPanel>
 
-						<div class="form-group row">
+						<p:outputPanel class="form-group row">
 
 							<c:if test="${clienteViewBean.cliente.telefone != null}">
-								<div class="col-sm-4">
+								<p:outputPanel class="col-sm-4">
 									<h:outputText
 										rendered="#{clienteViewBean.cliente.telefone == '' ? false : true}"
 										value="Telefone: " style="font-weight: bold" />
 									<h:outputText
 										rendered="#{clienteViewBean.cliente.telefone == '' ? false : true}"
 										value="#{clienteViewBean.cliente.telefone}" />
-								</div>								
+								</p:outputPanel>								
 							</c:if>
 							
-							<div class="col-sm-4">
+							<p:outputPanel class="col-sm-4">
 								<h:outputText value="Celular: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.celular}" />
-							</div>
+							</p:outputPanel>
 
 							<c:if test="${clienteViewBean.cliente.email != null}">
-								<div class="col-sm-4">
+								<p:outputPanel class="col-sm-4">
 									<h:outputText
 										rendered="#{clienteViewBean.cliente.email == '' ? false : true}"
 										value="Email: " style="font-weight: bold" />
 									<h:outputText
 										rendered="#{clienteViewBean.cliente.email == '' ? false : true}"
 										value="#{clienteViewBean.cliente.email}" />
-								</div>
+								</p:outputPanel>
 							</c:if>
 							
-						</div>
+						</p:outputPanel>
 
-					</div>
+					</p:outputPanel>
 
-				</div>
+				</p:outputPanel>
 
-				<div class="panel panel-default">
+				<p:outputPanel class="panel panel-default">
 
-					<div class="panel-heading">
+					<p:outputPanel class="panel-heading">
 						<h3 class="panel-title">Informações de endereço</h3>
-					</div>
+					</p:outputPanel>
 
-					<div class="panel-body">
+					<p:outputPanel class="panel-body">
 
-						<div class="form-group row">
+						<p:outputPanel class="form-group row">
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="Endereço: " style="font-weight: bold" />
 								<h:outputText
 									value="#{clienteViewBean.cliente.endereco.logradouro}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="Número: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.endereco.numero}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="Zona: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.endereco.zona}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="Bairro: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.endereco.bairro}" />
-							</div>
+							</p:outputPanel>
 
-						</div>
+						</p:outputPanel>
 
-						<div class="form-group row">
+						<p:outputPanel class="form-group row">
 
 							<c:if test="${clienteViewBean.cliente.endereco.complemento != null}">
-								<div class="col-sm-3">
+								<p:outputPanel class="col-sm-3">
 									<h:outputText
 										rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}"
 										value="Complemento: " style="font-weight: bold" />
 									<h:outputText
 										rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}"
 										value="#{clienteViewBean.cliente.endereco.complemento}" />
-								</div>
+								</p:outputPanel>
 							</c:if>
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="CEP: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.endereco.cep}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="Cidade: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.endereco.cidade}" />
-							</div>
+							</p:outputPanel>
 
-							<div class="col-sm-3">
+							<p:outputPanel class="col-sm-3">
 								<h:outputText value="Estado: " style="font-weight: bold" />
 								<h:outputText value="#{clienteViewBean.cliente.endereco.estado}" />
-							</div>
-						</div>
-					</div>
-				</div>
+							</p:outputPanel>
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
 
-				<div class="panel panel-default">
-					<div class="panel-heading">
+				<p:outputPanel class="panel panel-default">
+					<p:outputPanel class="panel-heading">
 						<h3 class="panel-title">Compras</h3>
-					</div>
+					</p:outputPanel>
 
-					<div class="table-responsive">
+					<p:outputPanel class="table-responsive">
 						<p:dataTable id="tableCompras" var="compra"
 							value="#{compraBean.getComprasByCliente(cliente)}" paginatorPosition="bottom"
 							rows="15" paginator="true" paginatorAlwaysVisible="false"
@@ -211,11 +211,11 @@
 							selection="#{compraBean.selectedCompra}">
 
 							<f:facet name="header">
-								<div align="left">
+								<p:outputPanel align="left">
 									<p:inputText id="globalFilter"
 										onkeyup="PF('findCompra').filter()" style="width:300px;"
 										placeholder="Buscar compras" />
-								</div>
+								</p:outputPanel>
 							</f:facet>
 
 							<p:ajax event="rowSelect" listener="#{compraBean.renderTo}">
@@ -254,8 +254,8 @@
 							</p:column>
 							
 						</p:dataTable>
-					</div>
-				</div>
+					</p:outputPanel>
+				</p:outputPanel>
 
 				<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
 					height="500" width="500">

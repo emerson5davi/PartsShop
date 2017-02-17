@@ -526,3 +526,7 @@ table.dataTable thead .sorting:after {
     color: #444;
     border-top: 1px solid #d2d6de;
 }
+
+.ui-messages .ui-icon {
+   background-image: url(/PartsShop/javax.faces.resource/images/ui-icons_616161_256x240.png.xhtml?ln=primefaces-aristo);
+}

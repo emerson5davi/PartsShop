@@ -27,9 +27,6 @@ public class ClienteService implements Serializable{
 		if(c != null){
 			throw new PartsShopExceptionHandler("Já existe um cliente com este CPF cadastrado");
 		}
-		if(cliente.getNome().trim().equals("")){
-			throw new PartsShopExceptionHandler("O campo nome é obrigatório!");
-		}
 		dao.add(cliente);
 	}
 	
@@ -41,10 +38,7 @@ public class ClienteService implements Serializable{
 		return dao.findById(id);
 	}
 	
-	public Cliente update(Cliente cliente) throws PartsShopException{
-		if(cliente.getNome().trim().equals("")){
-			throw new PartsShopExceptionHandler("O campo nome é obrigatório!");
-		}
+	public Cliente update(Cliente cliente){
 		return dao.update(cliente);
 	}
 	

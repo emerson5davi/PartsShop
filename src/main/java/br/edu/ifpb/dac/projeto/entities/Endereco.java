@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +20,8 @@ import br.edu.ifpb.dac.projeto.enumerations.Estados;
 
 @Entity
 @Table(name = "TB_ENDERECO")
+
+@NamedQueries({ @NamedQuery(name = "Endereco.findByLogradouro", query = "SELECT e FROM Endereco e WHERE LOWER(e.logradouro) LIKE (:logradouro)") })
 public class Endereco implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
