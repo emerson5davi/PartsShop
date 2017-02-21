@@ -17,7 +17,7 @@
 	<ui:define name="newButton">
 		<p:button id="buttonNewCompra" icon="fa fa-plus" value="NOVO"
 			styleClass="btnn btnn-primary btnn-shadow btnn-rc" style="float: right;padding: 2px 3px !important;
-	font-size: 17px !important" outcome="/CompraEdit.xhtml">
+	font-size: 17px !important" outcome="/paginas/admin/compra/CompraEdit.xhtml">
 		</p:button>
 	</ui:define>
 
@@ -67,11 +67,15 @@
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Cliente" width="12%" filterBy="#{compra.cliente.nome}" filterStyle="display:none;"> 
+				<p:column headerText="Cliente" width="8%" filterBy="#{compra.cliente.nome}" filterStyle="display:none;"> 
 					<h:outputText id="cliente" value="#{compra.cliente.nome}" />
 				</p:column>
-
-				<p:column headerText="Quantidade" width="3%">
+				
+				<p:column headerText="Forma de pagamento" width="4%" filterBy="#{compra.pagamento.payment.tipoDePagamento}" filterStyle="display:none;"> 
+					<h:outputText id="payment" value="#{compra.pagamento.payment.tipoDePagamento}" />
+				</p:column>
+				
+				<p:column headerText="Quantidade" width="2%">
 					<h:outputText id="quant" value="#{compraBean.getQuantidade(compra)}" />
 				</p:column>
 				
@@ -80,7 +84,7 @@
 				</p:column>
 
 				<p:column headerText="Valor" width="3%">
-					<h:outputText id="valor" value="#{compraBean.getValor(compra)}" />
+					<h:outputText id="valor" value="R$ #{compraBean.getValor(compra)}" />
 				</p:column>				
 			</p:dataTable>
 		</h:form>

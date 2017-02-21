@@ -5,6 +5,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Compra;
@@ -15,7 +16,8 @@ import br.edu.ifpb.dac.projeto.services.CompraService;
 @FacesConverter(forClass = Compra.class)
 public class CompraConverter implements Converter {
 
-	private CompraService compraService = new CompraService();
+	@Inject
+	private CompraService compraService;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,

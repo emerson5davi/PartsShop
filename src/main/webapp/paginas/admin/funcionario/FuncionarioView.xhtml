@@ -19,7 +19,7 @@
 	<ui:define name="breadcrumb-header">
 		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
 		</li>
-		<li><a href="Funcionarios.xhtml"></a></li>
+		<li><a href="paginas/admin/funcionario/Funcionarios.xhtml"></a></li>
 		<li class="active">Detalhes Funcionário</li>
 	</ui:define>
 	
@@ -33,7 +33,7 @@
 
 			<h:panelGrid columns="3">
 
-				<p:button value="editar" id="btEdit" outcome="/FuncionarioEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rc">
+				<p:button value="editar" id="btEdit" outcome="/paginas/admin/funcionario/FuncionarioEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rc">
 					<f:param name="funcionario" value="#{funcionarioViewBean.funcionario.id}"/>	
 				</p:button>
 
@@ -42,7 +42,7 @@
 					 <p:confirm header="Remoção de funcionário" message="Deseja remover este funcionário?"/>
     			</p:commandButton>
 
-				<p:button value="voltar" id="btvoltar" outcome="/Funcionarios.xhtml" icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc"/>
+				<p:button value="voltar" id="btvoltar" outcome="/paginas/admin/funcionario/Funcionarios.xhtml" icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc"/>
 
 
 			</h:panelGrid>
@@ -209,7 +209,7 @@
 	
 					</p:outputPanel>
 					
-				</p:outputPanel>>
+				</p:outputPanel>
 				
 			</p:fieldset>
 		

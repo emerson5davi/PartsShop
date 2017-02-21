@@ -1,8 +1,9 @@
 package br.edu.ifpb.dac.projeto.beans.peca;
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
@@ -11,14 +12,15 @@ import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 import br.edu.ifpb.dac.projeto.util.messages.MessageUtils;
 
 @ViewScoped
-@ManagedBean
+@Named
 public class PecaEdit implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	private Peca peca;
 	
-	private PecaService pecaService = new PecaService();
+	@Inject
+	private PecaService pecaService;
 	
 	public void preRenderView() {
 		if (peca == null) {

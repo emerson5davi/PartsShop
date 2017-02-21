@@ -22,7 +22,7 @@
 			cliente'}</small>
 	</ui:define>
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i>  <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/Home.xhtml">Dashboard</a>
 		</li>
 		<li><a href="#{clienteEdit.edicaoDeCliente ? 'ClienteView.xhtml' : 'Clientes.xhtml'}">#{clienteEdit.edicaoDeCliente ? 'Detalhes Cliente' : 'Clientes'}</a></li>
 		<li class="active">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</li>
@@ -223,7 +223,7 @@
 
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
 							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
-							outcome="/Clientes.xhtml"/>
+							outcome="/paginas/admin/cliente/Clientes.xhtml"/>
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:fieldset>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+
+	<f:metadata>
+		<o:viewParam name="divida" value="#{dividaEdit.divida}"
+			converter="#{dividaConverter}" />
+		<f:event listener="#{dividaEdit.preRenderView}" type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="titulo">#{dividaEdit.edicaoDeDivida ? 'Editar Dívida' : 'Nova Dívida'}</ui:define>
+	<ui:define name="content-header">#{dividaEdit.edicaoDeDivida ? 'Editar Dívida' : 'Nova Dívida'}
+		<small>#{dividaEdit.edicaoDeDivida ?
+			'Dívida: '.concat(dividaEdit.divida.codBarra) : 'cadastrar nova
+			dívida'}</small>
+	</ui:define>
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
+		</li>
+		<li><a href="#{dividaEdit.edicaoDeDivida ? 'DividaView.xhtml' : 'Dividas.xhtml'}">#{dividaEdit.edicaoDeDivida ? 'Detalhes Dívida' : 'Dívidas'}</a></li>
+		<li class="active">#{dividaEdit.edicaoDeDivida ? 'Editar Dívida' : 'Novo Dívida'}</li>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+
+		<h:form id="formRegisterDivida">
+			<p:messages id="messages" autoUpdate="true"
+				closable="true" showDetail="true"/>
+
+			<p:fieldset styleClass="box box-success">
+				<p:outputPanel class="ui-fluid">
+					<h3><strong>Dados da dívida:</strong></h3>
+					<p:outputPanel class="form-group row">
+					
+						<p:outputPanel class="col-sm-10">
+							<p:outputLabel for="codBarra" value="Código de barra" />
+							<p:inputText id="codBarra" value="#{dividaEdit.divida.codBarra}"
+								required="true" requiredMessage="O campo código de barra é obrigatório!">
+								<f:convertNumber integerOnly="true" />
+							</p:inputText>
+						</p:outputPanel>
+					</p:outputPanel>
+					
+					<p:outputPanel class="form-group row">
+        				<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="nomeEmpresa" value="Nome da Empresa" />
+							<p:inputText id="nomeEmpresa" value="#{dividaEdit.divida.nomeEmpresa}"
+								required="true" requiredMessage="O campo nome da empresa é obrigatório!"/>
+						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="dataVencimento" value="Data de vencimento" />
+							<ui:include src="/WEB-INF/templates/_calendar.xhtml">
+								<ui:param name="id" value="dataVencimento" />
+								<ui:param name="required" value="true" />
+								<ui:param name="value" value="#{dividaEdit.divida.dataVencimento}" />
+								<ui:param name="name" value="Data de Vencimento" />
+							</ui:include>
+						</p:outputPanel>
+
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="valor" value="Valor" />
+							<p:inputText id="valor"
+								value="#{dividaEdit.divida.valor}">
+								<f:convertNumber integerOnly="true" />
+							</p:inputText>
+						</p:outputPanel>
+						
+					</p:outputPanel>
+				
+				</p:outputPanel>
+
+				<p:separator />
+					
+				<p:outputPanel class="box-footer">
+					<h:panelGrid columns="3">
+
+						<p:commandButton
+							value="#{dividaEdit.edicaoDeDivida ? 'Editar' : 'Salvar'}"
+							id="btSave" icon="fa fa-floppy-o" style="float: left;"
+							styleClass="btnn btnn-primary btnn-shadow btnn-rc"
+							action="#{dividaEdit.save}" process="formRegisterDivida" />
+
+						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
+							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
+							outcome="/paginas/admin/divida/Dividas.xhtml"/>
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

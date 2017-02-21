@@ -1,51 +1,68 @@
 package br.edu.ifpb.dac.projeto.services;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import br.edu.ifpb.dac.projeto.dao.FuncionarioDao;
 import br.edu.ifpb.dac.projeto.entities.Funcionario;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopExceptionHandler;
+import br.edu.ifpb.dac.projeto.util.jpa.TransacionalCdi;
 
 public class FuncionarioService implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private FuncionarioDao dao = new FuncionarioDao();
+	@Inject
+	private FuncionarioDao dao;
 
 	public FuncionarioService() {
 	}
 	
-	public FuncionarioService(FuncionarioDao funcionarioDao){
-		this.dao = funcionarioDao;
-		
-	}
-	
+	@TransacionalCdi
 	public void add(Funcionario funcionario) throws PartsShopException {
 		Funcionario f = dao.findByCPF(funcionario.getCpf());
+		
 		if(f != null){
 			throw new PartsShopExceptionHandler("Já existe um funcionário com este CPF cadastrado");
 		}
+
+		for (Funcionario funcionario2 : findAll()) {
+			if(funcionario2.getLogin().equals(funcionario.getLogin())){
+				throw new PartsShopExceptionHandler("Já existe um usuário com este Login cadastrado");
+			}
+		}
+		
 		dao.add(funcionario);
 	}
 	
+	@TransacionalCdi
 	public void remove(Funcionario funcionario) throws PartsShopException {
 		dao.remove(funcionario);
 	}
 
+	@TransacionalCdi
 	public Funcionario findById(Long id){
 		return dao.findById(id);
 	}
 	
+	@TransacionalCdi
 	public Funcionario update(Funcionario funcionario){
 		return dao.update(funcionario);
 	}
 	
+	@TransacionalCdi
 	public List<Funcionario> findAll() {
 		return dao.findAll();
 	}
 	
+	@TransacionalCdi
 	public Long getTotalFuncionarios() {
 		Long result = 0l;
 		try {
@@ -56,6 +73,7 @@ public class FuncionarioService implements Serializable{
 		return result;
 	}
 	
+	@TransacionalCdi
 	public Funcionario findByCPF(String cpf) {
 		Funcionario result = null;
 		try {
@@ -66,6 +84,7 @@ public class FuncionarioService implements Serializable{
 		return result;
 	}
 
+	@TransacionalCdi
 	public List<Funcionario> findByNome(String nome) {
 		List<Funcionario> results = null;
 		try {
@@ -74,5 +93,25 @@ public class FuncionarioService implements Serializable{
 			e.printStackTrace();
 		}
 		return results;
+	}
+	
+	public void criptografarSenha(Funcionario funcionario) throws ServicePartsShopException {
+		funcionario.setSenha(criptografarSenha(funcionario.getSenha()));
+	}
+
+	private static String criptografarSenha(String password) throws ServicePartsShopException {
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+			md.update(password.getBytes("UTF-8"));
+			byte[] digest = md.digest();
+			BigInteger bigInt = new BigInteger(1, digest);
+			String output = bigInt.toString(16);
+			return output;
+		} catch (NoSuchAlgorithmException e) {
+			throw new ServicePartsShopException("Não foi possível criptografar a senha!");
+		} catch (UnsupportedEncodingException e) {
+			throw new ServicePartsShopException("Não foi possível criptografar a senha!");
+		}
 	}
 }

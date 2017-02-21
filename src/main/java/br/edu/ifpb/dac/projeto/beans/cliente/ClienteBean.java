@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
@@ -12,8 +14,8 @@ import br.edu.ifpb.dac.projeto.services.ClienteService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 import br.edu.ifpb.dac.projeto.util.messages.MessageUtils;
 
-
-@ManagedBean
+@ViewScoped
+@Named
 public class ClienteBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -22,11 +24,11 @@ public class ClienteBean implements Serializable{
 
 	private Cliente selectedCliente;
 	
+	@Inject
 	private ClienteService clienteService;
 
 	@PostConstruct
 	public void init() {
-		clienteService = new ClienteService();
 		carregarClientes();
 	}
 	

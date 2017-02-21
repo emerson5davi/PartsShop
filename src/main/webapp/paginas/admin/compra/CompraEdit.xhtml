@@ -20,7 +20,7 @@
 	</ui:define>
 	
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i>  <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/Home.xhtml">Dashboard</a>
 		</li>
 		<li><a href="#{compraEdit.compraEdited ? 'CompraView.xhtml' : 'Compras.xhtml'}">#{compraEdit.compraEdited ? 'Detalhes Compra' : 'Compras'}</a></li>
 		<li class="active">#{compraEdit.compraEdited ? 'Editar Compra' : 'Nova Compra'}</li>
@@ -131,7 +131,7 @@
 							</p:outputPanel>
 						</p:tab>
 
-						<p:tab id="tab_pagamento" title="Dados de pagamento">
+						<p:tab id="tab_pagamento" title="Dados de pagamento" >
 
 							<p:outputPanel class="form-group row">
 								<p:outputPanel class="col-sm-4">
@@ -148,7 +148,7 @@
 										<f:selectItems value="#{compraEdit.payments}"
 											itemValue="#{payment}" itemLabel="#{payment.tipoDePagamento}"
 											var="payment" />
-										<p:ajax update=":formRegisterCompra:tabView:formPagamento lbNum numDeParcelas" />
+										<p:ajax update=":formRegisterCompra:tabView:formPagamento valor" listener="#{compraEdit.calcularValorTotal}" />
 									</p:selectOneMenu>
 								</p:outputPanel>
 
@@ -156,14 +156,14 @@
 									<p:outputLabel for="valor" value="Valor total da compra: " />
 									<p:inputText id="valor" required="true" style="width: 255px"
 										requiredMessage="O campo valor é obrigatório!"
-										value="#{compraEdit.pagamento.valor}">
+										value="R$ #{compraEdit.pagamento.valor}" disabled="true">
 										<f:convertNumber maxFractionDigits="2" />
 									</p:inputText>
 								</p:outputPanel>
 							</p:outputPanel>
 							
 							<p:outputPanel id="formPagamento" class="form-group row">
-								<p:outputPanel class="col-sm-4">
+								<p:outputPanel class="col-sm-4" rendered="#{compraEdit.pagamento.payment == 'CARTAO' ? true : false}">
 									<p:outputLabel id="lbNum" for="numDeParcelas"
 										value="Número de parcelas: " />
 
@@ -175,7 +175,7 @@
 									</p:spinner>
 								</p:outputPanel>
 
-								<p:outputPanel class="col-sm-4">
+								<p:outputPanel class="col-sm-4" rendered="#{compraEdit.pagamento.payment == 'CARTAO' ? true : false}">
 									<p:outputLabel for="valorParcelas" value="Valor das parcelas"/>
 									<p:inputText id="valorParcelas"
 										value="#{compraEdit.valorParcela}" disabled="true" />
@@ -200,7 +200,7 @@
 						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
 							style="float:left;"
 							styleClass="btnn btnn-default btnn-shadow btnn-rc"
-							outcome="/Compras.xhtml" />
+							outcome="/paginas/admin/compra/Compras.xhtml" />
 					</h:panelGrid>
 				</p:outputPanel>
 

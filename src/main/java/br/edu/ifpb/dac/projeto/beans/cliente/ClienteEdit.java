@@ -3,8 +3,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.entities.Endereco;
@@ -12,22 +13,27 @@ import br.edu.ifpb.dac.projeto.enumerations.Grupo;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.services.ClienteService;
 import br.edu.ifpb.dac.projeto.services.EnderecoService;
+import br.edu.ifpb.dac.projeto.services.ServicePartsShopException;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 import br.edu.ifpb.dac.projeto.util.messages.MessageUtils;
 
 @ViewScoped
-@ManagedBean
+@Named
 public class ClienteEdit implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	private Cliente cliente;
 	
-	private ClienteService clienteService = new ClienteService();
+	private String senhaAntiga;
 	
-	private EnderecoService enderecoService = new EnderecoService();
+	@Inject
+	private ClienteService clienteService;
 	
-	private List<Grupo> grupos = Arrays.asList(Grupo.values());
+	@Inject
+	private EnderecoService enderecoService;
+	
+	private List<Grupo> grupos = Arrays.asList(Grupo.CLIENTE);
 
 	public void preRenderView() {
 		if (cliente == null) {
@@ -36,16 +42,26 @@ public class ClienteEdit implements Serializable{
 		}
 		else{
 			this.carregarCidades();
+			senhaAntiga = cliente.getSenha();
 		}
 	}
 
 	public void saveCliente(){
 		if (isEdicaoDeCliente()) {
+			if (!cliente.getSenha().equals(senhaAntiga)) {
+				try {
+					clienteService.criptografarSenha(cliente);
+				} catch (ServicePartsShopException e) {
+					MessageUtils.messageError(e.getMessage());
+				}
+			}
 			clienteService.update(cliente);
 			MessageUtils.messageSucess("Cliente atualizado com sucesso.");
 			JSFUtils.rederTo("ClienteView.xhtml");
+			JSFUtils.setParam("cliente", cliente);
 		} else {
 			try {
+				clienteService.criptografarSenha(cliente);
 				clienteService.add(cliente);
 				MessageUtils.messageSucess("Cliente cadastrado com sucesso.");
 				JSFUtils.rederTo("ClienteView.xhtml");

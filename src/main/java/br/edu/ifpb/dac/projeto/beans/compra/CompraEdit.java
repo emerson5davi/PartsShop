@@ -1,11 +1,13 @@
 package br.edu.ifpb.dac.projeto.beans.compra;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Cliente;
@@ -28,13 +30,17 @@ public class CompraEdit implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private CompraService compraService = new CompraService();
+	@Inject
+	private CompraService compraService;
 
-	private PecaService pecaService = new PecaService();
+	@Inject
+	private PecaService pecaService;
 	
-	private ClienteService clienteService = new ClienteService();
+	@Inject
+	private ClienteService clienteService;
 	
-	private PagamentoService pagamentoService = new PagamentoService();
+	@Inject
+	private PagamentoService pagamentoService;
 	
 	private List<Payment> payments = new ArrayList<Payment>();
 	
@@ -178,6 +184,9 @@ public class CompraEdit implements Serializable {
 		this.selectedItemCompra.setPreco(precoPeca);
 	}
 	
+	public void calcularValorTotal(){
+		pagamento.setValor(BigDecimal.valueOf(CompraBean.getValor(compra)));
+	}
 	
 	public void calcularValorParcela(){
 		Double total = 0.0;

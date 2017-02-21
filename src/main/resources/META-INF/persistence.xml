@@ -5,6 +5,8 @@
 	<persistence-unit name="partsshop" transaction-type="RESOURCE_LOCAL">
 
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<non-jta-data-source>jdbc/PartsShop</non-jta-data-source>
+		
 		<class>br.edu.ifpb.dac.projeto.entities.Cliente</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Endereco</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Funcionario</class>
@@ -15,23 +17,18 @@
 		<class>br.edu.ifpb.dac.projeto.entities.Pagamento</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Pessoa</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Usuario</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Divida</class>
 
 		<properties>
 
 			<!-- Configuração Hibernate SGBD PostgreSQL -->
-			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/DAC" />
-			<property name="hibernate.connection.dialect" value="org.hibernate.dialect.PostgreSQL9" />
-			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
-			<property name="hibernate.connection.username" value="postgres" />
-			<property name="hibernate.connection.password" value="12345" />
 			<property name="hibernate.default_schema" value="public" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			
-			<property name="hibernate.c3p0.min_size" value="5" />
-			<property name="hibernate.c3p0.max_size" value="20" />
-			<property name="hibernate.c3p0.timeout" value="3000" />
-			<property name="hibernate.c3p0.max_statements" value="50" />
-			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
+			<!-- /Configuração Hibernate SGBD PostgreSQL -->
 
 		</properties>
 	</persistence-unit>

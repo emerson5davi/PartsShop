@@ -39,7 +39,6 @@ public class Pagamento implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Payment payment;
 
-	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
 	private Date data_pagamento;

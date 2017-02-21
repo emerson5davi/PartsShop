@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+
+	<ui:define name="titulo">Dívidas</ui:define>
+
+	<ui:define name="content-header">Dívidas <small>Pesquisar
+			dívida cadastrada</small>
+	</ui:define>
+
+	<ui:define name="newButton">
+		<p:button id="buttonNewdivida" icon="fa fa-plus" value="NOVO"
+			styleClass="btnn btnn-primary btnn-shadow btnn-rc"
+			style="float: right;padding: 2px 3px !important;
+	font-size: 17px !important"
+			outcome="/paginas/admin/divida/DividaEdit.xhtml">
+		</p:button>
+	</ui:define>
+
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a
+			href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a></li>
+		<li class="active">Dívidas</li>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="formDividas">
+			<p:messages id="messages" autoUpdate="true" closable="true"
+				showDetail="true" />
+
+			<p:dataTable id="tableDividas" var="divida"
+				value="#{dividaBean.dividas}" paginatorPosition="bottom" rows="15"
+				paginator="true" paginatorAlwaysVisible="false"
+				widgetVar="findDivida" reflow="true"
+				emptyMessage="Nenhuma dívida cadastrada" rowKey="#{divida.id}"
+				styleClass="ui-datatable" selectionMode="single"
+				sortOrder="descending" selection="#{dividaBean.selectedDivida}">
+
+				<f:facet name="header">
+					<div align="left">
+						<p:inputText id="globalFilter" onkeyup="PF('findDivida').filter()"
+							style="width:300px;" placeholder="Buscar dívida" />
+					</div>
+				</f:facet>
+
+				<p:ajax event="rowSelect" listener="#{dividaBean.renderTo}">
+					<f:setPropertyActionListener value="#{divida}"
+						target="#{dividaViewBean.divida}" />
+				</p:ajax>
+
+				<p:column headerText="#" width="1%" filterBy="#{divida.id}"
+					sortBy="#{divida.id}" filterStyle="display:none;">
+					<h:outputText id="id" value="#{divida.id}" />
+				</p:column>
+
+				<p:column headerText="Data Vencimento" width="2%" filterBy="#{divida.dataVencimento}"
+					sortBy="#{divida.dataVencimento}" filterStyle="display:none;">
+					<h:outputText id="dataVencimento" value="#{divida.dataVencimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Nome da Empresa" width="2%" filterBy="#{divida.nomeEmpresa}"
+					sortBy="#{divida.nomeEmpresa}" filterStyle="display:none;">
+					<h:outputText id="nomeEmpresa" value="#{divida.nomeEmpresa}" />
+				</p:column>
+
+				<p:column headerText="Valor" width="2%">
+					<h:outputText id="valor" value="R$ #{divida.valor}" />
+				</p:column>
+				
+				<p:column headerText="Status" width="2%">
+					<h:outputText id="status" value="#{dividaBean.getStatus(divida)}" styleClass="#{dividaBean.updateLabelStatus(dividaBean.getStatus(divida))}"/>
+				</p:column>
+				
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

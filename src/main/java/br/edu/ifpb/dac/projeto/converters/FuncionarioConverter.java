@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Funcionario;
@@ -17,7 +18,8 @@ import br.edu.ifpb.dac.projeto.services.FuncionarioService;
 @FacesConverter(forClass=Funcionario.class)
 public class FuncionarioConverter implements Converter{
 
-	private FuncionarioService funcionarioService = new FuncionarioService();
+	@Inject
+	private FuncionarioService funcionarioService;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,

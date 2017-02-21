@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Peca;
@@ -17,7 +18,8 @@ import br.edu.ifpb.dac.projeto.services.PecaService;
 @FacesConverter(forClass=Peca.class)
 public class PecaConverter implements Converter{
 
-	private PecaService pecaService = new PecaService();
+	@Inject
+	private PecaService pecaService;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,

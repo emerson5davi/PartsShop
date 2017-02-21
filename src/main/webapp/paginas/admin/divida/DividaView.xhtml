@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+
+	<f:metadata>
+		<o:viewParam name="divida" value="#{dividaView.divida}"
+			converter="#{dividaConverter}" />
+		<f:event listener="#{dividaView.preRenderView()}" type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="titulo">Detalhes Dívida</ui:define>
+	<ui:define name="content-header">Detalhes Dívida <small>Visualizar informações da dívida</small></ui:define>
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a
+			href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a></li>
+		<li><a
+			href="#{request.contextPath}/paginas/admin/divida/Dividas.xhtml">Dívidas</a></li>
+		<li class="active">Detalhes Dívida</li>
+	</ui:define>
+	
+
+	<ui:define name="conteudo">
+
+		<h:form id="detailForm">
+			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml"/>
+
+			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
+
+			<h:panelGrid columns="3">
+
+				<p:button value="editar" id="btEdit" outcome="/paginas/admin/divida/DividaEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rc">
+					<f:param name="divida" value="#{dividaView.divida.id}"/>	
+				</p:button>
+
+				<p:commandButton value="Remover" id="btRemove" action="#{dividaBean.remove}" icon="fa fa-trash" styleClass="btnn btnn-danger btnn-shadow btnn-rc">
+					<f:setPropertyActionListener value="#{dividaView.divida}" target="#{dividaBean.selectedDivida}" />
+					 <p:confirm header="Remoção de dívida" message="Deseja remover esta dívida?"/>
+    			</p:commandButton>
+
+				<p:button value="voltar" id="btvoltar" outcome="/paginas/admin/divida/Dividas.xhtml" icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc"/>
+
+
+			</h:panelGrid>
+
+			<p:fieldset id="infor_detail" style="margin-top:10px;" styleClass="box box-success">
+				<h2 class="page-header">
+					<p:outputLabel value="Dívida: #{dividaView.divida.id}" styleClass="text-detail" />
+				</h2>
+				
+				<p:outputPanel class="panel panel-default">
+
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Informações da dívida</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="panel-body">
+
+						<p:outputPanel class="form-group row">
+						
+							<p:outputPanel class="col-sm-12">
+								<h:outputText value="Código de barra: " style="font-weight: bold"/>
+								<h:outputText value="#{dividaView.divida.codBarra}"/>
+							</p:outputPanel>
+						
+						</p:outputPanel>
+						
+						<p:outputPanel class="form-group row">	
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Nome da empresa: " style="font-weight: bold"/>
+								<h:outputText value="#{dividaView.divida.nomeEmpresa}"/>
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4">
+								<h:outputText
+									rendered="#{dividaView.divida.dataVencimento == '' ? false : true}"
+									value="#{dividaView.divida.dataVencimento}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4">	
+								<h:outputText value="Valor: " style="font-weight: bold"/>
+								<h:outputText value="R$ #{dividaView.divida.valor}"/>
+							</p:outputPanel>
+							
+						</p:outputPanel>
+						
+					</p:outputPanel>
+					
+				</p:outputPanel>
+				
+			</p:fieldset>
+		
+		</h:form>
+		
+	</ui:define>
+
+</ui:composition>

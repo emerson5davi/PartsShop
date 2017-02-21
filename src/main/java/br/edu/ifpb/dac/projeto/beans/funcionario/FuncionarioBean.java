@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Funcionario;
 import br.edu.ifpb.dac.projeto.enumerations.OrgsExpeds;
@@ -14,8 +16,8 @@ import br.edu.ifpb.dac.projeto.services.FuncionarioService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 import br.edu.ifpb.dac.projeto.util.messages.MessageUtils;
 
-
-@ManagedBean
+@Named
+@ViewScoped
 public class FuncionarioBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,12 +27,12 @@ public class FuncionarioBean implements Serializable{
 	private List<OrgsExpeds> orgaos;
 
 	private Funcionario selectedFuncionario;
-	
+
+	@Inject
 	private FuncionarioService funcionarioService;
 
 	@PostConstruct
 	public void init() {
-		funcionarioService = new FuncionarioService();
 		carregarFuncionarios();
 	}
 	

@@ -1,25 +1,19 @@
 package br.edu.ifpb.dac.projeto.dao;
 
+import java.io.Serializable;
+
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
-public abstract class Dao {
+public abstract class Dao implements Serializable{
 
-	static EntityManagerFactory emf;
-	
-	static {
-		emf = Persistence.createEntityManagerFactory("partsshop");
-	}
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private EntityManager em;
 	
 	protected EntityManager getEntityManager() {
-		return emf.createEntityManager();
+		return em;
 	}
 	
-	public void close() {
-		if (emf.isOpen()) {
-			emf.close();
-		}
-	}
 }
-

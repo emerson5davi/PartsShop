@@ -2,13 +2,13 @@ package br.edu.ifpb.dac.projeto.beans.compra;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Compra;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class CompraViewBean implements Serializable {
 

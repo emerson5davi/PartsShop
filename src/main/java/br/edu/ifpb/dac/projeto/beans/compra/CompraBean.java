@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.entities.Compra;
 import br.edu.ifpb.dac.projeto.entities.ItemCompra;
+import br.edu.ifpb.dac.projeto.entities.ItemPagamento;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.services.CompraService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
@@ -22,11 +24,16 @@ public class CompraBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private CompraService compraService = new CompraService();
+	@Inject
+	private CompraService compraService;
 
 	private List<Compra> compras;
 	
 	private Compra selectedCompra;
+	
+	private ItemPagamento itemPagamento;
+	
+	private List<ItemPagamento> itensPagamento;
 	
 	@PostConstruct
 	public void init(){
@@ -46,6 +53,7 @@ public class CompraBean implements Serializable {
 	
 	public void listOfCompras(){
 		this.compras = compraService.findAll();
+		this.itensPagamento = new ArrayList<ItemPagamento>();
 	}
 	
 	public String getPecas(Compra compra){
@@ -76,12 +84,21 @@ public class CompraBean implements Serializable {
 		return Integer.toString(quant);
 	}
 	
-	public String getValor(Compra compra){
+	public static Double getValor(Compra compra){
 		double valor = 0;
 		for (ItemCompra itemCompra : compra.getItensCompra()) {
 			valor += itemCompra.getPreco();
 		}
-		return "R$ "+Double.toString(valor);
+		
+		return valor;
+	}
+
+	public ItemPagamento getItemPagamento() {
+		return itemPagamento;
+	}
+
+	public void setItemPagamento(ItemPagamento itemPagamento) {
+		this.itemPagamento = itemPagamento;
 	}
 
 	public List<Compra> getCompras() {
@@ -107,6 +124,27 @@ public class CompraBean implements Serializable {
 				lista.add(compra);
 			}
 		}
+		
 		return lista;
+	}
+	
+	public String getPayment(Compra compra){
+		return compra.getPagamento().getPayment().getTipoDePagamento();
+	}
+	
+	public Double getTotalCompras(Cliente cliente){
+		double total = 0.0;
+		for (Compra compra : getComprasByCliente(cliente)) {
+			total += getValor(compra);
+		}
+		return total;
+	}
+	
+	public void setItensPagamento(List<ItemPagamento> itensPagamento) {
+		this.itensPagamento = itensPagamento;
+	}
+	
+	public List<ItemPagamento> getItensPagamento(){
+		return itensPagamento;
 	}
 }

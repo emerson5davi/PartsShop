@@ -51,7 +51,7 @@ public class Compra implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cod_pagamento")
 	private Pagamento pagamento;
-
+	
 	public Long getId() {
 		return id;
 	}

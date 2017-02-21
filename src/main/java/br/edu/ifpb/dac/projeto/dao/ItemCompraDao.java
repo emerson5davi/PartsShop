@@ -1,10 +1,8 @@
 package br.edu.ifpb.dac.projeto.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -14,85 +12,9 @@ import br.edu.ifpb.dac.projeto.entities.ItemCompra;
 import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 
-public class ItemCompraDao extends Dao implements Serializable{
+public class ItemCompraDao extends AbstractDao<ItemCompra> {
 	
 private static final long serialVersionUID = 1L;
-	
-	public void add(ItemCompra itemCompra) {
-		EntityManager em = getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		try {
-			em.persist(itemCompra);
-			transaction.commit();
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			transaction.rollback();
-		} finally {
-			em.close();
-		}
-	}
-
-	public ItemCompra update(ItemCompra itemCompra) {
-		EntityManager em = getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		ItemCompra resultado = itemCompra;
-		try {
-			resultado = em.merge(itemCompra);
-			transaction.commit();
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			transaction.rollback();
-		} finally {
-			em.close();
-		}
-		return resultado;
-	}
-
-	public void remove(ItemCompra itemCompra) {
-		EntityManager em = getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		try {
-			itemCompra = em.find(ItemCompra.class, itemCompra.getId());
-			em.remove(itemCompra);
-			transaction.commit();
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			transaction.rollback();
-		} finally {
-			em.close();
-		}
-	}
-
-	public ItemCompra findById(Long id) {
-		EntityManager em = getEntityManager();
-		ItemCompra resultado = null;
-		try {
-			resultado = em.find(ItemCompra.class, id);
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-		} finally {
-			em.close();
-		}
-
-		return resultado;
-	}
-
-	public List<ItemCompra> findAll() {
-		EntityManager em = getEntityManager();
-		List<ItemCompra> resultado = null;
-		try {
-			TypedQuery<ItemCompra> query = em.createQuery("SELECT i FROM ItemCompra i", ItemCompra.class);
-			resultado = query.getResultList();
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-		} finally {
-			em.close();
-		}
-		return resultado;
-	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getTotalPorPeca() throws PartsShopException{
@@ -104,8 +26,6 @@ private static final long serialVersionUID = 1L;
 			result =  query.getResultList();
 		} catch (PersistenceException e) {
 			throw new PartsShopException("Erro ao tentar recuperar o total de peças"+e.getMessage());
-		} finally {
-			em.close();
 		}
 		return result;
 	}
@@ -115,7 +35,6 @@ private static final long serialVersionUID = 1L;
 		TypedQuery<ItemCompra> query = em.createNamedQuery("itemCompra.findByPeca", ItemCompra.class);
 		query.setParameter("peca", peca);
 		List<ItemCompra> result = query.getResultList();
-		em.close();
 		return result;
 	}
 	
@@ -130,8 +49,6 @@ private static final long serialVersionUID = 1L;
 			return 0l;
 		} catch (PersistenceException e) {
 			throw new PartsShopException("Erro ao tentar obter a quantidade de itens de compra por peça"+e.getMessage());
-		} finally {
-			em.close();
 		}
 		return result;
 	}

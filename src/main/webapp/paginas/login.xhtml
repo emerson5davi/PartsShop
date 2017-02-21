@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+<h:head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>PartsShop</title>
+
+	<link rel="stylesheet" type="text/css"
+		href="/PartsShop/resources/SbAdmin2/algaworks/stylesheets/vendors.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/PartsShop/resources/SbAdmin2/algaworks/stylesheets/algaworks.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/PartsShop/resources/SbAdmin2/algaworks/stylesheets/application.css" />
+
+</h:head>
+
+<h:body class="aw-layout-simple-page">
+	<p:outputPanel class="aw-layout-simple-page__container">
+
+		<h:form id="formLogin" prependId="false" onsubmit="action='j_security_check';">
+			<p:outputPanel class="aw-simple-panel">
+				<h1>PartsShop</h1>
+
+				<p:outputPanel class="aw-simple-panel__message">Por favor, faça o login.
+				</p:outputPanel>
+
+				<p:outputPanel class="aw-simple-panel__box">
+					<p:outputPanel class="form-group  has-feedback">
+						<p:inputText id="j_username" class="form-control  input-lg"
+							placeholder="Seu login" /> <span
+							class="glyphicon  glyphicon-envelope  form-control-feedback"
+							aria-hidden="true"></span>
+					</p:outputPanel>
+
+					<p:outputPanel class="form-group  has-feedback">
+						<p:password id="j_password" class="form-control  input-lg"
+							placeholder="Sua senha" /> <span
+							class="glyphicon  glyphicon-lock  form-control-feedback"
+							aria-hidden="true"></span>
+					</p:outputPanel>
+					<p:outputPanel class="form-group">
+						<p:commandButton value="Entrar" id="btnLogin"
+							class="btn  btn-primary  btn-lg  aw-btn-full-width" ajax="false" />
+					</p:outputPanel>
+
+					<p:outputPanel class="form-group clearfix">
+						<p:outputPanel class="checkbox  pull-left  aw-checkbox-no-margin">
+							<input type="checkbox" id="lembrar" /> <label for="lembrar">Lembre
+								de mim</label>
+						</p:outputPanel>
+
+						<p:outputPanel class="pull-right">
+							<a href="esqueceu-a-senha.html">Esqueceu a senha?</a>
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<p:outputPanel class="aw-simple-panel__footer">
+					Novo por aqui? <a href="#">Cadastre-se</a>.
+				</p:outputPanel>
+			</p:outputPanel>
+		</h:form>
+
+	</p:outputPanel>
+
+	<script src="/PartsShop/resources/SbAdmin2/algaworks/javascripts/vendors.js"></script>
+	<script src="/PartsShop/resources/SbAdmin2/algaworks/javascripts/algaworks.js"></script>
+</h:body>
+</html>

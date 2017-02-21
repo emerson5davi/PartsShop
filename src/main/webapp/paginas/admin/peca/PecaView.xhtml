@@ -31,7 +31,7 @@
 
 			<h:panelGrid columns="3">
 
-				<p:button value="editar" id="btEdit" outcome="/PecaEdit.xhtml"
+				<p:button value="editar" id="btEdit" outcome="/paginas/admin/peca/PecaEdit.xhtml"
 					icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rcy">
 					<f:param name="peca" value="#{pecaViewBean.peca.id}" />
 				</p:button>
@@ -45,7 +45,7 @@
 						message="Deseja remover esta peça?" />
 				</p:commandButton>
 
-				<p:button value="voltar" id="btvoltar" outcome="/Pecas.xhtml"
+				<p:button value="voltar" id="btvoltar" outcome="/paginas/admin/peca/Pecas.xhtml"
 					icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc" />
 
 			</h:panelGrid>

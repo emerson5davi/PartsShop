@@ -18,12 +18,12 @@
 		<p:button id="buttonNewProduto" icon="fa fa-plus" value="NOVO"
 			styleClass="btnn btnn-primary btnn-shadow btnn-rc" style="float: right;padding: 2px 3px !important;
 	font-size: 17px !important"
-			outcome="/ClienteEdit.xhtml">
+			outcome="/paginas/admin/cliente/ClienteEdit.xhtml">
 		</p:button>
 	</ui:define>
 
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
 		<li class="active">Clientes</li>
 	</ui:define>
@@ -55,7 +55,7 @@
 						target="#{clienteViewBean.cliente}" />
 				</p:ajax>
 
-				<p:column headerText="#" width="1%" filterBy="#{cliente.id}" sortBy="#{solicitacao.id}"
+				<p:column headerText="#" width="1%" filterBy="#{cliente.id}" sortBy="#{cliente.id}"
 					filterStyle="display:none;">
 					<h:outputText id="id" value="#{cliente.id}" />
 				</p:column>

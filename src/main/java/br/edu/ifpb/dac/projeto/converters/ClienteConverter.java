@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Cliente;
@@ -17,8 +18,9 @@ import br.edu.ifpb.dac.projeto.services.ClienteService;
 @FacesConverter(forClass=Cliente.class)
 public class ClienteConverter implements Converter{
 
-	private ClienteService clienteService = new ClienteService();
-
+	@Inject
+	private ClienteService clienteService;
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {

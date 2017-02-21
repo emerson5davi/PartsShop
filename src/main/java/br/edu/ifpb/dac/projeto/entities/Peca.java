@@ -58,7 +58,7 @@ public class Peca implements Serializable {
 	@NotNull
 	@Column(name = "MODELO")
 	private String modelo;
-
+	
 	public Peca() {
 
 	}
@@ -142,7 +142,7 @@ public class Peca implements Serializable {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -227,4 +227,5 @@ public class Peca implements Serializable {
 				+ ", preco=" + preco + ", validade=" + validade + ", cor=" + cor + ", marca=" + marca + ", ano=" + ano
 				+ ", modelo=" + modelo + "]";
 	}
+
 }

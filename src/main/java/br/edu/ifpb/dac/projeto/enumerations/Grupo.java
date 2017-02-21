@@ -2,8 +2,8 @@ package br.edu.ifpb.dac.projeto.enumerations;
 
 public enum Grupo {
 	ADMIN("Adimistrador"),
-	FUNCIONARIO("Motorista"),
-	CLIENTE("Recepcionista");
+	FUNCIONARIO("Funcionário"),
+	CLIENTE("Cliente");
 	
 	private String tipoDeUsuario;
 	

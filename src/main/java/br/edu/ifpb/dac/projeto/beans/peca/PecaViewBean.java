@@ -1,13 +1,13 @@
 package br.edu.ifpb.dac.projeto.beans.peca;
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class PecaViewBean implements Serializable {
 

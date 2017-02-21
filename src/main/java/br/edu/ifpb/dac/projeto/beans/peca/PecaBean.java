@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
@@ -12,8 +14,8 @@ import br.edu.ifpb.dac.projeto.services.PecaService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
 import br.edu.ifpb.dac.projeto.util.messages.MessageUtils;
 
-
-@ManagedBean
+@Named
+@ViewScoped
 public class PecaBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -21,12 +23,12 @@ public class PecaBean implements Serializable{
 	private List<Peca> pecas;
 
 	private Peca selectedPeca;
-	
+
+	@Inject
 	private PecaService pecaService;
 
 	@PostConstruct
 	public void init() {
-		pecaService = new PecaService();
 		carregarPecas();
 	}
 	
