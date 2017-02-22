@@ -25,7 +25,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "compras")
 @NamedQueries({
 	@NamedQuery(name = "compra.getTotalCompras", query = "SELECT COUNT(c) FROM Compra c"),
-	@NamedQuery(name = "compra.getCountByCliente", query = "SELECT COUNT(c.id) FROM Compra c WHERE c.cliente = :cliente")
+	@NamedQuery(name = "compra.getCountByCliente", query = "SELECT COUNT(c.id) FROM Compra c WHERE c.cliente = :cliente"),
+	@NamedQuery(name = "compra.getComprasByCliente", query = "SELECT c FROM Compra c WHERE c.cliente = :cliente")
 })
 public class Compra implements Serializable {
 

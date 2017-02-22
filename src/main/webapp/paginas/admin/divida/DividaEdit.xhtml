@@ -69,7 +69,7 @@
 							<p:outputLabel for="valor" value="Valor" />
 							<p:inputText id="valor"
 								value="#{dividaEdit.divida.valor}">
-								<f:convertNumber integerOnly="true" />
+								<f:convertNumber maxFractionDigits="2" />
 							</p:inputText>
 						</p:outputPanel>
 						

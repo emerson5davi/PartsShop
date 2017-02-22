@@ -14,9 +14,6 @@
 		<f:event listener="#{clienteViewBean.preRenderView()}"
 			type="preRenderView" />
 
-		<o:viewParam name="compra" value="#{compraEdit.compra}"
-			converter="#{compraConverter}" />
-		<f:event listener="#{compraEdit.preRenderView()}" type="preRenderView" />
 	</f:metadata>
 
 	<ui:define name="titulo">Detalhes Cliente</ui:define>
@@ -253,8 +250,8 @@
 							</p:column>
 
 							<p:column width="1.6%">
-								<p:commandButton value="Pagar" type="button"
-									onclick="PF('dlg2').show();">
+								<p:commandButton value="Pagar" update=":formDialog" onclick="PF('dlg2').show();" rendered="#{compra.pagamento.payment == 'A_PRAZO' ? true : false}" >
+									<f:setPropertyActionListener target="#{clienteViewBean.compra}" value="#{compra}"/>
 								</p:commandButton>
 							</p:column>
 							<p:columnGroup type="footer">
@@ -268,89 +265,110 @@
 						</p:dataTable>
 					</p:outputPanel>
 				</p:outputPanel>
-
-				<p:dialog header="Efetuar pagamento" widgetVar="dlg2" modal="true"
-					height="300" width="600" responsive="true">
-					<p:outputPanel class="panel panel-default">
-
-						<p:outputPanel class="panel-heading">
-							<h3 class="panel-title">Dados de pagamento</h3>
-						</p:outputPanel>
-
-						<p:outputPanel class="panel-body">
-
-							<p:outputPanel class="form-group row">
-								<p:outputPanel class="col-sm-5">
-									<p:outputLabel for="valor" value="Valor a ser pago: " />
-									<p:inputText id="valor"
-										value="#{compraBean.itemPagamento.valor}"></p:inputText>
-								</p:outputPanel>
-
-								<p:outputPanel class="col-sm-5">
-									<p:outputLabel for="data" value="Data" />
-									<ui:include src="/WEB-INF/templates/_calendar.xhtml">
-										<ui:param name="id" value="data" />
-										<ui:param name="required" value="true" />
-										<ui:param name="value"
-											value="#{compraBean.itemPagamento.data_pagamento}" />
-										<ui:param name="name" value="Data" />
-									</ui:include>
-								</p:outputPanel>
-								
-								<p:outputPanel class="col-sm-2">
-									<p:outputLabel for="btnPagar" value="" />
-									<p:commandButton id="btnPagar" value="Pagar"></p:commandButton>
-								</p:outputPanel>
-								
-							</p:outputPanel>
-						</p:outputPanel>
-					</p:outputPanel>
-
-					<p:outputPanel class="panel panel-default">
-						<p:outputPanel class="panel-heading">
-							<h3 class="panel-title">Pagamentos</h3>
-						</p:outputPanel>
-
-						<p:outputPanel class="table-responsive">
-							<p:dataTable id="tablePagamentos" var="itemPagamento"
-								value="#{compraBean.itensPagamento}"
-								paginatorPosition="bottom" rows="15" paginator="true"
-								paginatorAlwaysVisible="false" widgetVar="findPagamento"
-								reflow="true" emptyMessage="Nenhum pagamento registrado"
-								styleClass="ui-datatable">
-
-								<p:column headerText="#" width="2%"
-									filterBy="#{itemPagamento.id}" filterStyle="display:none;">
-									<h:outputText id="id" value="#{itemPagamento.id}" />
-								</p:column>
-
-								<p:column headerText="Data" width="3%"
-									filterBy="#{itemPagamento.data_pagamento}"
-									filterStyle="display:none;">
-									<h:outputText id="data" value="#{itemPagamento.data_pagamento}">
-										<f:convertDateTime pattern="dd/MM/yyyy" />
-									</h:outputText>
-								</p:column>
-
-								<p:column headerText="Valor" width="3%">
-									<h:outputText id="valor"
-										value="R$ #{itemPagamento.data_pagamento}" />
-								</p:column>
-
-								<!--<p:columnGroup type="footer">
-								<p:row>
-									<p:column colspan="5" style="text-align:right"
-										footerText="Total:" />
-									<p:column footerText="R$ #{compraBean.getTotalCompras(cliente)}" />
-								</p:row>
-							</p:columnGroup>-->
-							</p:dataTable>
-						</p:outputPanel>
-					</p:outputPanel>
-
-				</p:dialog>
-
 			</p:fieldset>
 		</h:form>
+
+		<p:dialog header="Efetuar pagamento" widgetVar="dlg2" modal="true"
+			height="350" width="575" responsive="true">
+			<h:form id="formDialog">
+				<p:messages id="messages" autoUpdate="true" closable="true"
+				showDetail="true" />
+				<p:outputPanel class="panel panel-default">
+
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Dados de pagamento</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="panel-body">
+		
+						<p:outputPanel class="form-group row">
+							<p:outputPanel class="col-sm-4">
+								<p:outputLabel for="valor" value="Valor a ser pago" />
+								<p:inputText id="valor" required="true" requiredMessage="O campo valor a ser pago é obrigatório"
+									value="#{clienteViewBean.itemPagamento.valor}"></p:inputText>
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-4">
+								<p:outputLabel for="data" value="Data" />
+								<ui:include src="/WEB-INF/templates/_calendar.xhtml">
+									<ui:param name="id" value="data" />
+									<ui:param name="required" value="true" />
+									<ui:param name="value"
+										value="#{clienteViewBean.itemPagamento.data_pagamento}" />
+									<ui:param name="name" value="Data" />
+								</ui:include>
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-4">
+								<br></br>
+								<p:commandButton id="btnPagar" value="Adicionar"
+									action="#{clienteViewBean.validaCampo}"
+									update="itens valor data @parent">
+									<p:collector value="#{clienteViewBean.itemPagamento}" addTo="#{clienteViewBean.compra.pagamento.itensPagamento}" unique="true"/>
+								</p:commandButton>
+							</p:outputPanel>
+
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<p:outputPanel id="itens" class="panel panel-default">
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Pagamentos</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="table-responsive">
+						<p:dataTable id="tablePagamentos" var="itemPagamento"
+							value="#{clienteViewBean.compra.pagamento.itensPagamento}"
+							paginatorPosition="bottom" rows="15" paginator="true"
+							paginatorAlwaysVisible="false" widgetVar="findPagamento"
+							reflow="true" emptyMessage="Nenhum pagamento registrado"
+							styleClass="ui-datatable">
+
+							<p:column headerText="Data" width="3%"
+								filterBy="#{itemPagamento.data_pagamento}"
+								filterStyle="display:none;">
+								<h:outputText id="data" value="#{itemPagamento.data_pagamento}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Valor" width="3%">
+								<h:outputText id="valor"
+									value="R$ #{itemPagamento.valor}" />
+							</p:column>
+							
+							<p:column width="1%" style="font-size: 14px; text-align:center;">
+								<p:commandButton icon="fa fa-trash" styleClass="btnn-primary"
+									update="tablePagamentos" process="tablePagamentos" >
+									<p:collector value="#{itemPagamento}"
+										removeFrom="#{clienteViewBean.compra.pagamento.itensPagamento}" unique="true" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</p:outputPanel>
+				</p:outputPanel>
+				
+				<p:separator/>
+				
+				<p:outputPanel class="box-footer">
+					<h:panelGrid columns="3">
+
+						<p:commandButton
+							value="Salvar"
+							id="btSave" icon="fa fa-floppy-o" style="float: left;"
+							styleClass="btnn btnn-primary btnn-shadow btnn-rc"
+							action="#{clienteViewBean.efetuarPagamento}" process="formDialog" />
+
+						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
+							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
+							outcome="/paginas/admin/cliente/ClienteView.xhtml"/>
+					</h:panelGrid>
+				</p:outputPanel>
+				
+			</h:form>
+		</p:dialog>
+
 	</ui:define>
 </ui:composition>

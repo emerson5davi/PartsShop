@@ -107,7 +107,7 @@
 							<p:inputText id="salario"
 								value="#{funcionarioEdit.funcionario.salario}" required="true"
 								requiredMessage="O campo salário é obrigatório!">
-								<f:convertNumber integerOnly="true" />
+								<f:convertNumber maxFractionDigits="2" />
 							</p:inputText>
 						</p:outputPanel>
 

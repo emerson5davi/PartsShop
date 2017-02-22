@@ -1,5 +1,7 @@
 package br.edu.ifpb.dac.projeto.entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -25,8 +27,8 @@ public class Funcionario extends Pessoa{
 	private String cargo;
 
 	@NotNull
-	@Column(name = "SALARIO")
-	private Double salario;
+	@Column(name = "SALARIO", precision = 10, scale = 2)
+	private BigDecimal salario;
 	
 	@NotNull
 	@Column(name = "CTPS")
@@ -52,11 +54,11 @@ public class Funcionario extends Pessoa{
 		this.cargo = cargo;
 	}
 
-	public Double getSalario() {
+	public BigDecimal getSalario() {
 		return salario;
 	}
 
-	public void setSalario(Double salario) {
+	public void setSalario(BigDecimal salario) {
 		this.salario = salario;
 	}
 

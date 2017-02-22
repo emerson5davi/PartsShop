@@ -65,4 +65,15 @@ public class CompraService implements Serializable{
 		return result;
 	}
 	
+	@TransacionalCdi
+	public List<Compra> getComprasByCliente(Cliente cliente) {
+		List<Compra> result = null;
+		try {
+			result = dao.getComprasByCliente(cliente);
+		} catch (PartsShopException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

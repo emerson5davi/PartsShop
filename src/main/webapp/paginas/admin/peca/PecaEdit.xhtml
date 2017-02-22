@@ -62,7 +62,7 @@
 							<p:outputLabel for="preco" value="Preço" />
 							<p:inputText id="preco" required="true"
 								requiredMessage="O campo preço é obrigatório!"
-								value="#{pecaEdit.peca.preco}">
+								value="#{pecaEdit.peca.preco}" >
 								<f:convertNumber  maxFractionDigits="2"/>
 							</p:inputText>
 						</p:outputPanel>
@@ -86,9 +86,9 @@
 							<p:inputText id="marca" value="#{pecaEdit.peca.marca}" required="true"	requiredMessage="O campo marca é obrigatório!"/>
 						</p:outputPanel>
 						
-						<p:outputPanel class="col-sm-4">
-							<p:outputLabel for="ano" value="Ano" />
-							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	requiredMessage="O campo ano é obrigatório!" />
+						<p:outputPanel class="col-sm-1" >
+							<p:outputLabel for="cor" value="Cor" />
+							<p:colorPicker id="cor" value="#{pecaEdit.peca.cor}"/>  
 						</p:outputPanel>
 						
 					</p:outputPanel>
@@ -101,19 +101,30 @@
    							<h:outputText id="display" />
 						</p:outputPanel>
 						
-						<p:outputPanel class="col-sm-4">
-							<p:outputLabel for="modelo" value="Modelo" />
-							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" requiredMessage="O campo modelo é obrigatório!" />
-						</p:outputPanel>
-						
-						<p:outputPanel class="col-sm-1" >
-							<p:outputLabel for="cor" value="Cor" />
-							<p:colorPicker id="cor" value="#{pecaEdit.peca.cor}"/>  
-						</p:outputPanel>
 					
 					</p:outputPanel>
 					
 				</p:outputPanel>
+				
+				<p:outputPanel class="ui-fluid">
+				
+					<h3><strong>Dados de compatibilidade:</strong></h3>
+				
+					<p:outputPanel class="form-group row">
+						
+	        			<p:outputPanel class="col-sm-4">
+	        				<p:outputLabel for="modelo" value="Modelo da moto" />
+							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" requiredMessage="O campo modelo é obrigatório!" />
+						</p:outputPanel>
+
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="ano" value="Ano da moto" />
+							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	requiredMessage="O campo ano é obrigatório!" />
+						</p:outputPanel>
+							
+					</p:outputPanel>
+
+				</p:outputPanel>			
 				
 				<p:separator />
 				

@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.projeto.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,8 +33,8 @@ public class ItemCompra implements Serializable {
 	@Column(name = "quantidade", nullable = false)
 	private Integer quantidade;
 
-	@Column(name = "preco", nullable = false)
-	private Double preco;
+	@Column(name = "preco", nullable = false, precision = 10, scale = 2)
+	private BigDecimal preco;
 
 	@NotNull
 	@ManyToOne(cascade = { CascadeType.MERGE })
@@ -56,11 +57,11 @@ public class ItemCompra implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 

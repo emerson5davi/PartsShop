@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.projeto.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -37,8 +38,8 @@ public class Peca implements Serializable {
 	private Integer quantidade;
 
 	@NotNull
-	@Column(name = "PRECO")
-	private Double preco;
+	@Column(name = "PRECO", precision = 10, scale = 2)
+	private BigDecimal preco;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "VALIDADE")
@@ -95,11 +96,11 @@ public class Peca implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 

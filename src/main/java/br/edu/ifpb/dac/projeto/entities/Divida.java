@@ -1,6 +1,7 @@
 package br.edu.ifpb.dac.projeto.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class Divida implements Serializable {
 
 	@NotNull
 	@Column(name = "VALOR", precision = 10, scale = 2)
-	private Double valor;
+	private BigDecimal valor;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
@@ -62,11 +63,11 @@ public class Divida implements Serializable {
 		this.id = id;
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 

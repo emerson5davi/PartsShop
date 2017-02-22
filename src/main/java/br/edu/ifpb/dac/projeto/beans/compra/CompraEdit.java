@@ -17,6 +17,7 @@ import br.edu.ifpb.dac.projeto.entities.Pagamento;
 import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.enumerations.Payment;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
+import br.edu.ifpb.dac.projeto.exceptions.PartsShopExceptionHandler;
 import br.edu.ifpb.dac.projeto.services.ClienteService;
 import br.edu.ifpb.dac.projeto.services.CompraService;
 import br.edu.ifpb.dac.projeto.services.PagamentoService;
@@ -58,7 +59,7 @@ public class CompraEdit implements Serializable {
 	
 	private Integer quant = 0;
 	
-	private Double valorParcela = 0.0;
+	private BigDecimal valorParcela = new BigDecimal(0.0);
 	
 	public CompraEdit() {
 		pecas = new ArrayList<Peca>();
@@ -89,6 +90,9 @@ public class CompraEdit implements Serializable {
 				quant += itemCompra.getQuantidade();
 			}
 			if(getItemCompra().getPeca().getQuantidade() >= quant){
+				if(getPagamento().getPayment() != Payment.A_PRAZO && getPagamento().getDataPagamento() == null){
+					getPagamento().setDataPagamento(compra.getData());
+				}
 				compra.setPagamento(getPagamento());
 				compraService.add(compra);
 				Peca peca = pecaService.findById(getItemCompra().getPeca().getId());
@@ -99,8 +103,8 @@ public class CompraEdit implements Serializable {
 				JSFUtils.rederTo("Compras.xhtml");
 			}
 			else{
-				MessageUtils.messageError("Quantidade de peças a ser comprada excede o limite em estoque!");
 				quant = 0;
+				throw new PartsShopExceptionHandler("Quantidade de peças a ser comprada excede o limite em estoque!");
 			}
 		}
 	}
@@ -163,11 +167,11 @@ public class CompraEdit implements Serializable {
 		this.selectedItemCompra = selectedItemCompra;
 	}
 
-	public String getValorParcela(){
-		return String.format("R$ %.2f", valorParcela);
+	public BigDecimal getValorParcela(){
+		return valorParcela;
 	}
 	
-	public void setValorParcela(Double valorParcela){
+	public void setValorParcela(BigDecimal valorParcela){
 		this.valorParcela = valorParcela;
 	}
 
@@ -180,20 +184,21 @@ public class CompraEdit implements Serializable {
 	}
 	
 	public void calcularPreco(){
-		Double precoPeca = this.selectedItemCompra.getPeca().getPreco() * this.selectedItemCompra.getQuantidade();
+		BigDecimal quant = new BigDecimal(this.selectedItemCompra.getQuantidade());
+		BigDecimal precoPeca = this.selectedItemCompra.getPeca().getPreco().multiply(quant);
 		this.selectedItemCompra.setPreco(precoPeca);
 	}
 	
 	public void calcularValorTotal(){
-		pagamento.setValor(BigDecimal.valueOf(CompraBean.getValor(compra)));
+		pagamento.setValorTotal(CompraBean.getValor(compra));
 	}
 	
 	public void calcularValorParcela(){
-		Double total = 0.0;
+		BigDecimal total = new BigDecimal(0.0);
 		for (ItemCompra itemCompra : getCompra().getItensCompra()) {
-			total += itemCompra.getPreco();
+			total = total.add(itemCompra.getPreco());
 		}
-		setValorParcela(total/getPagamento().getNumDeParcelas());
+		setValorParcela(total.divide(new BigDecimal(getPagamento().getNumDeParcelas())));
 	}
 	
 	public List<Payment> getPayments(){

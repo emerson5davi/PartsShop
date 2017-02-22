@@ -35,7 +35,7 @@
 			<p:fieldset styleClass="box box-success">
 				<p:outputPanel class="ui-fluid">
 					<p:tabView id="tabView">
-						<p:tab id="tab_data" title="Dados da compra">
+						<p:tab id="tab_compra" title="Dados da compra">
 							<p:panelGrid columns="2" layout="grid"
 								styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-1">
 
@@ -136,7 +136,7 @@
 							<p:outputPanel class="form-group row">
 								<p:outputPanel class="col-sm-4">
 
-									<p:outputLabel for="payment" value="Forma de pagamento: " />
+									<p:outputLabel for="payment" value="Forma de pagamento" />
 
 									<p:selectOneMenu id="payment" required="true"
 										style="width: 255px"
@@ -153,22 +153,23 @@
 								</p:outputPanel>
 
 								<p:outputPanel class="col-sm-4">
-									<p:outputLabel for="valor" value="Valor total da compra: " />
-									<p:inputText id="valor" required="true" style="width: 255px"
-										requiredMessage="O campo valor é obrigatório!"
-										value="R$ #{compraEdit.pagamento.valor}" disabled="true">
+									<p:outputLabel for="valor" value="Valor total da compra" />
+									<p:inputText id="valor" style="width: 255px"
+										value="R$ #{compraEdit.pagamento.valorTotal}" disabled="true">
 										<f:convertNumber maxFractionDigits="2" />
 									</p:inputText>
 								</p:outputPanel>
+								
 							</p:outputPanel>
 							
 							<p:outputPanel id="formPagamento" class="form-group row">
+							
 								<p:outputPanel class="col-sm-4" rendered="#{compraEdit.pagamento.payment == 'CARTAO' ? true : false}">
 									<p:outputLabel id="lbNum" for="numDeParcelas"
-										value="Número de parcelas: " />
+										value="Número de parcelas" />
 
 									<p:spinner id="numDeParcelas" min="1" max="12"
-										value="#{compraEdit.pagamento.numDeParcelas}">
+										value="#{compraEdit.pagamento.numDeParcelas}" required="true" requiredMessage="O campo número de parcelas é obrigatório!">
 										<p:ajax event="change"
 											listener="#{compraEdit.calcularValorParcela}"
 											update="valorParcelas" />
@@ -180,6 +181,7 @@
 									<p:inputText id="valorParcelas"
 										value="#{compraEdit.valorParcela}" disabled="true" />
 								</p:outputPanel>
+								
 							</p:outputPanel>
 						</p:tab>
 					</p:tabView>
@@ -193,7 +195,7 @@
 							value="#{compraEdit.compraEdited ? 'Editar' : 'Salvar'}"
 							id="btSave" icon="fa fa-floppy-o" style="float: left;"
 							styleClass="btnn btnn-primary btnn-shadow btnn-rc"
-							process="@this messages tabView:tab_data"
+							process="@this messages tabView:tab_compra tabView:tab_pagamento"
 							action="#{compraEdit.save}" />
 
 

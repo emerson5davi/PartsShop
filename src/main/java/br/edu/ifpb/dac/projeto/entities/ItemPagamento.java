@@ -25,13 +25,13 @@ public class ItemPagamento implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(name = "VALOR")
+	@Column(name = "VALOR", precision = 10, scale = 2)
 	private BigDecimal valor;
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
-	private Date data_pagamento;
+	private Date dataPagamento;
 	
 	public ItemPagamento(){
 		
@@ -54,11 +54,11 @@ public class ItemPagamento implements Serializable {
 	}
 
 	public Date getData_pagamento() {
-		return data_pagamento;
+		return dataPagamento;
 	}
 
 	public void setData_pagamento(Date data_pagamento) {
-		this.data_pagamento = data_pagamento;
+		this.dataPagamento = data_pagamento;
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class ItemPagamento implements Serializable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
-		result = prime * result + ((data_pagamento == null) ? 0 : data_pagamento.hashCode());
+		result = prime * result + ((dataPagamento == null) ? 0 : dataPagamento.hashCode());
 		return result;
 	}
 
@@ -89,17 +89,17 @@ public class ItemPagamento implements Serializable {
 				return false;
 		} else if (!valor.equals(other.valor))
 			return false;
-		if (data_pagamento == null) {
-			if (other.data_pagamento != null)
+		if (dataPagamento == null) {
+			if (other.dataPagamento != null)
 				return false;
-		} else if (!data_pagamento.equals(other.data_pagamento))
+		} else if (!dataPagamento.equals(other.dataPagamento))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ItemPagamento [id=" + id + ", valor=" + valor + ", data_pagamento=" + data_pagamento + "]";
+		return "ItemPagamento [id=" + id + ", valor=" + valor + ", data_pagamento=" + dataPagamento + "]";
 	}
 
 }

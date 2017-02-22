@@ -2,6 +2,7 @@ package br.edu.ifpb.dac.projeto.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,8 +33,11 @@ public class Pagamento implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(name = "VALOR_TOTAL")
-	private BigDecimal valor;
+	@Column(name = "VALOR_TOTAL", precision = 10, scale = 2)
+	private BigDecimal valorTotal;
+	
+	@Column(name = "VALOR_PAGO", precision = 10, scale = 2)
+	private BigDecimal valorPago;
 	
 	@Column(name = "PAYMENT", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -41,13 +45,13 @@ public class Pagamento implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
-	private Date data_pagamento;
+	private Date dataPagamento;
 	
 	@Column(name = "NUM_PARCELAS")
 	private Integer numDeParcelas;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemPagamento> itensPagamento;
+	private List<ItemPagamento> itensPagamento = new ArrayList<>();
 	
 	public Pagamento(){
 		
@@ -61,14 +65,6 @@ public class Pagamento implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-
 	public Payment getPayment() {
 		return payment;
 	}
@@ -77,12 +73,12 @@ public class Pagamento implements Serializable {
 		this.payment = payment;
 	}
 
-	public Date getData_pagamento() {
-		return data_pagamento;
+	public Date getDataPagamento() {
+		return dataPagamento;
 	}
 
-	public void setData_pagamento(Date data_pagamento) {
-		this.data_pagamento = data_pagamento;
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 	
 	public Integer getNumDeParcelas() {
@@ -100,16 +96,33 @@ public class Pagamento implements Serializable {
 	public void setItensPagamento(List<ItemPagamento> itensPagamento) {
 		this.itensPagamento = itensPagamento;
 	}
+	
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public BigDecimal getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(BigDecimal valorPago) {
+		this.valorPago = valorPago;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
+		result = prime * result + ((valorTotal == null) ? 0 : valorTotal.hashCode());
 		result = prime * result + ((payment == null) ? 0 : payment.hashCode());
-		result = prime * result + ((data_pagamento == null) ? 0 : data_pagamento.hashCode());
+		result = prime * result + ((dataPagamento == null) ? 0 : dataPagamento.hashCode());
 		result = prime * result + ((numDeParcelas == null) ? 0 : numDeParcelas.hashCode());
 		result = prime * result + ((itensPagamento == null) ? 0 : itensPagamento.hashCode());
+		result = prime * result + ((valorPago == null) ? 0 : valorPago.hashCode());
 		return result;
 	}
 
@@ -127,20 +140,20 @@ public class Pagamento implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (valor == null) {
-			if (other.valor != null)
+		if (valorTotal == null) {
+			if (other.valorTotal != null)
 				return false;
-		} else if (!valor.equals(other.valor))
+		} else if (!valorTotal.equals(other.valorTotal))
 			return false;
 		if (payment == null) {
 			if (other.payment != null)
 				return false;
 		} else if (!payment.equals(other.payment))
 			return false;
-		if (data_pagamento == null) {
-			if (other.data_pagamento != null)
+		if (dataPagamento == null) {
+			if (other.dataPagamento != null)
 				return false;
-		} else if (!data_pagamento.equals(other.data_pagamento))
+		} else if (!dataPagamento.equals(other.dataPagamento))
 			return false;
 		if (numDeParcelas == null) {
 			if (other.numDeParcelas != null)
@@ -152,13 +165,19 @@ public class Pagamento implements Serializable {
 				return false;
 		} else if (!itensPagamento.equals(other.itensPagamento))
 			return false;
+		if (valorPago == null) {
+			if (other.valorPago != null)
+				return false;
+		} else if (!valorPago.equals(other.valorPago))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Pagamento [id=" + id + ", valor=" + valor + ", payment=" + payment + ", data_pagamento="
-				+ data_pagamento + ", numDeParcelas=" + numDeParcelas + ", itensPagamento=" + itensPagamento + "]";
+		return "Pagamento [id=" + id + ", valorTotal=" + valorTotal + ", valorPago=" + valorPago + ", payment="
+				+ payment + ", dataPagamento=" + dataPagamento + ", numDeParcelas=" + numDeParcelas
+				+ ", itensPagamento=" + itensPagamento + "]";
 	}
 
 }
