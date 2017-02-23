@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "TB_PECA")
 @DiscriminatorValue("Peca")
@@ -26,6 +28,7 @@ public class Peca implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
+	@NotBlank
 	@NotNull
 	@Column(name = "NOME")
 	private String nome;
@@ -48,6 +51,7 @@ public class Peca implements Serializable {
 	@Column(name = "COR")
 	private String cor;
 
+	@NotBlank
 	@NotNull
 	@Column(name = "MARCA")
 	private String marca;
@@ -56,6 +60,7 @@ public class Peca implements Serializable {
 	@Column(name = "ANO")
 	private String ano;
 
+	@NotBlank
 	@NotNull
 	@Column(name = "MODELO")
 	private String modelo;

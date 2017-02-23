@@ -22,7 +22,7 @@
 	</ui:define>
 	<ui:define name="breadcrumb-header">
 		<li><i class="fa fa-dashboard"></i> <a
-			href="#{request.contextPath}/Home.xhtml">Dashboard</a></li>
+			href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a></li>
 		<li><a
 			href="#{request.contextPath}/paginas/admin/cliente/Clientes.xhtml">Clientes</a></li>
 		<li class="active">Detalhes Cliente</li>
@@ -34,7 +34,7 @@
 		<h:form id="detailForm">
 			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml" />
 
-			<p:messages id="messages" autoUpdate="true" closable="true"
+			<p:messages id="messages" autoUpdate="false" closable="true"
 				showDetail="true" />
 
 			<h:panelGrid columns="3">
@@ -109,16 +109,10 @@
 								<h:outputText value="#{clienteViewBean.cliente.celular}" />
 							</p:outputPanel>
 
-							<c:if test="${clienteViewBean.cliente.email != null}">
-								<p:outputPanel class="col-sm-4">
-									<h:outputText
-										rendered="#{clienteViewBean.cliente.email == '' ? false : true}"
-										value="Email: " style="font-weight: bold" />
-									<h:outputText
-										rendered="#{clienteViewBean.cliente.email == '' ? false : true}"
-										value="#{clienteViewBean.cliente.email}" />
-								</p:outputPanel>
-							</c:if>
+							<p:outputPanel class="col-sm-4" rendered="#{clienteViewBean.cliente.email == '' ? false : true}">
+								<h:outputText value="Email: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.email}" />
+							</p:outputPanel>
 
 						</p:outputPanel>
 
@@ -137,7 +131,7 @@
 						<p:outputPanel class="form-group row">
 
 							<p:outputPanel class="col-sm-3">
-								<h:outputText value="Endereço: " style="font-weight: bold" />
+								<h:outputText value="Logradouro: " style="font-weight: bold" />
 								<h:outputText
 									value="#{clienteViewBean.cliente.endereco.logradouro}" />
 							</p:outputPanel>
@@ -161,17 +155,10 @@
 
 						<p:outputPanel class="form-group row">
 
-							<c:if
-								test="${clienteViewBean.cliente.endereco.complemento != null}">
-								<p:outputPanel class="col-sm-3">
-									<h:outputText
-										rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}"
-										value="Complemento: " style="font-weight: bold" />
-									<h:outputText
-										rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}"
-										value="#{clienteViewBean.cliente.endereco.complemento}" />
-								</p:outputPanel>
-							</c:if>
+							<p:outputPanel class="col-sm-3" rendered="#{clienteViewBean.cliente.endereco.complemento.trim() == '' ? false : true}">
+								<h:outputText value="Complemento: " style="font-weight: bold" />
+								<h:outputText value="#{clienteViewBean.cliente.endereco.complemento}" />
+							</p:outputPanel>
 
 							<p:outputPanel class="col-sm-3">
 								<h:outputText value="CEP: " style="font-weight: bold" />
@@ -246,11 +233,11 @@
 
 							<p:column headerText="Valor" width="3%">
 								<h:outputText id="valor"
-									value="R$ #{compraBean.getValor(compra)}" />
+									value="R$ #{clienteViewBean.calcValor(compra)}" />
 							</p:column>
 
 							<p:column width="1.6%">
-								<p:commandButton value="Pagar" update=":formDialog" onclick="PF('dlg2').show();" rendered="#{compra.pagamento.payment == 'A_PRAZO' ? true : false}" >
+								<p:commandButton value="Pagar" update=":formDialog" onclick="PF('dlg2').show();" rendered="#{clienteViewBean.validaBtnPagar(compra)}" >
 									<f:setPropertyActionListener target="#{clienteViewBean.compra}" value="#{compra}"/>
 								</p:commandButton>
 							</p:column>
@@ -271,7 +258,7 @@
 		<p:dialog header="Efetuar pagamento" widgetVar="dlg2" modal="true"
 			height="350" width="575" responsive="true">
 			<h:form id="formDialog">
-				<p:messages id="messages" autoUpdate="true" closable="true"
+				<p:messages id="messagesDialog" autoUpdate="true" closable="true"
 				showDetail="true" />
 				<p:outputPanel class="panel panel-default">
 
@@ -284,7 +271,7 @@
 						<p:outputPanel class="form-group row">
 							<p:outputPanel class="col-sm-4">
 								<p:outputLabel for="valor" value="Valor a ser pago" />
-								<p:inputText id="valor" required="true" requiredMessage="O campo valor a ser pago é obrigatório"
+								<p:inputText id="valor" required="true"
 									value="#{clienteViewBean.itemPagamento.valor}"></p:inputText>
 							</p:outputPanel>
 
@@ -302,9 +289,7 @@
 							<p:outputPanel class="col-sm-4">
 								<br></br>
 								<p:commandButton id="btnPagar" value="Adicionar"
-									action="#{clienteViewBean.validaCampo}"
-									update="itens valor data @parent">
-									<p:collector value="#{clienteViewBean.itemPagamento}" addTo="#{clienteViewBean.compra.pagamento.itensPagamento}" unique="true"/>
+									update="detailForm:tableCompras itens valor data @parent" process="@this messagesDialog formDialog" action="#{clienteViewBean.validaCampo()}">
 								</p:commandButton>
 							</p:outputPanel>
 
@@ -320,10 +305,15 @@
 					<p:outputPanel class="table-responsive">
 						<p:dataTable id="tablePagamentos" var="itemPagamento"
 							value="#{clienteViewBean.compra.pagamento.itensPagamento}"
-							paginatorPosition="bottom" rows="15" paginator="true"
+							paginatorPosition="bottom" rows="5" paginator="true"
 							paginatorAlwaysVisible="false" widgetVar="findPagamento"
 							reflow="true" emptyMessage="Nenhum pagamento registrado"
 							styleClass="ui-datatable">
+
+							<p:column headerText="#" width="2%">
+								<h:outputText id="id"
+									value="#{itemPagamento.id}" rendered="#{itemPagamento.id == null ? false : true}"/>
+							</p:column>
 
 							<p:column headerText="Data" width="3%"
 								filterBy="#{itemPagamento.data_pagamento}"
@@ -338,35 +328,15 @@
 									value="R$ #{itemPagamento.valor}" />
 							</p:column>
 							
-							<p:column width="1%" style="font-size: 14px; text-align:center;">
+							<p:column width="1%" style="font-size: 14px; text-align:center;" >
 								<p:commandButton icon="fa fa-trash" styleClass="btnn-primary"
-									update="tablePagamentos" process="tablePagamentos" >
-									<p:collector value="#{itemPagamento}"
-										removeFrom="#{clienteViewBean.compra.pagamento.itensPagamento}" unique="true" />
+									update="tablePagamentos" process="tablePagamentos" rendered="#{itemPagamento.id == null ? true : false}" action="#{clienteViewBean.deleteItemPagamento(itemPagamento)}">
 								</p:commandButton>
 							</p:column>
 
 						</p:dataTable>
 					</p:outputPanel>
 				</p:outputPanel>
-				
-				<p:separator/>
-				
-				<p:outputPanel class="box-footer">
-					<h:panelGrid columns="3">
-
-						<p:commandButton
-							value="Salvar"
-							id="btSave" icon="fa fa-floppy-o" style="float: left;"
-							styleClass="btnn btnn-primary btnn-shadow btnn-rc"
-							action="#{clienteViewBean.efetuarPagamento}" process="formDialog" />
-
-						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
-							style="float:left;" styleClass="btnn btnn-default btnn-shadow btnn-rc"
-							outcome="/paginas/admin/cliente/ClienteView.xhtml"/>
-					</h:panelGrid>
-				</p:outputPanel>
-				
 			</h:form>
 		</p:dialog>
 

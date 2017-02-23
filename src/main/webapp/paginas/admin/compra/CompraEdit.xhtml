@@ -20,7 +20,7 @@
 	</ui:define>
 	
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
 		<li><a href="#{compraEdit.compraEdited ? 'CompraView.xhtml' : 'Compras.xhtml'}">#{compraEdit.compraEdited ? 'Detalhes Compra' : 'Compras'}</a></li>
 		<li class="active">#{compraEdit.compraEdited ? 'Editar Compra' : 'Nova Compra'}</li>
@@ -49,7 +49,6 @@
 
 								<p:outputLabel for="cliente" value="Cliente" />
 								<p:selectOneMenu id="cliente" required="true"
-									requiredMessage="O campo cliente é obrigatório!"
 									value="#{compraEdit.compra.cliente}">
 									<f:selectItem itemLabel="Selecione um cliente"
 										noSelectionOption="true" />
@@ -67,8 +66,7 @@
 								<p:outputLabel for="itemCompra" value="Peça" />
 								<p:selectOneMenu id="itemCompra" converter="#{pecaConverter}"
 									style="width:180px"
-									value="#{compraEdit.selectedItemCompra.peca}" required="true"
-									requiredMessage="O campo peça é obrigatório!">
+									value="#{compraEdit.selectedItemCompra.peca}" required="true">
 									<f:selectItem noSelectionOption="true" itemLabel="" />
 									<f:selectItems value="#{compraEdit.pecas}" var="item"
 										itemLabel="#{item.nome}" itemValue="#{item}" />
@@ -78,8 +76,7 @@
 								<p:outputLabel for="quant" value="Quantidade" />
 								<p:spinner id="quant"
 									value="#{compraEdit.selectedItemCompra.quantidade}"
-									required="true"
-									requiredMessage="O campo quantidade é obrigatório!" min="1">
+									required="true" min="1">
 									<p:ajax event="change" listener="#{compraEdit.calcularPreco}"
 										update="preco" />
 								</p:spinner>
@@ -140,7 +137,6 @@
 
 									<p:selectOneMenu id="payment" required="true"
 										style="width: 255px"
-										requiredMessage="O campo forma de pagamento é obrigatório!"
 										value="#{compraEdit.pagamento.payment}">
 
 										<f:selectItem itemLabel="Selecione uma forma de pagamento"
@@ -169,7 +165,7 @@
 										value="Número de parcelas" />
 
 									<p:spinner id="numDeParcelas" min="1" max="12"
-										value="#{compraEdit.pagamento.numDeParcelas}" required="true" requiredMessage="O campo número de parcelas é obrigatório!">
+										value="#{compraEdit.pagamento.numDeParcelas}" required="true" >
 										<p:ajax event="change"
 											listener="#{compraEdit.calcularValorParcela}"
 											update="valorParcelas" />

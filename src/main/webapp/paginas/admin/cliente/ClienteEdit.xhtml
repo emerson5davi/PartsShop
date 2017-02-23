@@ -22,7 +22,7 @@
 			cliente'}</small>
 	</ui:define>
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
 		<li><a href="#{clienteEdit.edicaoDeCliente ? 'ClienteView.xhtml' : 'Clientes.xhtml'}">#{clienteEdit.edicaoDeCliente ? 'Detalhes Cliente' : 'Clientes'}</a></li>
 		<li class="active">#{clienteEdit.edicaoDeCliente ? 'Editar Cliente' : 'Novo Cliente'}</li>
@@ -41,19 +41,19 @@
         				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="nome" value="Nome" />
 							<p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
-								required="true" requiredMessage="O campo nome é obrigatório!"/>
+								required="true"/>
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cpf" value="CPF"/>
 							<p:inputMask mask="999.999.999-99" id="cpf"
-								value="#{clienteEdit.cliente.cpf}" required="true" requiredMessage="O campo CPF é obrigatório!">
+								value="#{clienteEdit.cliente.cpf}" required="true" >
 							</p:inputMask>
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="sexo" value="Sexo" />
-							<p:selectOneMenu id="sexo" required="true" requiredMessage="O campo sexo é obrigatório!"
+							<p:selectOneMenu id="sexo" required="true" 
 								value="#{clienteEdit.cliente.sexo}">
 								<f:selectItem itemLabel="Selecione um sexo"
 									noSelectionOption="true" />
@@ -72,7 +72,7 @@
 							
        					<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="celular" value="Celular" />
-							<p:inputMask mask="(99) 99999-9999" id="celular" required="true" requiredMessage="O campo celular é obrigatório!"
+							<p:inputMask mask="(99) 99999-9999" id="celular" required="true" 
 								value="#{clienteEdit.cliente.celular}" />
 						</p:outputPanel>
 
@@ -87,7 +87,7 @@
         			
         				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="logradouro" value="Logradouro" />
-							<p:inputText id="logradouro" required="true" requiredMessage="O campo logradouro é obrigatório!"
+							<p:inputText id="logradouro" required="true" 
 								value="#{clienteEdit.cliente.endereco.logradouro}"
 								label="Logradouro" />
 						</p:outputPanel>
@@ -95,14 +95,14 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="numero" value="Número" />
 							<p:inputText id="numero"
-								value="#{clienteEdit.cliente.endereco.numero}" required="true" requiredMessage="O campo número é obrigaório!">
+								value="#{clienteEdit.cliente.endereco.numero}" required="true" >
 								<f:convertNumber integerOnly="true" />
 							</p:inputText>
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="zona" value="Zona" />
-							<p:selectOneMenu id="zona" required="true" requiredMessage="O campo zona é obrigatório!"
+							<p:selectOneMenu id="zona" required="true" 
 								value="#{clienteEdit.cliente.endereco.zona}">
 								<f:selectItem itemLabel="Selecione uma zona"
 									noSelectionOption="true" />
@@ -117,7 +117,7 @@
         				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="bairro" value="Bairro" />
 							<p:inputText id="bairro"
-								value="#{clienteEdit.cliente.endereco.bairro}" required="true" requiredMessage="O campo bairro é obrigatório!"/>
+								value="#{clienteEdit.cliente.endereco.bairro}" required="true" />
 						</p:outputPanel>	
 						
 						<p:outputPanel class="col-sm-4">	
@@ -128,7 +128,7 @@
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cep" value="CEP" />
-							<p:inputMask mask="99999-999" required="true" requiredMessage="O campo CEP é obrigatório!" id="cep"
+							<p:inputMask mask="99999-999" required="true" id="cep"
 								value="#{clienteEdit.cliente.endereco.cep}" size="3" />
 						</p:outputPanel>
 					</p:outputPanel>
@@ -138,7 +138,7 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="estado" value="Estado" />
 
-							<p:selectOneMenu id="estado" required="true" requiredMessage="O campo estado é obrigatório!"
+							<p:selectOneMenu id="estado" required="true" 
 								value="#{clienteEdit.cliente.endereco.estado}">
 
 								<f:selectItem itemLabel="Selecione um estado"
@@ -156,7 +156,7 @@
 
 							<p:selectOneMenu id="cidade"
 								value="#{clienteEdit.cliente.endereco.cidade}" filter="true"
-								filterMatchMode="startsWith" required="true" requiredMessage="O campo cidade é obrigatório!"
+								filterMatchMode="startsWith" required="true"
 								disabled="#{clienteEdit.cliente.endereco.estado eq null}">
 								<f:selectItem itemLabel="Selecione uma cidade"
 									noSelectionOption="true" />
@@ -175,7 +175,7 @@
 							<p:outputLabel for="grupo" value="Tipo de usuário" />
 
 							<p:selectOneMenu id="grupo" required="true"
-								requiredMessage="O campo tipo de usuário é obrigatório!"
+								
 								value="#{clienteEdit.cliente.grupo}">
 
 								<f:selectItem itemLabel="Selecione um tipo de usuário"
@@ -190,7 +190,7 @@
 							<p:outputLabel for="login" value="Login" />
 							<p:inputText id="login"
 								value="#{clienteEdit.cliente.login}" required="true"
-								requiredMessage="O campo login é obrigatório!" />
+								 />
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-3">

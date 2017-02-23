@@ -9,6 +9,7 @@ import br.edu.ifpb.dac.projeto.dao.CompraDao;
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.entities.Compra;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
+import br.edu.ifpb.dac.projeto.exceptions.PersistencePartsShopException;
 import br.edu.ifpb.dac.projeto.util.jpa.TransacionalCdi;
 
 public class CompraService implements Serializable{
@@ -76,4 +77,14 @@ public class CompraService implements Serializable{
 		return result;
 	}
 	
+	@TransacionalCdi
+	public Compra getCompraComPagamentos(Long id){
+		Compra result = null;
+		try{
+			result = dao.getCompraComPagamentos(id);
+		} catch(PersistencePartsShopException e){
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

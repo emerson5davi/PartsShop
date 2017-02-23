@@ -23,7 +23,7 @@
 	</ui:define>
 
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
 		<li class="active">Peças</li>
 	</ui:define>
@@ -80,12 +80,12 @@
 					<h:outputText id="marca" value="#{peca.marca}" />
 				</p:column>
 				
-				<p:column headerText="Ano" width="2%" filterBy="#{peca.ano}"
+				<p:column headerText="Ano da moto" width="2%" filterBy="#{peca.ano}"
 					filterStyle="display:none;">
 					<h:outputText id="ano" value="#{peca.ano}" />
 				</p:column>
 				
-				<p:column headerText="Modelo" width="2%" filterBy="#{peca.modelo}"
+				<p:column headerText="Modelo da moto" width="2%" filterBy="#{peca.modelo}"
 					filterStyle="display:none;">
 					<h:outputText id="modelo" value="#{peca.modelo}" />
 				</p:column>

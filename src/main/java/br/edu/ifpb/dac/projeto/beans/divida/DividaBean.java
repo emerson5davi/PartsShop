@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifpb.dac.projeto.entities.Divida;
+import br.edu.ifpb.dac.projeto.enumerations.StatusCompraDivida;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.services.DividaService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
@@ -62,16 +63,16 @@ public class DividaBean implements Serializable {
 	}
 
 	public String updateLabelStatus(String status) {
-		if (status.equals("Quitada")) {
-			return "label label-success";
+		if (status.equals(StatusCompraDivida.QUITADA.getDescricao())) {
+			return StatusCompraDivida.LB_QUITADA.getDescricao();
 		}
 
-		else if (status.equals("Em dia")) {
-			return "label label-info";
+		else if (status.equals(StatusCompraDivida.EM_DIA.getDescricao())) {
+			return StatusCompraDivida.LB_EM_DIA.getDescricao();
 		}
 
 		else {
-			return "label label-danger";
+			return StatusCompraDivida.LB_ATRASADA.getDescricao();
 		}
 	}
 
@@ -80,19 +81,19 @@ public class DividaBean implements Serializable {
 		Date data1 = new Date();
 
 		if (divida.getDataPagamento() != null) {
-			return "Quitada";
+			return StatusCompraDivida.QUITADA.getDescricao();
 		}
 		
 		else if(format.format(data1).compareTo(format.format(divida.getDataVencimento())) == 0){
-			return "Em dia";
+			return StatusCompraDivida.EM_DIA.getDescricao();
 		}
 
 		else if (data1.after(divida.getDataVencimento())) {
-			return "Atrasada";
+			return StatusCompraDivida.ATRASADA.getDescricao();
 		} 
 		
 		else {
-			return "Em dia";
+			return StatusCompraDivida.EM_DIA.getDescricao();
 		}
 	}
 }

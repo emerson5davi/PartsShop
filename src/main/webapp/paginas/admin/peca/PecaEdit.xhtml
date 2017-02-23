@@ -23,9 +23,9 @@
 	</ui:define>
 	
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i>  <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
-		<li><a href="#{pecaEdit.edicaoDePeca ? 'paginas/admin/peca/PecaView.xhtml' : 'paginas/admin/peca/Pecas.xhtml'}">#{pecaEdit.edicaoDePeca ? 'Detalhes Peça' : 'Peças'}</a></li>
+		<li><a href="#{pecaEdit.edicaoDePeca ? 'PecaView.xhtml' : 'Pecas.xhtml'}">#{pecaEdit.edicaoDePeca ? 'Detalhes Peça' : 'Peças'}</a></li>
 		<li class="active">#{pecaEdit.edicaoDePeca ? 'Editar Peça' : 'Nova Peça'}</li>
 	</ui:define>
 	
@@ -33,7 +33,7 @@
 
 		<h:form id="formRegisterPeca">
 			<p:messages id="messages" autoUpdate="true"
-				closable="true" />
+				closable="true" showDetail="true" />
 
 			<p:fieldset styleClass="box box-success">
 			
@@ -46,23 +46,21 @@
         				<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="nome" value="Nome" />
 							<p:inputText id="nome" value="#{pecaEdit.peca.nome}"
-								required="true" requiredMessage="O campo nome é obrigatório!" />
+								required="true" />
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="quantidade" value="Quantidade" />
 							<p:spinner id="quantidade"
 									value="#{pecaEdit.peca.quantidade}"
-									required="true"
-									requiredMessage="O campo quantidade é obrigatório!" min="1">
+									required="true" min="0">
 							</p:spinner>
 						</p:outputPanel>
 						
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="preco" value="Preço" />
 							<p:inputText id="preco" required="true"
-								requiredMessage="O campo preço é obrigatório!"
-								value="#{pecaEdit.peca.preco}" >
+								value="#{pecaEdit.peca.preco}" placeholder="00,00" >
 								<f:convertNumber  maxFractionDigits="2"/>
 							</p:inputText>
 						</p:outputPanel>
@@ -83,7 +81,7 @@
 						
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="marca" value="Marca" />
-							<p:inputText id="marca" value="#{pecaEdit.peca.marca}" required="true"	requiredMessage="O campo marca é obrigatório!"/>
+							<p:inputText id="marca" value="#{pecaEdit.peca.marca}" required="true"	/>
 						</p:outputPanel>
 						
 						<p:outputPanel class="col-sm-1" >
@@ -114,12 +112,12 @@
 						
 	        			<p:outputPanel class="col-sm-4">
 	        				<p:outputLabel for="modelo" value="Modelo da moto" />
-							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" requiredMessage="O campo modelo é obrigatório!" />
+							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" />
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="ano" value="Ano da moto" />
-							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	requiredMessage="O campo ano é obrigatório!" />
+							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	/>
 						</p:outputPanel>
 							
 					</p:outputPanel>

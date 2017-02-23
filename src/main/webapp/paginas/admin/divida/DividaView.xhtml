@@ -79,7 +79,6 @@
 							
 							<p:outputPanel class="col-sm-4">
 								<h:outputText
-									rendered="#{dividaView.divida.dataVencimento == '' ? false : true}"
 									value="#{dividaView.divida.dataVencimento}" >
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
@@ -90,6 +89,20 @@
 								<h:outputText value="R$ #{dividaView.divida.valor}"/>
 							</p:outputPanel>
 							
+						</p:outputPanel>
+						
+						<p:outputPanel class="form-group row">	
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Status: " style="font-weight: bold"/>
+								<h:outputText id="status" value="#{dividaBean.getStatus(divida)}" styleClass="#{dividaBean.updateLabelStatus(dividaBean.getStatus(divida))}"/>
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4" rendered="#{dividaView.divida.dataPagamento == '' ? false : true}">
+								<h:outputText value="#{dividaView.divida.dataVencimento}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:outputPanel>
 						</p:outputPanel>
 						
 					</p:outputPanel>

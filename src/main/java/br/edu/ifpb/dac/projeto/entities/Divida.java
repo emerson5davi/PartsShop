@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "TB_DIVIDA")
 @DiscriminatorValue("Divida")
@@ -48,6 +50,7 @@ public class Divida implements Serializable {
 	@Column(name = "DATA_VENCIMENTO")
 	private Date dataVencimento;
 
+	@NotBlank
 	@NotNull
 	@Column(name = "NOME_EMPRESA")
 	private String nomeEmpresa;

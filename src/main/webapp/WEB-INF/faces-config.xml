@@ -6,7 +6,7 @@
     version="2.2">
     
     <application>
-		<!--<message-bundle>br.edu.ifpb.dac.projeto.messages</message-bundle>-->
+		<message-bundle>br.edu.ifpb.dac.projeto.messages</message-bundle>
 		
 		<locale-config>
 			<default-locale>pt_BR</default-locale>

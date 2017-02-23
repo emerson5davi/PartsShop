@@ -10,6 +10,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "TB_FUNCIONARIO")
 @DiscriminatorValue("Funcionario")
@@ -22,6 +24,7 @@ public class Funcionario extends Pessoa{
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotBlank
 	@NotNull
 	@Column(name = "CARGO")
 	private String cargo;
@@ -41,10 +44,6 @@ public class Funcionario extends Pessoa{
 	@NotNull
 	@Column(name = "ORGEXPED")
 	private String orgExped;
-	
-	@NotNull
-	@Column(name = "TIPOCONTA")
-	private String tipoConta;
 	
 	public String getCargo() {
 		return cargo;
@@ -86,14 +85,6 @@ public class Funcionario extends Pessoa{
 		this.orgExped = orgExped;
 	}
 
-	public String getTipoConta() {
-		return tipoConta;
-	}
-
-	public void setTipoConta(String tipoConta) {
-		this.tipoConta = tipoConta;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -107,7 +98,6 @@ public class Funcionario extends Pessoa{
 		result = prime * result + ((ctps == null) ? 0 : ctps.hashCode());
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
 		result = prime * result + ((orgExped == null) ? 0 : orgExped.hashCode());
-		result = prime * result + ((tipoConta == null) ? 0 : tipoConta.hashCode());
 		return result;
 	}
 
@@ -145,18 +135,13 @@ public class Funcionario extends Pessoa{
 				return false;
 		} else if (!orgExped.equals(other.orgExped))
 			return false;
-		if (tipoConta == null) {
-			if (other.tipoConta != null)
-				return false;
-		} else if (!tipoConta.equals(other.tipoConta))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Funcionario [cargo=" + cargo + ", salario=" + salario + ", ctps=" + ctps + ", rg=" + rg + ", orgExped="
-				+ orgExped + ", tipoConta=" + tipoConta + "]";
+				+ orgExped + "]";
 	}
 	
 }

@@ -22,7 +22,7 @@
 	</ui:define>
 
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
 		<li class="active">Compras</li>
 	</ui:define>
@@ -75,16 +75,12 @@
 					<h:outputText id="payment" value="#{compra.pagamento.payment.tipoDePagamento}" />
 				</p:column>
 				
-				<p:column headerText="Quantidade" width="2%">
-					<h:outputText id="quant" value="#{compraBean.getQuantidade(compra)}" />
-				</p:column>
-				
-				<p:column headerText="Peças" width="3%">
-					<h:outputText id="pecas" value="#{compraBean.getPecas(compra)}" />
+				<p:column headerText="Status" width="2%">
+					<h:outputText id="status" value="#{compraBean.getStatus(compra)}" styleClass="#{compraBean.updateLabelStatus(compraBean.getStatus(compra))}"/>
 				</p:column>
 
-				<p:column headerText="Valor" width="3%">
-					<h:outputText id="valor" value="R$ #{compraBean.getValor(compra)}" />
+				<p:column headerText="Valor total da compra" width="3%">
+					<h:outputText id="valor" value="R$ #{compra.pagamento.valorTotal}" />
 				</p:column>				
 			</p:dataTable>
 		</h:form>

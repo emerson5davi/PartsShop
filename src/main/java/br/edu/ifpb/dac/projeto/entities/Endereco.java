@@ -47,6 +47,7 @@ public class Endereco implements Serializable{
 	@Column(name = "zona")
 	private String zona;
 
+	@NotBlank
 	@NotNull
 	@Column(name = "bairro")
 	private String bairro;

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.edu.ifpb.dac.projeto.enumerations.Grupo;
 
 @Entity
@@ -20,10 +22,12 @@ public class Usuario{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
+	@NotBlank
 	@NotNull
 	@Column(name = "LOGIN")
 	private String login;
 
+	@NotBlank
 	@NotNull
 	@Column(name = "SENHA")
 	private String senha;

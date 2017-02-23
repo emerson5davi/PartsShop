@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+
+	<f:metadata>
+		<o:viewParam name="compra" value="#{compraViewBean.compra}"
+			converter="#{compraConverter}" />
+		<f:event listener="#{compraViewBean.preRenderView()}"
+			type="preRenderView" />
+
+	</f:metadata>
+
+	<ui:define name="titulo">Detalhes Compra</ui:define>
+	<ui:define name="content-header">Detalhes Compra <small>Visualizar
+			informações da compra</small>
+	</ui:define>
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a
+			href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a></li>
+		<li><a
+			href="#{request.contextPath}/paginas/admin/compra/Compras.xhtml">Compras</a></li>
+		<li class="active">Detalhes da compra</li>
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:form id="detailForm">
+			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml" />
+
+			<p:messages id="messages" autoUpdate="true" closable="true"
+				showDetail="true" />
+
+			<h:panelGrid columns="3">
+
+				<p:button value="editar" id="btEdit"
+					outcome="/paginas/admin/compra/CompraEdit.xhtml"
+					icon="fa fa-pencil"
+					styleClass="btnn btnn-primary btnn-shadow btnn-rc">
+					<f:param name="compra" value="#{compraViewBean.compra.id}" />
+				</p:button>
+
+				<p:commandButton value="Remover" id="btRemove"
+					action="#{compraBean.remove}" icon="fa fa-trash"
+					styleClass="btnn btnn-danger btnn-shadow btnn-rc">
+					<f:setPropertyActionListener value="#{compraViewBean.compra}"
+						target="#{compraBean.selectedCompra}" />
+					<p:confirm header="Remoção de compra"
+						message="Deseja remover esta compra?" />
+				</p:commandButton>
+
+				<p:button value="voltar" id="btvoltar"
+					outcome="/paginas/admin/compra/Compras.xhtml" icon="fa fa-reply"
+					styleClass="btnn btnn-default btnn-shadow btnn-rc" />
+
+			</h:panelGrid>
+
+			<p:fieldset id="infor_detail" style="margin-top:10px;"
+				styleClass="box box-success">
+				<h2 class="page-header">
+					<p:outputLabel value="#{compraViewBean.compra.id}"
+						styleClass="text-detail" />
+				</h2>
+
+				<p:outputPanel class="panel panel-default">
+
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Informações gerais</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="panel-body">
+
+						<p:outputPanel class="form-group row">
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Data: " style="font-weight: bold" />
+								<h:outputText value="#{compraViewBean.compra.data}" />
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Cliente: " style="font-weight: bold" />
+								<h:outputText value="#{compraViewBean.compra.cliente.nome}" />
+							</p:outputPanel>
+						
+						</p:outputPanel>
+						
+						<p:outputPanel class="form-group row">
+						
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Quantidade de itens: " style="font-weight: bold" />
+								<h:outputText id="quant" value="#{compraBean.getQuantidade(compra)}" />
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Itens: " style="font-weight: bold" />
+								<h:outputText id="pecas" value="#{compraBean.getPecas(compra)}" />
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Valor total da compra: " style="font-weight: bold" />
+								<h:outputText id="valor" value="R$ #{compraBean.getValor(compra)}" />
+							</p:outputPanel>
+							
+						</p:outputPanel>
+						
+						<h3><strong>Informações de pagamento:</strong></h3>
+
+						<p:outputPanel class="form-group row">
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Forma de pagamento: " style="font-weight: bold" />
+								<h:outputText value="#{compraViewBean.compra.pagamento.payment.tipoDePagamento}" />
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-4" rendered="#{compraViewBean.compra.pagamento.dataPagamento == '' ? false : true}">
+								<h:outputText value="Data de pagamento: " style="font-weight: bold" />
+								<h:outputText value="#{compraViewBean.compra.pagamento.dataPagamento}" />
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-4" rendered="#{compraViewBean.compra.pagamento.numDeParcelas == null ? false : true}">
+								<h:outputText value="Parcelado em: " style="font-weight: bold" />
+								<h:outputText value="#{compraViewBean.compra.pagamento.numDeParcelas.concat('x de R$ '.concat(compraEdit.getCalcularValorParcela(compra)))}" />
+							</p:outputPanel>
+
+						</p:outputPanel>
+
+					</p:outputPanel>
+
+				</p:outputPanel>
+
+				<p:outputPanel id="itens" class="panel panel-default">
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Pagamentos</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="table-responsive">
+						<p:dataTable id="tablePagamentos" var="itemPagamento"
+							value="#{compraViewBean.compra.pagamento.itensPagamento}"
+							paginatorPosition="bottom" rows="15" paginator="true"
+							paginatorAlwaysVisible="false" widgetVar="findPagamento"
+							reflow="true" emptyMessage="Nenhum pagamento registrado"
+							styleClass="ui-datatable">
+
+							<p:column headerText="#" width="2%">
+								<h:outputText id="id"
+									value="#{itemPagamento.id}" />
+							</p:column>
+
+							<p:column headerText="Data" width="3%"
+								filterBy="#{itemPagamento.data_pagamento}"
+								filterStyle="display:none;">
+								<h:outputText id="data" value="#{itemPagamento.data_pagamento}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Valor" width="3%">
+								<h:outputText id="valor"
+									value="R$ #{itemPagamento.valor}" />
+							</p:column>
+						</p:dataTable>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -25,10 +25,10 @@
 	</ui:define>
 
 	<ui:define name="breadcrumb-header">
-		<li><i class="fa fa-dashboard"></i> <a href="Home.xhtml">Dashboard</a>
+		<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
 		</li>
 		<li><a
-			href="#{funcionarioEdit.edicaoDeFuncionario ? 'paginas/admin/funcionario/FuncionarioView.xhtml' : 'paginas/admin/funcionario/Funcionarios.xhtml'}">#{funcionarioEdit.edicaoDeFuncionario
+			href="#{funcionarioEdit.edicaoDeFuncionario ? 'FuncionarioView.xhtml' : 'Funcionarios.xhtml'}">#{funcionarioEdit.edicaoDeFuncionario
 				? 'Detalhes Funcionário' : 'Funcionários'}</a></li>
 		<li class="active">#{funcionarioEdit.edicaoDeFuncionario ?
 			'Editar Funcionário' : 'Novo Funcionário'}</li>
@@ -48,22 +48,20 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="nome" value="Nome" />
 							<p:inputText id="nome"
-								value="#{funcionarioEdit.funcionario.nome}" required="true"
-								requiredMessage="O campo nome é obrigatório!" />
+								value="#{funcionarioEdit.funcionario.nome}" required="true"/>
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cpf" value="CPF" />
 							<p:inputMask mask="999.999.999-99" id="cpf"
-								value="#{funcionarioEdit.funcionario.cpf}" required="true"
-								requiredMessage="O campo CPF é obrigatório!">
+								value="#{funcionarioEdit.funcionario.cpf}" required="true">
 							</p:inputMask>
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="rg" value="RG" />
 							<p:inputText id="rg" value="#{funcionarioEdit.funcionario.rg}"
-								required="true" requiredMessage="O campo RG é obrigatório!">
+								required="true" >
 								<f:convertNumber integerOnly="true" />
 							</p:inputText>
 						</p:outputPanel>
@@ -74,7 +72,6 @@
 							<p:outputLabel for="orgExped" value="Órgão Expedidor" />
 
 							<p:selectOneMenu id="orgExped" required="true"
-								requiredMessage="O campo órgão expedidor é obrigatório!"
 								value="#{funcionarioEdit.funcionario.orgExped}" filter="true"
 								filterMatchMode="startsWith">
 
@@ -87,8 +84,7 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="ctps" value="CTPS" />
 							<p:inputText id="ctps"
-								value="#{funcionarioEdit.funcionario.ctps}" required="true"
-								requiredMessage="O campo CTPS é obrigatório!">
+								value="#{funcionarioEdit.funcionario.ctps}" required="true">
 								<f:convertNumber integerOnly="true" />
 							</p:inputText>
 						</p:outputPanel>
@@ -96,8 +92,7 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cargo" value="Cargo" />
 							<p:inputText id="cargo"
-								value="#{funcionarioEdit.funcionario.cargo}" required="true"
-								requiredMessage="O campo cargo é obrigatório!" />
+								value="#{funcionarioEdit.funcionario.cargo}" required="true" />
 						</p:outputPanel>
 					</p:outputPanel>
 
@@ -105,8 +100,7 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="salario" value="Salário" />
 							<p:inputText id="salario"
-								value="#{funcionarioEdit.funcionario.salario}" required="true"
-								requiredMessage="O campo salário é obrigatório!">
+								value="#{funcionarioEdit.funcionario.salario}" required="true">
 								<f:convertNumber maxFractionDigits="2" />
 							</p:inputText>
 						</p:outputPanel>
@@ -114,7 +108,6 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="sexo" value="Sexo" />
 							<p:selectOneMenu id="sexo" required="true"
-								requiredMessage="O campo sexo é obrigatório!"
 								value="#{funcionarioEdit.funcionario.sexo}">
 								<f:selectItem itemLabel="Selecione um sexo"
 									noSelectionOption="true" />
@@ -134,7 +127,6 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="celular" value="Celular" />
 							<p:inputMask mask="(99) 99999-9999" id="celular" required="true"
-								requiredMessage="O campo celular é obrigatório!"
 								value="#{funcionarioEdit.funcionario.celular}" />
 						</p:outputPanel>
 
@@ -144,18 +136,6 @@
 								value="#{funcionarioEdit.funcionario.email}" />
 						</p:outputPanel>
 
-						<p:outputPanel class="col-sm-4">
-							<p:outputLabel for="tipoConta" value="Tipo da conta" />
-							<p:selectOneMenu id="tipoConta" required="true"
-								requiredMessage="O campo tipo da conta é obrigatório!"
-								value="#{funcionarioEdit.funcionario.tipoConta}">
-								<f:selectItem itemLabel="Selecione o tipo da conta"
-									noSelectionOption="true" />
-								<f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
-								<f:selectItem itemLabel="Administrador"
-									itemValue="Administrador" />
-							</p:selectOneMenu>
-						</p:outputPanel>
 					</p:outputPanel>
 
 					<h3>
@@ -166,7 +146,6 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="logradouro" value="Logradouro" />
 							<p:inputText id="logradouro" required="true"
-								requiredMessage="O campo logradouro é obrigatório!"
 								value="#{funcionarioEdit.funcionario.endereco.logradouro}"
 								label="Logradouro" />
 						</p:outputPanel>
@@ -175,7 +154,7 @@
 							<p:outputLabel for="numero" value="Número" />
 							<p:inputText id="numero"
 								value="#{funcionarioEdit.funcionario.endereco.numero}"
-								required="true" requiredMessage="O campo número é obrigaório!">
+								required="true" >
 								<f:convertNumber integerOnly="true" />
 							</p:inputText>
 						</p:outputPanel>
@@ -183,7 +162,6 @@
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="zona" value="Zona" />
 							<p:selectOneMenu id="zona" required="true"
-								requiredMessage="O campo zona é obrigatório!"
 								value="#{funcionarioEdit.funcionario.endereco.zona}">
 								<f:selectItem itemLabel="Selecione uma zona"
 									noSelectionOption="true" />
@@ -199,7 +177,7 @@
 							<p:outputLabel for="bairro" value="Bairro" />
 							<p:inputText id="bairro"
 								value="#{funcionarioEdit.funcionario.endereco.bairro}"
-								required="true" requiredMessage="O campo bairro é obrigatório!" />
+								required="true" />
 						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
@@ -210,8 +188,7 @@
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="cep" value="CEP" />
-							<p:inputMask mask="99999-999" required="true"
-								requiredMessage="O campo CEP é obrigatório!" id="cep"
+							<p:inputMask mask="99999-999" required="true" id="cep"
 								value="#{funcionarioEdit.funcionario.endereco.cep}" size="3" />
 						</p:outputPanel>
 					</p:outputPanel>
@@ -222,7 +199,6 @@
 							<p:outputLabel for="estado" value="Estado" />
 
 							<p:selectOneMenu id="estado" required="true"
-								requiredMessage="O campo estado é obrigatório!"
 								value="#{funcionarioEdit.funcionario.endereco.estado}">
 
 								<f:selectItem itemLabel="Selecione um estado"
@@ -241,7 +217,6 @@
 							<p:selectOneMenu id="cidade"
 								value="#{funcionarioEdit.funcionario.endereco.cidade}"
 								filter="true" filterMatchMode="startsWith" required="true"
-								requiredMessage="O campo cidade é obrigatório!"
 								disabled="#{funcionarioEdit.funcionario.endereco.estado eq null}">
 								<f:selectItem itemLabel="Selecione uma cidade"
 									noSelectionOption="true" />
@@ -260,7 +235,6 @@
 							<p:outputLabel for="grupo" value="Tipo de usuário" />
 
 							<p:selectOneMenu id="grupo" required="true"
-								requiredMessage="O campo tipo de usuário é obrigatório!"
 								value="#{funcionarioEdit.funcionario.grupo}">
 
 								<f:selectItem itemLabel="Selecione um tipo de usuário"

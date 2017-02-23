@@ -2,7 +2,10 @@ package br.edu.ifpb.dac.projeto.beans.compra;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +16,7 @@ import javax.inject.Named;
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.entities.Compra;
 import br.edu.ifpb.dac.projeto.entities.ItemCompra;
+import br.edu.ifpb.dac.projeto.enumerations.StatusCompraDivida;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.services.CompraService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
@@ -26,7 +30,7 @@ public class CompraBean implements Serializable {
 
 	@Inject
 	private CompraService compraService;
-
+	
 	private List<Compra> compras;
 
 	private Compra selectedCompra;
@@ -44,9 +48,10 @@ public class CompraBean implements Serializable {
 
 	public void renderTo() {
 		JSFUtils.rederTo("CompraView.xhtml");
-		JSFUtils.setParam("compra", selectedCompra);
+		Compra compra = compraService.getCompraComPagamentos(selectedCompra.getId());
+		JSFUtils.setParam("compra", compra);
 	}
-
+	
 	public void listOfCompras() {
 		this.compras = compraService.findAll();
 	}
@@ -113,11 +118,70 @@ public class CompraBean implements Serializable {
 	}
 
 	public BigDecimal getTotalCompras(Cliente cliente) {
-		BigDecimal total = new BigDecimal(0.0);
+		BigDecimal totalCompra = new BigDecimal(0.0);
+		BigDecimal totalPago = new BigDecimal(0.0);
 		for (Compra compra : getComprasByCliente(cliente)) {
-			total = total.add(getValor(compra));
+			totalCompra = totalCompra.add(compra.getPagamento().getValorTotal());
+			if(compra.getPagamento().getValorPago() == null){
+				compra.getPagamento().setValorPago(new BigDecimal(0.0));
+			}
+			totalPago = totalPago.add(compra.getPagamento().getValorPago());
 		}
-		return total;
+		return totalCompra.subtract(totalPago);
+	}
+	
+	public String updateLabelStatus(String status) {
+		if (status.equals(StatusCompraDivida.QUITADA.getDescricao())) {
+			return StatusCompraDivida.LB_QUITADA.getDescricao();
+		}
+
+		else if (status.equals(StatusCompraDivida.EM_DIA.getDescricao())) {
+			return StatusCompraDivida.LB_EM_DIA.getDescricao();
+		}
+
+		else {
+			return StatusCompraDivida.LB_ATRASADA.getDescricao();
+		}
+	}
+
+	public String getStatus(Compra compra) {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date data1 = new Date();
+		Date data2;
+		
+		if(compra.getPagamento().getItensPagamento().isEmpty()){
+			data2 = compra.getData();
+		}
+		else{
+			data2 = compra.getPagamento().getItensPagamento().get(compra.getPagamento().getItensPagamento().size()-1).getData_pagamento();
+		}
+		
+		Calendar dataUm = Calendar.getInstance();
+		Calendar dataDois = Calendar.getInstance();
+		dataUm.setTime(new Date(format.format(data1)));
+		dataDois.setTime(new Date(format.format(data2)));
+		
+		dataDois.add(Calendar.MONTH, 1);
+		
+		if(compra.getPagamento().getValorPago() == null){
+			compra.getPagamento().setValorPago(new BigDecimal(0.0));
+		}
+		
+		if (compra.getPagamento().getValorPago().compareTo(compra.getPagamento().getValorTotal()) == 0) {
+			return StatusCompraDivida.QUITADA.getDescricao();
+		}
+		
+		else if(dataUm.compareTo(dataDois) == 0){
+			return StatusCompraDivida.EM_DIA.getDescricao();
+		}
+
+		else if (dataUm.after(dataDois)) {
+			return StatusCompraDivida.ATRASADA.getDescricao();
+		} 
+		
+		else {
+			return StatusCompraDivida.EM_DIA.getDescricao();
+		}
 	}
 
 }

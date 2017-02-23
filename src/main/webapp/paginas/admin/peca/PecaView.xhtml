@@ -18,8 +18,12 @@
 	<ui:define name="content-header">Detalhes Peça <small>Visualizar
 			informações da peça</small>
 	</ui:define>
-	<ui:define name="breadcrumb-active">Detalhes Peça</ui:define>
-
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
+		</li>
+		<li><a href="#{request.contextPath}/paginas/admin/peca/Pecas.xhtml">Peças</a></li>
+		<li class="active">Detalhes da peça</li>
+	</ui:define>
 
 	<ui:define name="conteudo">
 
@@ -57,56 +61,78 @@
 						styleClass="text-detail" />
 				</h2>
 
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<strong>Informações Gerais</strong>
-					</div>
-					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"
-						columnClasses="ui-grid-col-2">
+				<p:outputPanel class="panel panel-default">
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Informações gerais</h3>
+					</p:outputPanel>
+					
+					<p:outputPanel class="panel-body">
 
-						<h:outputText value="Nome:" />
-						<h:outputText value="#{pecaViewBean.peca.nome}" />
+						<p:outputPanel class="form-group row">
 
-						<h:outputText
-							rendered="#{pecaViewBean.peca.descricao == '' ? false : true}"
-							value="Descrição:" />
-						<h:outputText
-							rendered="#{pecaViewBean.peca.descricao == '' ? false : true}"
-							value="#{pecaViewBean.peca.descricao}" />
-
-						<h:outputText value="Quantidade:" />
-						<h:outputText value="#{pecaViewBean.peca.quantidade}" />
-						
-						<h:outputText value="Preço:" />
-						<h:outputText value="R$ #{pecaViewBean.peca.preco}" />
-
-						<h:outputText
-							rendered="#{pecaViewBean.peca.validade == '' ? false : true}"
-							value="Validade:" />
-						<h:outputText
-							rendered="#{pecaViewBean.peca.validade == '' ? false : true}"
-							value="#{pecaViewBean.peca.validade}" >
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Nome: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.nome}" />
+							</p:outputPanel>
 							
-						<h:outputText
-							rendered="#{pecaViewBean.peca.cor == '' ? false : true}"
-							value="Cor:" />
-						<h:outputText
-							rendered="#{pecaViewBean.peca.cor == '' ? false : true}"
-							value="#{pecaViewBean.peca.cor}" />
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Quantidade: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.quantidade}" />
+							</p:outputPanel>
+						
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Preço: " style="font-weight: bold"/>
+								<h:outputText value="R$ #{pecaViewBean.peca.preco}" />
+							</p:outputPanel>
+							
+						</p:outputPanel>
+						
+						
+						<p:outputPanel class="form-group row">
+						
+							<p:outputPanel class="col-sm-4" rendered="#{pecaViewBean.peca.validade == '' ? false : true}">
+								<h:outputText value="Validade: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.validade}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:outputPanel>
 
-						<h:outputText value="Marca:" />
-						<h:outputText value="#{pecaViewBean.peca.marca}" />
+							<p:outputPanel class="col-sm-4">						
+								<h:outputText value="Marca: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.marca}" />
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4" rendered="#{pecaViewBean.peca.cor == '' ? false : true}">
+								<h:outputText value="Cor: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.cor}" style="background-color: \##{pecaViewBean.peca.cor}"/>
+							</p:outputPanel>
+							
+						</p:outputPanel>
 						
-						<h:outputText value="Ano:" />
-						<h:outputText value="#{pecaViewBean.peca.ano}" />
+						<p:outputPanel class="form-group row" rendered="#{pecaViewBean.peca.descricao == '' ? false : true}">
 						
-						<h:outputText value="Modelo:" />
-						<h:outputText value="#{pecaViewBean.peca.modelo}" />
+							<p:outputPanel class="col-sm-4" >
+								<h:outputText value="Descrição: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.descricao}" />
+							</p:outputPanel>
+							
+						</p:outputPanel>
+
+						<p:outputPanel class="form-group row">
+							
+							<p:outputPanel class="col-sm-4" >
+								<h:outputText value="Ano da moto: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.ano}" />
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4" >
+								<h:outputText value="Modelo da moto: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.modelo}" />
+							</p:outputPanel>
 						
-					</p:panelGrid>
-				</div>
+						</p:outputPanel>						
+					</p:outputPanel>
+				</p:outputPanel>
 			</p:fieldset>
 		</h:form>
 	</ui:define>

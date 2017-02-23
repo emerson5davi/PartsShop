@@ -201,6 +201,14 @@ public class CompraEdit implements Serializable {
 		setValorParcela(total.divide(new BigDecimal(getPagamento().getNumDeParcelas())));
 	}
 	
+	public BigDecimal getCalcularValorParcela(Compra compra){
+		BigDecimal total = new BigDecimal(0.0);
+		for (ItemCompra itemCompra : compra.getItensCompra()) {
+			total = total.add(itemCompra.getPreco());
+		}
+		return total.divide(new BigDecimal(getPagamento().getNumDeParcelas()));
+	}
+	
 	public List<Payment> getPayments(){
 		this.payments = pagamentoService.payments;
 		return payments;
