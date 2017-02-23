@@ -153,7 +153,7 @@ public class CompraBean implements Serializable {
 			data2 = compra.getData();
 		}
 		else{
-			data2 = compra.getPagamento().getItensPagamento().get(compra.getPagamento().getItensPagamento().size()-1).getData_pagamento();
+			data2 = compra.getPagamento().getItensPagamento().get(compra.getPagamento().getItensPagamento().size()-1).getDataPagamento();
 		}
 		
 		Calendar dataUm = Calendar.getInstance();
@@ -183,5 +183,4 @@ public class CompraBean implements Serializable {
 			return StatusCompraDivida.EM_DIA.getDescricao();
 		}
 	}
-
 }

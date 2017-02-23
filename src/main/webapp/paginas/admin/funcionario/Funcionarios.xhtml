@@ -65,16 +65,16 @@
 						target="#{funcionarioViewBean.funcionario}" />
 				</p:ajax>
 				
-				<p:column headerText="#" width="3%" filterBy="#{funcionario.id}" filterStyle="display:none;">
+				<p:column headerText="#" width="3%" filterBy="#{funcionario.id}" sortBy="#{funcionario.id}" filterStyle="display:none;">
 					<h:outputText id="id" value="#{funcionario.id}" />
 				</p:column>
 
 				<p:column headerText="Nome" width="8%"
-					filterBy="#{funcionario.nome}" filterStyle="display:none;">
+					filterBy="#{funcionario.nome}" filterStyle="display:none;" sortBy="#{funcionario.nome}">
 					<h:outputText id="nome" value="#{funcionario.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" width="5%" filterBy="#{funcionario.cpf}"
+				<p:column headerText="CPF" width="5%" filterBy="#{funcionario.cpf}" sortBy="#{funcionario.cpf}"
 					filterStyle="display:none;">
 					<h:outputText id="cpf" value="#{funcionario.cpf}" />
 				</p:column>

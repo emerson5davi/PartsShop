@@ -66,12 +66,12 @@
 						target="#{pecaViewBean.peca}" />
 				</p:ajax>
 				
-				<p:column headerText="#" width="1%" filterBy="#{peca.id}" filterStyle="display:none;">
+				<p:column headerText="#" width="1%" filterBy="#{peca.id}" sortBy="#{peca.id}" filterStyle="display:none;">
 					<h:outputText id="id" value="#{peca.id}" />
 				</p:column>
 
 				<p:column headerText="Nome" width="4%"
-					filterBy="#{peca.nome}" filterStyle="display:none;">
+					filterBy="#{peca.nome}" filterStyle="display:none;" sortBy="#{peca.nome}">
 					<h:outputText id="cod" value="#{peca.nome}" />
 				</p:column>
 

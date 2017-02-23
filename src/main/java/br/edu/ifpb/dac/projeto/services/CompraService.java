@@ -24,9 +24,6 @@ public class CompraService implements Serializable{
 	
 	@TransacionalCdi
 	public void add(Compra compra) throws PartsShopException {
-		if(compra.getItensCompra().isEmpty()){
-			throw new PartsShopException("deu merda");
-		}
 		dao.add(compra);
 	}
 	
@@ -35,7 +32,6 @@ public class CompraService implements Serializable{
 		dao.remove(compra);
 	}
 
-	@TransacionalCdi
 	public Compra findById(Long id){
 		return dao.findById(id);
 	}
@@ -45,17 +41,14 @@ public class CompraService implements Serializable{
 		return dao.update(compra);
 	}
 	
-	@TransacionalCdi
 	public List<Compra> findAll() {
 		return dao.findAll();
 	}
 	
-	@TransacionalCdi
 	public Long getTotalCompras() {
 		return dao.getTotalCompras();
 	}
 	
-	@TransacionalCdi
 	public Long getCountComprasByCliente(Cliente cliente) {
 		Long result = 0l;
 		try {
@@ -66,7 +59,6 @@ public class CompraService implements Serializable{
 		return result;
 	}
 	
-	@TransacionalCdi
 	public List<Compra> getComprasByCliente(Cliente cliente) {
 		List<Compra> result = null;
 		try {
@@ -77,7 +69,6 @@ public class CompraService implements Serializable{
 		return result;
 	}
 	
-	@TransacionalCdi
 	public Compra getCompraComPagamentos(Long id){
 		Compra result = null;
 		try{

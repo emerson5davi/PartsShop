@@ -8,7 +8,7 @@ public enum StatusCompraDivida{
 	
 	LB_EM_DIA("label label-info"),
 	LB_ATRASADA("label label-danger"),
-	LB_QUITADA("label label-danger");
+	LB_QUITADA("label label-success");
 	
 	private String descricao;
 	

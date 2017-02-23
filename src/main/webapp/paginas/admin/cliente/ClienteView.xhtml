@@ -53,6 +53,7 @@
 						target="#{clienteBean.selectedCliente}" />
 					<p:confirm header="Remoção de cliente"
 						message="Deseja remover este cliente?" />
+					<p:ajax update="messages"/>
 				</p:commandButton>
 
 				<p:button value="voltar" id="btvoltar"
@@ -200,11 +201,6 @@
 								</div>
 							</f:facet>
 
-							<p:ajax event="rowSelect" listener="#{compraBean.renderTo}">
-								<f:setPropertyActionListener value="#{compra}"
-									target="#{pecaViewBean.peca}" />
-							</p:ajax>
-
 							<p:column headerText="#" width="2%" filterBy="#{compra.id}"
 								filterStyle="display:none;">
 								<h:outputText id="id" value="#{compra.id}" />
@@ -222,16 +218,11 @@
 									value="#{compraBean.getPayment(compra)}" />
 							</p:column>
 
-							<p:column headerText="Quantidade" width="3%">
-								<h:outputText id="quant"
-									value="#{compraBean.getQuantidade(compra)}" />
+							<p:column headerText="Status" width="2%">
+								<h:outputText id="status" value="#{compraBean.getStatus(compra)}" styleClass="#{compraBean.updateLabelStatus(compraBean.getStatus(compra))}"/>
 							</p:column>
 
-							<p:column headerText="Peças" width="3%">
-								<h:outputText id="pecas" value="#{compraBean.getPecas(compra)}" />
-							</p:column>
-
-							<p:column headerText="Valor" width="3%">
+							<p:column headerText="Valor restante" width="3%">
 								<h:outputText id="valor"
 									value="R$ #{clienteViewBean.calcValor(compra)}" />
 							</p:column>
@@ -281,14 +272,14 @@
 									<ui:param name="id" value="data" />
 									<ui:param name="required" value="true" />
 									<ui:param name="value"
-										value="#{clienteViewBean.itemPagamento.data_pagamento}" />
+										value="#{clienteViewBean.itemPagamento.dataPagamento}" />
 									<ui:param name="name" value="Data" />
 								</ui:include>
 							</p:outputPanel>
 
 							<p:outputPanel class="col-sm-4">
 								<br></br>
-								<p:commandButton id="btnPagar" value="Adicionar"
+								<p:commandButton id="btnPagar" value="Pagar"
 									update="detailForm:tableCompras itens valor data @parent" process="@this messagesDialog formDialog" action="#{clienteViewBean.validaCampo()}">
 								</p:commandButton>
 							</p:outputPanel>
@@ -318,7 +309,7 @@
 							<p:column headerText="Data" width="3%"
 								filterBy="#{itemPagamento.data_pagamento}"
 								filterStyle="display:none;">
-								<h:outputText id="data" value="#{itemPagamento.data_pagamento}">
+								<h:outputText id="data" value="#{itemPagamento.dataPagamento}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:column>

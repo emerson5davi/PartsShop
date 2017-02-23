@@ -15,7 +15,9 @@
 	</f:metadata>
 
 	<ui:define name="titulo">Detalhes Dívida</ui:define>
-	<ui:define name="content-header">Detalhes Dívida <small>Visualizar informações da dívida</small></ui:define>
+	<ui:define name="content-header">Detalhes Dívida <small>Visualizar
+			informações da dívida</small>
+	</ui:define>
 	<ui:define name="breadcrumb-header">
 		<li><i class="fa fa-dashboard"></i> <a
 			href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a></li>
@@ -23,36 +25,55 @@
 			href="#{request.contextPath}/paginas/admin/divida/Dividas.xhtml">Dívidas</a></li>
 		<li class="active">Detalhes Dívida</li>
 	</ui:define>
-	
+
 
 	<ui:define name="conteudo">
 
 		<h:form id="detailForm">
-			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml"/>
+			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml" />
 
-			<p:messages id="messages" autoUpdate="true" closable="true" showDetail="true" />
+			<p:messages id="messages" autoUpdate="false" closable="true"
+				showDetail="true" />
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="4">
 
-				<p:button value="editar" id="btEdit" outcome="/paginas/admin/divida/DividaEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rc">
-					<f:param name="divida" value="#{dividaView.divida.id}"/>	
+				<p:button value="editar" id="btEdit"
+					outcome="/paginas/admin/divida/DividaEdit.xhtml"
+					icon="fa fa-pencil"
+					styleClass="btnn btnn-primary btnn-shadow btnn-rc">
+					<f:param name="divida" value="#{dividaView.divida.id}" />
 				</p:button>
 
-				<p:commandButton value="Remover" id="btRemove" action="#{dividaBean.remove}" icon="fa fa-trash" styleClass="btnn btnn-danger btnn-shadow btnn-rc">
-					<f:setPropertyActionListener value="#{dividaView.divida}" target="#{dividaBean.selectedDivida}" />
-					 <p:confirm header="Remoção de dívida" message="Deseja remover esta dívida?"/>
-    			</p:commandButton>
+				<p:commandButton value="Remover" id="btRemove"
+					action="#{dividaBean.remove}" icon="fa fa-trash"
+					styleClass="btnn btnn-danger btnn-shadow btnn-rc">
+					<f:setPropertyActionListener value="#{dividaView.divida}"
+						target="#{dividaBean.selectedDivida}" />
+					<p:confirm header="Remoção de dívida"
+						message="Deseja remover esta dívida?" />
+				</p:commandButton>
 
-				<p:button value="voltar" id="btvoltar" outcome="/paginas/admin/divida/Dividas.xhtml" icon="fa fa-reply" styleClass="btnn btnn-default btnn-shadow btnn-rc"/>
+				<p:button value="voltar" id="btvoltar"
+					outcome="/paginas/admin/divida/Dividas.xhtml" icon="fa fa-reply"
+					styleClass="btnn btnn-default btnn-shadow btnn-rc" />
 
+				<p:commandButton value="Pagar" update=":formDialog"
+					onclick="PF('efetuarPagamento').show();"
+					rendered="#{dividaView.validaBtnPagar()}" icon="fa fa-credit-card-alt"
+					styleClass="btnn btnn-success btnn-shadow btnn-rc">
+					<f:setPropertyActionListener target="#{dividaView.divida}"
+						value="#{divida}" />
+				</p:commandButton>
 
 			</h:panelGrid>
 
-			<p:fieldset id="infor_detail" style="margin-top:10px;" styleClass="box box-success">
+			<p:fieldset id="infor_detail" style="margin-top:10px;"
+				styleClass="box box-success">
 				<h2 class="page-header">
-					<p:outputLabel value="Dívida: #{dividaView.divida.id}" styleClass="text-detail" />
+					<p:outputLabel value="Dívida: #{dividaView.divida.id}"
+						styleClass="text-detail" />
 				</h2>
-				
+
 				<p:outputPanel class="panel panel-default">
 
 					<p:outputPanel class="panel-heading">
@@ -62,57 +83,105 @@
 					<p:outputPanel class="panel-body">
 
 						<p:outputPanel class="form-group row">
-						
+
 							<p:outputPanel class="col-sm-12">
-								<h:outputText value="Código de barra: " style="font-weight: bold"/>
-								<h:outputText value="#{dividaView.divida.codBarra}"/>
+								<h:outputText value="Código de barra: "
+									style="font-weight: bold" />
+								<h:outputText value="#{dividaView.divida.codBarra}" />
 							</p:outputPanel>
-						
+
 						</p:outputPanel>
-						
-						<p:outputPanel class="form-group row">	
+
+						<p:outputPanel class="form-group row">
 
 							<p:outputPanel class="col-sm-4">
-								<h:outputText value="Nome da empresa: " style="font-weight: bold"/>
-								<h:outputText value="#{dividaView.divida.nomeEmpresa}"/>
+								<h:outputText value="Nome da empresa: "
+									style="font-weight: bold" />
+								<h:outputText value="#{dividaView.divida.nomeEmpresa}" />
 							</p:outputPanel>
-							
+
 							<p:outputPanel class="col-sm-4">
-								<h:outputText
-									value="#{dividaView.divida.dataVencimento}" >
+								<h:outputText value="Data de vencimento: "
+									style="font-weight: bold" />
+								<h:outputText value="#{dividaView.divida.dataVencimento}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:outputPanel>
-							
-							<p:outputPanel class="col-sm-4">	
-								<h:outputText value="Valor: " style="font-weight: bold"/>
-								<h:outputText value="R$ #{dividaView.divida.valor}"/>
-							</p:outputPanel>
-							
-						</p:outputPanel>
-						
-						<p:outputPanel class="form-group row">	
 
 							<p:outputPanel class="col-sm-4">
-								<h:outputText value="Status: " style="font-weight: bold"/>
-								<h:outputText id="status" value="#{dividaBean.getStatus(divida)}" styleClass="#{dividaBean.updateLabelStatus(dividaBean.getStatus(divida))}"/>
+								<h:outputText value="Valor: " style="font-weight: bold" />
+								<h:outputText value="R$ #{dividaView.divida.valor}" />
 							</p:outputPanel>
-							
-							<p:outputPanel class="col-sm-4" rendered="#{dividaView.divida.dataPagamento == '' ? false : true}">
-								<h:outputText value="#{dividaView.divida.dataVencimento}" >
+
+						</p:outputPanel>
+
+						<p:outputPanel class="form-group row">
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Status: " style="font-weight: bold" />
+								<h:outputText id="status"
+									value="#{dividaBean.getStatus(divida)}"
+									styleClass="#{dividaBean.updateLabelStatus(dividaBean.getStatus(divida))}" />
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-4"
+								rendered="#{dividaView.divida.dataPagamento == null ? false : true}">
+								<h:outputText value="Data de pagamento: "
+									style="font-weight: bold" />
+								<h:outputText value="#{dividaView.divida.dataPagamento}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:outputPanel>
 						</p:outputPanel>
-						
+
 					</p:outputPanel>
-					
+
 				</p:outputPanel>
-				
+
 			</p:fieldset>
-		
+
 		</h:form>
-		
+
+		<p:dialog header="Efetuar pagamento" widgetVar="efetuarPagamento"
+			modal="true" height="170" width="400" responsive="true" resizable="true">
+			<h:form id="formDialog">
+				<p:messages id="messagesDialog" autoUpdate="true" closable="true"
+					showDetail="true" />
+				<p:outputPanel class="panel panel-default">
+
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Dados de pagamento</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="panel-body">
+
+						<p:outputPanel class="form-group row">
+
+							<p:outputPanel class="col-sm-8">
+								<p:outputLabel for="data" value="Data" />
+								<ui:include src="/WEB-INF/templates/_calendar.xhtml">
+									<ui:param name="id" value="data" />
+									<ui:param name="required" value="true" />
+									<ui:param name="value"
+										value="#{dividaView.divida.dataPagamento}" />
+									<ui:param name="name" value="Data" />
+								</ui:include>
+							</p:outputPanel>
+
+							<p:outputPanel class="col-sm-1">
+								<br></br>
+								<p:commandButton id="btnPagar" value="Pagar"
+									action="#{dividaView.pagar()}"
+									process="@this messagesDialog formDialog">
+								</p:commandButton>
+							</p:outputPanel>
+
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+
 	</ui:define>
 
 </ui:composition>

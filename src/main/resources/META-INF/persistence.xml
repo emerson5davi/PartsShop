@@ -18,6 +18,7 @@
 		<class>br.edu.ifpb.dac.projeto.entities.Pessoa</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Usuario</class>
 		<class>br.edu.ifpb.dac.projeto.entities.Divida</class>
+		<class>br.edu.ifpb.dac.projeto.entities.Orcamento</class>
 
 		<properties>
 

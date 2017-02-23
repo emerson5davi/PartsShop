@@ -90,7 +90,7 @@
 						
 						<p:outputPanel class="form-group row">
 						
-							<p:outputPanel class="col-sm-4" rendered="#{pecaViewBean.peca.validade == '' ? false : true}">
+							<p:outputPanel class="col-sm-4" rendered="#{pecaViewBean.peca.validade == null ? false : true}">
 								<h:outputText value="Validade: " style="font-weight: bold"/>
 								<h:outputText value="#{pecaViewBean.peca.validade}" >
 									<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -119,6 +119,11 @@
 						</p:outputPanel>
 
 						<p:outputPanel class="form-group row">
+							
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Tipo: " style="font-weight: bold"/>
+								<h:outputText value="#{pecaViewBean.peca.tipo.descricao}" />
+							</p:outputPanel>
 							
 							<p:outputPanel class="col-sm-4" >
 								<h:outputText value="Ano da moto: " style="font-weight: bold"/>

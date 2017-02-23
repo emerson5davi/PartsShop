@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+	
+	<ui:define name="titulo">Orçamentos</ui:define>
+
+	<ui:define name="content-header">Orçamentos <small>Pesquisar
+			orçamentos cadastrados</small>
+	</ui:define>
+	
+	<ui:define name="newButton">
+		<p:button id="buttonNewOrcamento" icon="fa fa-plus" value="NOVO"
+			styleClass="btnn btnn-primary btnn-shadow btnn-rc" style="float: right;padding: 2px 3px !important;
+	font-size: 17px !important" outcome="/paginas/admin/orcamento/OrcamentoEdit.xhtml">
+		</p:button>
+	</ui:define>
+
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
+		</li>
+		<li class="active">Orçamentos</li>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+
+		<h:form id="formOrcamentos">
+			<p:messages id="messages" autoUpdate="true" showDetail="true" closable="true"/>
+
+			<p:dataTable id="tableOrcamentos" 
+				var="orcamento" 
+				value="#{orcamentoBean.orcamentos}" 
+				paginatorPosition="bottom" 
+				rows="15"
+				paginator="true" 
+				paginatorAlwaysVisible="false"
+				widgetVar="findOrcamento" 
+				reflow="true" 
+				emptyMessage="Nenhum orçamento registrado"
+				rowKey="#{orcamento.id}" 
+				styleClass="ui-datatable"
+                selectionMode="single"
+				selection="#{orcamentoBean.selectedOrcamento}">
+                
+				<f:facet name="header">
+					<div align="left">
+						<p:inputText id="globalFilter" onkeyup="PF('findOrcamento').filter()" style="width:300px;" placeholder="Buscar orçamentos" />
+					</div>
+				</f:facet>
+				
+ 				<p:ajax event="rowSelect" listener="#{orcamentoBean.renderTo}">
+					<f:setPropertyActionListener value="#{orcamento}" target="#{orcamentoViewBean.orcamento}" />
+				</p:ajax>	
+				
+				<p:column headerText="#" width="2%" filterBy="#{orcamento.id}" sortBy="#{orcamento.id}" filterStyle="display:none;">
+					<h:outputText id="id" value="#{orcamento.id}" />
+				</p:column>		
+				
+				<p:column headerText="Data" width="4%" filterBy="#{orcamento.data}" sortBy="#{orcamento.data}" filterStyle="display:none;">
+					<h:outputText id="data" value="#{orcamento.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+				<!--<p:column headerText="Valor total da compra" width="4%">
+					<h:outputText id="valor" value="R$ #{compra.pagamento.valorTotal}" />
+				</p:column>-->			
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

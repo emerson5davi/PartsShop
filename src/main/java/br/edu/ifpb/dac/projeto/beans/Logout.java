@@ -15,7 +15,7 @@ public class Logout extends AbstractBean {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.invalidate();
-		return "/pages/admin/index.xhtml?faces-redirect=true";
+		return "/paginas/login.xhtml?faces-redirect=true";
 	}
 
 }

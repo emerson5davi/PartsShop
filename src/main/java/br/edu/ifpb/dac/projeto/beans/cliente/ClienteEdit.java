@@ -84,6 +84,14 @@ public class ClienteEdit implements Serializable{
 		return grupos;
 	}
 	
+	public String getSenhaAntiga() {
+		return senhaAntiga;
+	}
+
+	public void setSenhaAntiga(String senhaAntiga) {
+		this.senhaAntiga = senhaAntiga;
+	}
+
 	public void setGrupos(List<Grupo> grupos){
 		this.grupos = grupos;
 	}

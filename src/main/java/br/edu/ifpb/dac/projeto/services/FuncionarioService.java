@@ -35,7 +35,13 @@ public class FuncionarioService implements Serializable{
 
 		for (Funcionario funcionario2 : findAll()) {
 			if(funcionario2.getLogin().equals(funcionario.getLogin())){
-				throw new PartsShopExceptionHandler("Já existe um usuário com este Login cadastrado");
+				throw new PartsShopExceptionHandler("Já existe um funcionário com este Login cadastrado");
+			}
+			if(funcionario2.getCtps().equals(funcionario.getCtps())){
+				throw new PartsShopExceptionHandler("Já existe um funcionário com este CTPS cadastrado");
+			}
+			if(funcionario2.getRg().equals(funcionario.getRg())){
+				throw new PartsShopExceptionHandler("Já existe um funcionário com este RG cadastrado");
 			}
 		}
 		

@@ -53,11 +53,11 @@ public class ItemPagamento implements Serializable {
 		this.valor = valor;
 	}
 
-	public Date getData_pagamento() {
+	public Date getDataPagamento() {
 		return dataPagamento;
 	}
 
-	public void setData_pagamento(Date data_pagamento) {
+	public void setDataPagamento(Date data_pagamento) {
 		this.dataPagamento = data_pagamento;
 	}
 	
@@ -99,7 +99,7 @@ public class ItemPagamento implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ItemPagamento [id=" + id + ", valor=" + valor + ", data_pagamento=" + dataPagamento + "]";
+		return "ItemPagamento [id=" + id + ", valor=" + valor + ", dataPagamento=" + dataPagamento + "]";
 	}
 
 }

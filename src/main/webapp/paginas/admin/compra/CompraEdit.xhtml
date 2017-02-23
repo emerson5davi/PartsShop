@@ -10,6 +10,7 @@
 	<f:metadata>
 		<o:viewParam name="compra" value="#{compraEdit.compra}"
 			converter="#{compraConverter}" />
+		<o:viewParam name="orcamentoCompra" value="#{compraEdit.orcamentoCompra}" converter="#{orcamentoConverter}"/>
 		<f:event listener="#{compraEdit.preRenderView()}" type="preRenderView" />
 	</f:metadata>
 
@@ -59,7 +60,7 @@
 							</p:panelGrid>
 						</p:tab>
 
-						<p:tab title="Peças da Compra">
+						<p:tab title="Peças">
 							<p:panelGrid columns="7" layout="grid"
 								styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-1">
 
@@ -128,7 +129,7 @@
 							</p:outputPanel>
 						</p:tab>
 
-						<p:tab id="tab_pagamento" title="Dados de pagamento" >
+						<p:tab id="tab_pagamento" title="Pagamento" >
 
 							<p:outputPanel class="form-group row">
 								<p:outputPanel class="col-sm-4">

@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import br.edu.ifpb.dac.projeto.enumerations.TypesPeca;
 
 @Entity
 @Table(name = "TB_PECA")
@@ -64,6 +68,11 @@ public class Peca implements Serializable {
 	@NotNull
 	@Column(name = "MODELO")
 	private String modelo;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo", nullable = false)
+	private TypesPeca tipo;
 	
 	public Peca() {
 
@@ -149,6 +158,14 @@ public class Peca implements Serializable {
 		this.modelo = modelo;
 	}
 	
+	public TypesPeca getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TypesPeca tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -162,6 +179,7 @@ public class Peca implements Serializable {
 		result = prime * result + ((marca == null) ? 0 : marca.hashCode());
 		result = prime * result + ((ano == null) ? 0 : ano.hashCode());
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		return result;
 	}
 
@@ -224,6 +242,11 @@ public class Peca implements Serializable {
 				return false;
 		} else if (!modelo.equals(other.modelo))
 			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
 		return true;
 	}
 
@@ -231,7 +254,7 @@ public class Peca implements Serializable {
 	public String toString() {
 		return "Peca [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", quantidade=" + quantidade
 				+ ", preco=" + preco + ", validade=" + validade + ", cor=" + cor + ", marca=" + marca + ", ano=" + ano
-				+ ", modelo=" + modelo + "]";
+				+ ", modelo=" + modelo + ", tipo=" + tipo + "]";
 	}
 
 }

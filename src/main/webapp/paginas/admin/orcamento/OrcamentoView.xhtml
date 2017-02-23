@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+
+	<f:metadata>
+		<o:viewParam name="orcamento" value="#{orcamentoViewBean.orcamento}"
+			converter="#{orcamentoConverter}" />
+		<f:event listener="#{orcamentoViewBean.preRenderView()}"
+			type="preRenderView" />
+
+	</f:metadata>
+
+	<ui:define name="titulo">Detalhes Orçamento</ui:define>
+	<ui:define name="content-header">Detalhes do Orçamento <small>Visualizar
+			informações do orçamento</small>
+	</ui:define>
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i> <a
+			href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a></li>
+		<li><a
+			href="#{request.contextPath}/paginas/admin/orcamento/Orcamentos.xhtml">Orçamentos</a></li>
+		<li class="active">Detalhes do orçamento</li>
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:form id="detailForm">
+			<ui:include src="/WEB-INF/templates/_dialogConfirmation.xhtml" />
+
+			<p:messages id="messages" autoUpdate="true" closable="true"
+				showDetail="true" />
+
+			<h:panelGrid columns="3">
+				
+				<p:button value="editar" id="btEdit" outcome="/paginas/admin/orcamento/OrcamentoEdit.xhtml" icon="fa fa-pencil" styleClass="btnn btnn-primary btnn-shadow btnn-rc">
+					<f:param name="orcamento" value="#{orcamentoViewBean.orcamento.id}"/>	
+				</p:button>
+
+				<p:commandButton value="Remover" id="btRemove"
+					action="#{orcamentoBean.remove}" icon="fa fa-trash"
+					styleClass="btnn btnn-danger btnn-shadow btnn-rc">
+					<f:setPropertyActionListener value="#{orcamentoViewBean.orcamento}"
+						target="#{orcamentoBean.selectedOrcamento}" />
+					<p:confirm header="Remoção de orçamento"
+						message="Deseja remover este orçamento?" />
+				</p:commandButton>
+
+				<p:button value="voltar" id="btvoltar"
+					outcome="/paginas/admin/orcamento/Orcamentos.xhtml" icon="fa fa-reply"
+					styleClass="btnn btnn-default btnn-shadow btnn-rc" />
+
+			</h:panelGrid>
+
+			<p:fieldset id="infor_detail" style="margin-top:10px;"
+				styleClass="box box-success">
+				<h2 class="page-header">
+					<p:outputLabel value="#{orcamentoViewBean.orcamento.id}"
+						styleClass="text-detail" />
+				</h2>
+
+				<p:outputPanel class="panel panel-default">
+
+					<p:outputPanel class="panel-heading">
+						<h3 class="panel-title">Informações gerais</h3>
+					</p:outputPanel>
+
+					<p:outputPanel class="panel-body">
+
+						<p:outputPanel class="form-group row">
+
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Data: " style="font-weight: bold" />
+								<h:outputText value="#{orcamentoViewBean.orcamento.data}" />
+							</p:outputPanel>
+
+						</p:outputPanel>
+						
+						<p:outputPanel class="form-group row">
+						
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Quantidade de itens: " style="font-weight: bold" />
+								<h:outputText id="quant" value="#{orcamentoBean.getQuantidade(orcamento)}" />
+							</p:outputPanel>
+							
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Itens: " style="font-weight: bold" />
+								<h:outputText id="pecas" value="#{orcamentoBean.getPecas(orcamento)}" />
+							</p:outputPanel>
+							
+							<!--<p:outputPanel class="col-sm-4">
+								<h:outputText value="Valor total da compra: " style="font-weight: bold" />
+								<h:outputText id="valor" value="R$ #{compraBean.getValor(compra)}" />
+							</p:outputPanel>-->
+							
+						</p:outputPanel>
+						
+					</p:outputPanel>
+
+				</p:outputPanel>
+
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

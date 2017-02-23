@@ -39,13 +39,6 @@
 
 			<h:panelGrid columns="3">
 
-				<p:button value="editar" id="btEdit"
-					outcome="/paginas/admin/compra/CompraEdit.xhtml"
-					icon="fa fa-pencil"
-					styleClass="btnn btnn-primary btnn-shadow btnn-rc">
-					<f:param name="compra" value="#{compraViewBean.compra.id}" />
-				</p:button>
-
 				<p:commandButton value="Remover" id="btRemove"
 					action="#{compraBean.remove}" icon="fa fa-trash"
 					styleClass="btnn btnn-danger btnn-shadow btnn-rc">
@@ -71,16 +64,24 @@
 				<p:outputPanel class="panel panel-default">
 
 					<p:outputPanel class="panel-heading">
-						<h3 class="panel-title">Informações gerais</h3>
+						<h4 class="panel-title">Informações gerais</h4>
 					</p:outputPanel>
 
 					<p:outputPanel class="panel-body">
 
 						<p:outputPanel class="form-group row">
+							<h:outputText value="Status: "
+									style="font-weight: bold" />
+							<p:column headerText="Status" width="2%">
+								<h:outputText id="status" value="#{compraBean.getStatus(compra)}" styleClass="#{compraBean.updateLabelStatus(compraBean.getStatus(compra))}"/>
+							</p:column>
 
 							<p:outputPanel class="col-sm-4">
-								<h:outputText value="Data: " style="font-weight: bold" />
-								<h:outputText value="#{compraViewBean.compra.data}" />
+								<h:outputText value="Data da compra: "
+									style="font-weight: bold" />
+								<h:outputText value="#{compraViewBean.compra.data}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:outputPanel>
 
 							<p:outputPanel class="col-sm-4">
@@ -118,14 +119,16 @@
 								<h:outputText value="#{compraViewBean.compra.pagamento.payment.tipoDePagamento}" />
 							</p:outputPanel>
 
-							<p:outputPanel class="col-sm-4" rendered="#{compraViewBean.compra.pagamento.dataPagamento == '' ? false : true}">
+							<p:outputPanel class="col-sm-4" rendered="#{compraViewBean.compra.pagamento.dataPagamento == null ? false : true}">
 								<h:outputText value="Data de pagamento: " style="font-weight: bold" />
-								<h:outputText value="#{compraViewBean.compra.pagamento.dataPagamento}" />
+								<h:outputText value="#{compraViewBean.compra.pagamento.dataPagamento}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:outputPanel>
 
 							<p:outputPanel class="col-sm-4" rendered="#{compraViewBean.compra.pagamento.numDeParcelas == null ? false : true}">
 								<h:outputText value="Parcelado em: " style="font-weight: bold" />
-								<h:outputText value="#{compraViewBean.compra.pagamento.numDeParcelas.concat('x de R$ '.concat(compraEdit.getCalcularValorParcela(compra)))}" />
+								<h:outputText value="#{compraViewBean.compra.pagamento.numDeParcelas}x" />
 							</p:outputPanel>
 
 						</p:outputPanel>
@@ -134,7 +137,7 @@
 
 				</p:outputPanel>
 
-				<p:outputPanel id="itens" class="panel panel-default">
+				<p:outputPanel id="itens" class="panel panel-default" rendered="#{compraViewBean.compra.pagamento.payment == 'A_PRAZO' ? true : false}">
 					<p:outputPanel class="panel-heading">
 						<h3 class="panel-title">Pagamentos</h3>
 					</p:outputPanel>
@@ -153,9 +156,9 @@
 							</p:column>
 
 							<p:column headerText="Data" width="3%"
-								filterBy="#{itemPagamento.data_pagamento}"
+								filterBy="#{itemPagamento.dataPagamento}"
 								filterStyle="display:none;">
-								<h:outputText id="data" value="#{itemPagamento.data_pagamento}">
+								<h:outputText id="data" value="#{itemPagamento.dataPagamento}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:column>

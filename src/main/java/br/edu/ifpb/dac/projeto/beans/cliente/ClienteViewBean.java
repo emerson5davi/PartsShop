@@ -17,6 +17,7 @@ import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopExceptionHandler;
 import br.edu.ifpb.dac.projeto.services.PagamentoService;
 import br.edu.ifpb.dac.projeto.util.jsf.JSFUtils;
+import br.edu.ifpb.dac.projeto.util.messages.MessageUtils;
 
 @Named
 @ViewScoped
@@ -67,6 +68,7 @@ public class ClienteViewBean implements Serializable {
 		compra.getPagamento().setItensPagamento(itens);
 		compra.getPagamento().setValorPago(compra.getPagamento().getValorPago().subtract(itemPagamento.getValor()));
 		pagamentoSevice.update(compra.getPagamento());
+		MessageUtils.messageSucess("Pagamento removido com sucesso.");
 	}
 
 	public void validaCampo() throws PartsShopException {
@@ -89,6 +91,7 @@ public class ClienteViewBean implements Serializable {
 			compra.getPagamento().setValorPago(compra.getPagamento().getValorPago().add(itemPagamento.getValor()));
 			pagamentoSevice.update(compra.getPagamento());
 			itemPagamento = new ItemPagamento();
+			MessageUtils.messageSucess("Pagamento relizado com sucesso.");
 		} else {
 			itemPagamento = new ItemPagamento();
 			throw new PartsShopExceptionHandler("Valor do pagamento ultrapassa o valor da compra");

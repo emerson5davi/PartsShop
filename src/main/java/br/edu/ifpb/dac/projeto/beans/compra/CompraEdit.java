@@ -13,6 +13,7 @@ import javax.inject.Named;
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.entities.Compra;
 import br.edu.ifpb.dac.projeto.entities.ItemCompra;
+import br.edu.ifpb.dac.projeto.entities.Orcamento;
 import br.edu.ifpb.dac.projeto.entities.Pagamento;
 import br.edu.ifpb.dac.projeto.entities.Peca;
 import br.edu.ifpb.dac.projeto.enumerations.Payment;
@@ -36,47 +37,54 @@ public class CompraEdit implements Serializable {
 
 	@Inject
 	private PecaService pecaService;
-	
+
 	@Inject
 	private ClienteService clienteService;
-	
+
 	@Inject
 	private PagamentoService pagamentoService;
-	
+
 	private List<Payment> payments = new ArrayList<Payment>();
-	
+
 	private Compra compra;
-	
+
+	private Orcamento orcamentoCompra;
+
 	private Pagamento pagamento;
-	
+
 	private List<Peca> pecas;
-	
+
 	private List<Cliente> clientes;
-	
+
 	private ItemCompra itemCompra;
-	
+
 	private ItemCompra selectedItemCompra = new ItemCompra();
-	
+
 	private Integer quant = 0;
-	
+
 	private BigDecimal valorParcela = new BigDecimal(0.0);
-	
+
 	public CompraEdit() {
 		pecas = new ArrayList<Peca>();
 	}
 
 	@PostConstruct
-	public void init() {
+	public void init() 	{
 		this.listOfPecas();
 		this.listOfClientes();
 	}
 
 	public void preRenderView() {
+		System.out.println("Entra aqui..... " + orcamentoCompra);
 		if (compra == null) {
 			compra = new Compra();
 			pagamento = new Pagamento();
 			compra.setItensCompra(new ArrayList<ItemCompra>());
-		}else{
+		}
+		
+		if(this.isOrcamentoExiste()) {
+			this.compra.setData(orcamentoCompra.getData());
+			this.compra.setItensCompra(this.orcamentoCompra.getItensCompra());
 		}
 	}
 
@@ -86,23 +94,25 @@ public class CompraEdit implements Serializable {
 			MessageUtils.messageSucess("Compra atualizada com sucesso.");
 
 		} else {
+			if (compra.getItensCompra().isEmpty()) {
+				throw new PartsShopExceptionHandler("Adicione itens na compra para finalizar!");
+			}
 			for (ItemCompra itemCompra : getCompra().getItensCompra()) {
 				quant += itemCompra.getQuantidade();
 			}
-			if(getItemCompra().getPeca().getQuantidade() >= quant){
-				if(getPagamento().getPayment() != Payment.A_PRAZO && getPagamento().getDataPagamento() == null){
+			if (getItemCompra().getPeca().getQuantidade() >= quant) {
+				if (getPagamento().getPayment() != Payment.A_PRAZO && getPagamento().getDataPagamento() == null) {
 					getPagamento().setDataPagamento(compra.getData());
 				}
 				compra.setPagamento(getPagamento());
 				compraService.add(compra);
 				Peca peca = pecaService.findById(getItemCompra().getPeca().getId());
-				peca.setQuantidade(peca.getQuantidade()-quant);
+				peca.setQuantidade(peca.getQuantidade() - quant);
 				pecaService.update(peca);
 				MessageUtils.messageSucess("Compra efetuada com sucesso.");
 				quant = 0;
 				JSFUtils.rederTo("Compras.xhtml");
-			}
-			else{
+			} else {
 				quant = 0;
 				throw new PartsShopExceptionHandler("Quantidade de peças a ser comprada excede o limite em estoque!");
 			}
@@ -115,16 +125,21 @@ public class CompraEdit implements Serializable {
 		this.selectedItemCompra = new ItemCompra();
 	}
 	
+	public boolean isOrcamentoExiste() {
+		return this.orcamentoCompra != null;
+
+	}
+
 	public void listOfPecas() {
 		this.pecas = pecaService.findAll();
 	}
-	
-	public void listOfClientes(){
+
+	public void listOfClientes() {
 		this.clientes = clienteService.findAll();
 	}
-	
-	public boolean isCompraEdited(){
-		return compra.getId() != null; 
+
+	public boolean isCompraEdited() {
+		return compra.getId() != null;
 	}
 
 	public Compra getCompra() {
@@ -134,7 +149,7 @@ public class CompraEdit implements Serializable {
 	public void setCompra(Compra compra) {
 		this.compra = compra;
 	}
-	
+
 	public List<Peca> getPecas() {
 		return pecas;
 	}
@@ -142,7 +157,7 @@ public class CompraEdit implements Serializable {
 	public void setPecas(List<Peca> pecas) {
 		this.pecas = pecas;
 	}
-	
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -162,16 +177,16 @@ public class CompraEdit implements Serializable {
 	public ItemCompra getSelectedItemCompra() {
 		return selectedItemCompra;
 	}
-	
+
 	public void setSelectedItemCompra(ItemCompra selectedItemCompra) {
 		this.selectedItemCompra = selectedItemCompra;
 	}
 
-	public BigDecimal getValorParcela(){
+	public BigDecimal getValorParcela() {
 		return valorParcela;
 	}
-	
-	public void setValorParcela(BigDecimal valorParcela){
+
+	public void setValorParcela(BigDecimal valorParcela) {
 		this.valorParcela = valorParcela;
 	}
 
@@ -182,34 +197,43 @@ public class CompraEdit implements Serializable {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-	
-	public void calcularPreco(){
+
+	public Orcamento getOrcamentoCompra() {
+		return orcamentoCompra;
+	}
+
+	public void setOrcamentoCompra(Orcamento orcamentoCompra) {
+		this.orcamentoCompra = orcamentoCompra;
+	}
+
+	public void calcularPreco() {
 		BigDecimal quant = new BigDecimal(this.selectedItemCompra.getQuantidade());
 		BigDecimal precoPeca = this.selectedItemCompra.getPeca().getPreco().multiply(quant);
 		this.selectedItemCompra.setPreco(precoPeca);
 	}
-	
-	public void calcularValorTotal(){
+
+	public void calcularValorTotal() {
 		pagamento.setValorTotal(CompraBean.getValor(compra));
 	}
-	
-	public void calcularValorParcela(){
+
+	public void calcularValorParcela() {
 		BigDecimal total = new BigDecimal(0.0);
 		for (ItemCompra itemCompra : getCompra().getItensCompra()) {
 			total = total.add(itemCompra.getPreco());
 		}
 		setValorParcela(total.divide(new BigDecimal(getPagamento().getNumDeParcelas())));
 	}
-	
-	public BigDecimal getCalcularValorParcela(Compra compra){
+
+	public BigDecimal getCalcularValorParcela(Compra compra) {
 		BigDecimal total = new BigDecimal(0.0);
 		for (ItemCompra itemCompra : compra.getItensCompra()) {
 			total = total.add(itemCompra.getPreco());
 		}
 		return total.divide(new BigDecimal(getPagamento().getNumDeParcelas()));
 	}
-	
-	public List<Payment> getPayments(){
+
+	@SuppressWarnings("static-access")
+	public List<Payment> getPayments() {
 		this.payments = pagamentoService.payments;
 		return payments;
 	}

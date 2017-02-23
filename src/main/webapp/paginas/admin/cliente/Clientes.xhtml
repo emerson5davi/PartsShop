@@ -61,12 +61,12 @@
 				</p:column>
 
 				<p:column headerText="Nome" width="4%" filterBy="#{cliente.nome}"
-					filterStyle="display:none;">
+					filterStyle="display:none;" sortBy="#{cliente.nome}">
 					<h:outputText id="cod" value="#{cliente.nome}" />
 				</p:column>
 
 				<p:column headerText="CPF" width="2%" filterBy="#{cliente.cpf}"
-					filterStyle="display:none;">
+					filterStyle="display:none;" sortBy="#{cliente.cpf}">
 					<h:outputText id="cpf" value="#{cliente.cpf}" />
 				</p:column>
 

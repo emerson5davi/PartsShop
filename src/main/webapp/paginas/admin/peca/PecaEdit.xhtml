@@ -48,6 +48,18 @@
 							<p:inputText id="nome" value="#{pecaEdit.peca.nome}"
 								required="true" />
 						</p:outputPanel>
+						
+						<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="tipo" value="Tipo" />
+							<p:selectOneMenu id="tipo" required="true" 
+								value="#{pecaEdit.peca.tipo}">
+								<f:selectItem itemLabel="Selecione um tipo"
+									noSelectionOption="true" />
+								<f:selectItems value="#{pecaEdit.typesPeca}"
+											itemValue="#{typePeca}" itemLabel="#{typePeca.descricao}"
+											var="typePeca" />
+							</p:selectOneMenu>
+						</p:outputPanel>
 
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="quantidade" value="Quantidade" />
@@ -57,6 +69,10 @@
 							</p:spinner>
 						</p:outputPanel>
 						
+					</p:outputPanel>
+
+					<p:outputPanel class="form-group row">
+					
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="preco" value="Preço" />
 							<p:inputText id="preco" required="true"
@@ -64,10 +80,6 @@
 								<f:convertNumber  maxFractionDigits="2"/>
 							</p:inputText>
 						</p:outputPanel>
-						
-					</p:outputPanel>
-
-					<p:outputPanel class="form-group row">
 							
 						<p:outputPanel class="col-sm-4">
 							<p:outputLabel for="validade" value="Validade" />
@@ -84,11 +96,6 @@
 							<p:inputText id="marca" value="#{pecaEdit.peca.marca}" required="true"	/>
 						</p:outputPanel>
 						
-						<p:outputPanel class="col-sm-1" >
-							<p:outputLabel for="cor" value="Cor" />
-							<p:colorPicker id="cor" value="#{pecaEdit.peca.cor}"/>  
-						</p:outputPanel>
-						
 					</p:outputPanel>
 						
 					<p:outputPanel class="form-group row">
@@ -99,6 +106,10 @@
    							<h:outputText id="display" />
 						</p:outputPanel>
 						
+						<p:outputPanel class="col-sm-1" >
+							<p:outputLabel for="cor" value="Cor" />
+							<p:colorPicker id="cor" value="#{pecaEdit.peca.cor}"/>  
+						</p:outputPanel>
 					
 					</p:outputPanel>
 					
@@ -110,14 +121,25 @@
 				
 					<p:outputPanel class="form-group row">
 						
-	        			<p:outputPanel class="col-sm-4">
+	        			<p:outputPanel class="col-sm-4" id="colunaModelo" >
 	        				<p:outputLabel for="modelo" value="Modelo da moto" />
-							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" />
-						</p:outputPanel>
+							<p:inputText id="modelo" value="#{pecaEdit.peca.modelo}" required="true" disabled="#{pecaEdit.modelo == true ? true : false}"/>
 
-						<p:outputPanel class="col-sm-4">
+							<p:selectBooleanCheckbox  id="todosModelos" value="#{pecaEdit.modelo}">
+								<p:ajax update="colunaModelo" />
+							</p:selectBooleanCheckbox>
+							<p:outputLabel for="todosModelos" value="Todos" />
+
+						</p:outputPanel>
+				
+						<p:outputPanel class="col-sm-4" id="colunaAno">
 							<p:outputLabel for="ano" value="Ano da moto" />
-							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	/>
+							<p:inputMask mask="9999 Até 9999" id="ano" value="#{pecaEdit.peca.ano}" required="true"	disabled="#{pecaEdit.ano == true ? true : false}"/>
+							
+							<p:selectBooleanCheckbox id="todosAnos" value="#{pecaEdit.ano}">
+								<p:ajax update="colunaAno" />
+							</p:selectBooleanCheckbox>
+							<p:outputLabel for="todosAnos" value="Todos" />
 						</p:outputPanel>
 							
 					</p:outputPanel>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/SbAdmin2/templateTeste.xhtml">
+
+	<f:metadata>
+		<o:viewParam name="orcamento" value="#{orcamentoEdit.orcamento}"
+			converter="#{orcamentoConverter}" />
+		<f:event listener="#{orcamentoEdit.preRenderView()}" type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="titulo">#{orcamentoEdit.orcamentoEdited ? 'Editar Orçamento' : 'Novo Orçamento'}</ui:define>
+	<ui:define name="content-header">#{orcamentoEdit.orcamentoEdited ? 'Editar Orçamento' : 'Novo Orçamento'}
+		<small>#{orcamentoEdit.orcamentoEdited ?
+			'Orçamento: '.concat(orcamentoEdit.orcamento.id) : 'Registrar orçamento'}</small>
+	</ui:define>
+	
+	<ui:define name="breadcrumb-header">
+		<li><i class="fa fa-dashboard"></i>  <a href="#{request.contextPath}/paginas/Home.xhtml">Dashboard</a>
+		</li>
+		<li><a href="#{orcamentoEdit.orcamentoEdited ? 'OrcamentoView.xhtml' : 'Orcamentos.xhtml'}">#{orcamentoEdit.orcamentoEdited ? 'Detalhes Orçamento' : 'Orçamentos'}</a></li>
+		<li class="active">#{orcamentoEdit.orcamentoEdited ? 'Editar Orçamento' : 'Novo Orçamento'}</li>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+
+		<h:form id="formRegisterOrcamento">
+			<p:messages id="messages" autoUpdate="true" showDetail="true"
+				closable="true" />
+
+			<p:fieldset styleClass="box box-success">
+				<p:outputPanel class="ui-fluid">
+
+					<p:outputPanel class="form-group row">
+        	
+        				<p:outputPanel class="col-sm-4">
+							<p:outputLabel for="data" value="Data" />
+							<ui:include src="/WEB-INF/templates/_calendar.xhtml">
+								<ui:param name="id" value="data" />
+								<ui:param name="required" value="true" />
+								<ui:param name="value" value="#{orcamentoEdit.orcamento.data}" />
+								<ui:param name="name" value="Data" />
+							</ui:include>
+						</p:outputPanel>
+					</p:outputPanel>
+					
+					<p:separator/>
+
+					<p:panelGrid columns="7" layout="grid"
+						styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-1">
+
+						<p:outputLabel for="itemCompra" value="Peça" />
+						<p:selectOneMenu id="itemCompra" converter="#{pecaConverter}"
+							style="width:180px"
+							value="#{orcamentoEdit.selectedItemCompra.peca}" required="true">
+							<f:selectItem noSelectionOption="true" itemLabel="" />
+							<f:selectItems value="#{orcamentoEdit.pecas}" var="item"
+								itemLabel="#{item.nome}" itemValue="#{item}" />
+							<p:ajax update="quant" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="quant" value="Quantidade" />
+						<p:spinner id="quant"
+							value="#{orcamentoEdit.selectedItemCompra.quantidade}"
+							required="true" min="1">
+							<p:ajax event="change" listener="#{orcamentoEdit.calcularPreco}"
+								update="preco" />
+						</p:spinner>
+
+						<p:outputLabel for="preco" value="Preço" />
+						<p:inputText id="preco"
+							value="#{orcamentoEdit.selectedItemCompra.preco}" disabled="true" />
+
+						<p:commandButton id="btn_add" value="Adicionar"
+							action="#{orcamentoEdit.resetItemCompra}"
+							styleClass="btnn-primary" update="itens itemCompra @parent"
+							process="@parent">
+							<p:collector value="#{orcamentoEdit.selectedItemCompra}"
+								addTo="#{orcamentoEdit.orcamento.itensCompra}" unique="false" />
+						</p:commandButton>
+					</p:panelGrid>
+
+					<p:outputPanel id="itens">
+						<p:dataTable value="#{orcamentoEdit.orcamento.itensCompra}" var="item"
+							id="itemTable" emptyMessage="Nenhum item de orçamento adicionado">
+
+							<p:column headerText="Peça">
+								<h:outputText value="#{item.peca.nome}" />
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<f:facet name="header">
+									<h:outputText value="Quantidade" />
+								</f:facet>
+								<h:outputText value="#{item.quantidade}" />
+							</p:column>
+
+							<p:column headerText="Preço">
+								<f:facet name="header">
+									<h:outputText value="Preço" />
+								</f:facet>
+								<h:outputText value="#{item.peca.preco*item.quantidade}" />
+							</p:column>
+
+							<p:column width="6%" style="font-size: 14px;">
+								<p:commandButton icon="fa fa-trash" styleClass="btnn-primary"
+									update="itemTable" process="itemTable">
+									<p:collector value="#{item}"
+										removeFrom="#{orcamentoEdit.orcamento.itensCompra}" unique="true" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</p:outputPanel>
+				</p:outputPanel>
+				
+				<p:separator/>
+
+				<p:outputPanel class="box-footer">
+
+					<h:panelGrid columns="3">
+
+						<p:commandButton
+							value="#{orcamentoEdit.orcamentoEdited ? 'Editar' : 'Salvar'}"
+							id="btSave" icon="fa fa-floppy-o" style="float: left;"
+							styleClass="btnn btnn-primary btnn-shadow btnn-rc"
+							action="#{orcamentoEdit.save}" />
+
+
+						<p:button value="Cancelar" id="cancel" icon="fa fa-ban"
+							style="float:left;"
+							styleClass="btnn btnn-default btnn-shadow btnn-rc"
+							outcome="/paginas/admin/orcamento/Orcamentos.xhtml" />
+							
+						<!--<p:commandButton
+							value="Compra"
+							id="btCompra" icon="fa fa-floppy-o" style="float: left;"
+							styleClass="btnn btnn-success btnn-shadow btnn-rc"
+							action="#{orcamentoEdit.comprar}" process="@this itens">
+							</p:commandButton>-->
+					</h:panelGrid>
+				</p:outputPanel>
+
+			</p:fieldset>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

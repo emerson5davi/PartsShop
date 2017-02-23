@@ -17,7 +17,7 @@
 
 	<ul class="nav navbar-top-links navbar-right">
 		<li class="dropdown"><a class="dropdown-toggle"
-			data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+			data-toggle="dropdown" href=""> <i class="fa fa-user fa-fw"></i>
 				<i class="fa fa-caret-down"></i>
 		</a>
 
@@ -26,8 +26,11 @@
 						Profile</a></li>
 				<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
 				<li class="divider"></li>
-				<li><a href="#{request.contextPath}/paginas/login.xhtml"><i class="fa fa-sign-out fa-fw"></i>
-						Logout</a></li>
+				<h:form>
+					<li><p:commandButton action="#{logout.efetuarLogout}" icon="fa fa-sign-out fa-fw" value="Logout"/>					
+					</li>					
+				</h:form>
+					
 			</ul> <!-- /.dropdown-user --></li>
 		<!-- /.dropdown -->
 	</ul>

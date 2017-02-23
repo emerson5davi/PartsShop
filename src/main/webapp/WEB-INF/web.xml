@@ -54,7 +54,7 @@
 		<param-value>true</param-value>
 	</context-param>
 	
-	<!--<error-page>
+	<error-page>
 		<error-code>403</error-code>
 		<location>/paginas/403.xhtml</location>
 	</error-page>
@@ -77,6 +77,7 @@
 			<url-pattern>/paginas/admin/peca/*</url-pattern>
 			<url-pattern>/paginas/admin/compra/*</url-pattern>
 			<url-pattern>/paginas/admin/divida/*</url-pattern>
+			<url-pattern>/paginas/admin/orcamento/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 			<http-method>HEAD</http-method>
@@ -102,6 +103,7 @@
 			<url-pattern>/paginas/admin/cliente/*</url-pattern>
 			<url-pattern>/paginas/admin/compra/*</url-pattern>
 			<url-pattern>/paginas/admin/peca/*</url-pattern>
+			<url-pattern>/paginas/admin/orcamento/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 			<http-method>HEAD</http-method>
@@ -125,6 +127,7 @@
 			<web-resource-name>Área protegida do cliente</web-resource-name>
 			<description></description>
 			<url-pattern>/paginas/admin/compra/*</url-pattern>
+			<url-pattern>/paginas/admin/orcamento/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 			<http-method>HEAD</http-method>
@@ -175,5 +178,5 @@
 	</security-role>
 	<security-role>
 		<role-name>CLIENTE</role-name>
-	</security-role>-->
+	</security-role>
 </web-app>

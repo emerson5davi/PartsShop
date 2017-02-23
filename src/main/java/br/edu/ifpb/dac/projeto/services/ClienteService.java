@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import br.edu.ifpb.dac.projeto.dao.ClienteDao;
 import br.edu.ifpb.dac.projeto.entities.Cliente;
+import br.edu.ifpb.dac.projeto.entities.Compra;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopExceptionHandler;
 import br.edu.ifpb.dac.projeto.util.jpa.TransacionalCdi;
@@ -21,6 +22,9 @@ public class ClienteService implements Serializable{
 	
 	@Inject
 	private ClienteDao dao;
+	
+	@Inject
+	private CompraService compraService;
 
 	public ClienteService() {
 	}
@@ -35,7 +39,7 @@ public class ClienteService implements Serializable{
 		
 		for (Cliente cliente2: findAll()) {
 			if(cliente2.getLogin().equals(cliente.getLogin())){
-				throw new PartsShopExceptionHandler("Já existe um usuário com este Login cadastrado");
+				throw new PartsShopExceptionHandler("Já existe um cliente com este Login cadastrado");
 			}
 		}
 		
@@ -44,6 +48,11 @@ public class ClienteService implements Serializable{
 	
 	@TransacionalCdi
 	public void remove(Cliente cliente) throws PartsShopException {
+		for (Compra compra : compraService.getComprasByCliente(cliente)) {
+			if(compra.getPagamento().getValorPago().compareTo(compra.getPagamento().getValorTotal()) != 0){
+				throw new PartsShopExceptionHandler("Cliente possui contas em aberto!");
+			}
+		}
 		dao.remove(cliente);
 	}
 
