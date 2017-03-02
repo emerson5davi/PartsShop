@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import br.edu.ifpb.dac.projeto.dao.CompraDao;
 import br.edu.ifpb.dac.projeto.entities.Cliente;
 import br.edu.ifpb.dac.projeto.entities.Compra;
+import br.edu.ifpb.dac.projeto.enumerations.Payment;
 import br.edu.ifpb.dac.projeto.exceptions.PartsShopException;
+import br.edu.ifpb.dac.projeto.exceptions.PartsShopExceptionHandler;
 import br.edu.ifpb.dac.projeto.exceptions.PersistencePartsShopException;
 import br.edu.ifpb.dac.projeto.util.jpa.TransacionalCdi;
 
@@ -24,11 +26,21 @@ public class CompraService implements Serializable{
 	
 	@TransacionalCdi
 	public void add(Compra compra) throws PartsShopException {
-		dao.add(compra);
+		if(compra.getPagamento().getPayment() == Payment.A_PRAZO){
+			dao.add(compra);
+		}
+		else{
+			compra.getPagamento().setValorPago(compra.getPagamento().getValorTotal());
+			compra.getPagamento().setDataPagamento(compra.getData());
+			dao.add(compra);
+		}
 	}
 	
 	@TransacionalCdi
 	public void remove(Compra compra) throws PartsShopException {
+		if(compra.getPagamento().getDataPagamento() == null){
+			throw new PartsShopExceptionHandler("Não pode remover compra com pagamento pendente");
+		}
 		dao.remove(compra);
 	}
 
@@ -38,6 +50,9 @@ public class CompraService implements Serializable{
 	
 	@TransacionalCdi
 	public Compra update(Compra compra){
+		if(compra.getPagamento().getValorPago().compareTo(compra.getPagamento().getValorTotal()) == 0){
+			compra.getPagamento().setDataPagamento(compra.getPagamento().getItensPagamento().get(compra.getPagamento().getItensPagamento().size()-1).getDataPagamento());
+		}
 		return dao.update(compra);
 	}
 	

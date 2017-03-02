@@ -75,7 +75,6 @@ public class CompraEdit implements Serializable {
 	}
 
 	public void preRenderView() {
-		System.out.println("Entra aqui..... " + orcamentoCompra);
 		if (compra == null) {
 			compra = new Compra();
 			pagamento = new Pagamento();

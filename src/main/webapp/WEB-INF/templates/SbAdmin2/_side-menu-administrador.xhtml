@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition>
+	<li class="header">MÓDULO DO ADMINISTRADOR</li>
+	<li><a href="#{request.contextPath}/paginas/Home.xhtml"><i
+			class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+	<li><a href="#{request.contextPath}/paginas/admin/funcionario/Funcionarios.xhtml"><i class="fa fa-user"></i>
+						Funcionários</a></li>
+	<li><a
+		href="#{request.contextPath}/paginas/admin/cliente/Clientes.xhtml"><i
+			class="fa fa-user"></i> Clientes</a></li>
+	<li><a
+		href="#{request.contextPath}/paginas/admin/peca/Pecas.xhtml"><i
+			class="fa fa-wrench"></i> Peças</a></li>
+	<li><a
+		href="#{request.contextPath}/paginas/admin/compra/Compras.xhtml"><i
+			class="fa fa-shopping-cart"></i> Compras</a></li>
+	<li><a
+		href="#{request.contextPath}/paginas/admin/orcamento/Orcamentos.xhtml"><i
+			class="fa fa-list-alt"></i> Orçamentos</a></li>
+	<li><a href="#{request.contextPath}/paginas/admin/divida/Dividas.xhtml"><i
+						class="fa fa-money"></i> Dívidas</a></li>
+</ui:composition>
+</html>

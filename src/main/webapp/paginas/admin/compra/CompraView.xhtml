@@ -70,11 +70,11 @@
 					<p:outputPanel class="panel-body">
 
 						<p:outputPanel class="form-group row">
-							<h:outputText value="Status: "
-									style="font-weight: bold" />
-							<p:column headerText="Status" width="2%">
+							
+							<p:outputPanel class="col-sm-4">
+								<h:outputText value="Status: " style="font-weight: bold" />
 								<h:outputText id="status" value="#{compraBean.getStatus(compra)}" styleClass="#{compraBean.updateLabelStatus(compraBean.getStatus(compra))}"/>
-							</p:column>
+							</p:outputPanel>
 
 							<p:outputPanel class="col-sm-4">
 								<h:outputText value="Data da compra: "

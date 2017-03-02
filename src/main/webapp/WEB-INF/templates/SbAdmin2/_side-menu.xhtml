@@ -3,25 +3,50 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
-				<li><a href="#{request.contextPath}/paginas/Home.xhtml"><i class="fa fa-fw fa-dashboard"></i>
-						Dashboard</a></li>
-				<li><a href="#{request.contextPath}/paginas/admin/cliente/Clientes.xhtml"><i class="fa fa-user"></i>
-						Clientes</a></li>
-				<li><a href="#{request.contextPath}/paginas/admin/funcionario/Funcionarios.xhtml"><i class="fa fa-user"></i>
-						Funcionários</a></li>
-				<li><a href="#{request.contextPath}/paginas/admin/peca/Pecas.xhtml"><i class="fa fa-wrench"></i>
-						Peças</a></li>
-				<li><a href="#{request.contextPath}/paginas/admin/compra/Compras.xhtml"><i
+
+				<!--<li class="header">MÓDULO DO ADMINISTRADOR</li>
+				<li><a href="#{request.contextPath}/paginas/Home.xhtml"><i
+						class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+				<li><a
+					href="#{request.contextPath}/paginas/admin/funcionario/Funcionarios.xhtml"><i
+						class="fa fa-user"></i> Funcionários</a></li>
+				<li><a
+					href="#{request.contextPath}/paginas/admin/cliente/Clientes.xhtml"><i
+						class="fa fa-user"></i> Clientes</a></li>
+				<li><a
+					href="#{request.contextPath}/paginas/admin/peca/Pecas.xhtml"><i
+						class="fa fa-wrench"></i> Peças</a></li>
+				<li><a
+					href="#{request.contextPath}/paginas/admin/compra/Compras.xhtml"><i
 						class="fa fa-shopping-cart"></i> Compras</a></li>
-				<li><a href="#{request.contextPath}/paginas/admin/divida/Dividas.xhtml"><i
-						class="fa fa-money"></i> Dívidas</a></li>
-				<li><a href="#{request.contextPath}/paginas/admin/orcamento/Orcamentos.xhtml"><i
+				<li><a
+					href="#{request.contextPath}/paginas/admin/orcamento/Orcamentos.xhtml"><i
 						class="fa fa-list-alt"></i> Orçamentos</a></li>
+				<li><a
+					href="#{request.contextPath}/paginas/admin/divida/Dividas.xhtml"><i
+						class="fa fa-money"></i> Dívidas</a></li>-->
+
+				<c:if test="${logout.isUserInRole('ADMIN')}">
+					<ui:include
+						src="/WEB-INF/templates/SbAdmin2/_side-menu-administrador.xhtml" />
+				</c:if>
+
+				<c:if test="${logout.isUserInRole('FUNCIONARIO')}">
+					<ui:include
+						src="/WEB-INF/templates/SbAdmin2/_side-menu-funcionario.xhtml" />
+				</c:if>
+
+				<c:if test="${logout.isUserInRole('CLIENTE')}">
+					<ui:include
+						src="/WEB-INF/templates/SbAdmin2/_side-menu-cliente.xhtml" />
+				</c:if>
+
 			</ul>
 		</div>
 	</div>
